@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-np-date-picker',
@@ -14,22 +14,39 @@ export class NpDatePickerComponent implements OnInit {
   _years: number[] = [];
 
   _days: number[] = [];
+  
+  @Input() selectedDate: Date;
 
-  _selectedDate = new Date();
-  _selectedDay = this._selectedDate.getDate();
-  _selectedWeekDay = this._selectedDate.getDay();
-  _selectedMonth = this._selectedDate.getMonth();
-  _selectedYear = this._selectedDate.getFullYear();
+  _selectedDate: Date;
+  _selectedDay: number;
+  _selectedWeekDay: number;
+  _selectedMonth: number;
+  _selectedYear: number;
 
-  _currentDay = this._selectedDate.getDate();
-  _currentWeekDay = this._selectedDate.getDay();
-  _currentMonth = this._selectedDate.getMonth();
-  _currentYear = this._selectedDate.getFullYear();
+  _currentDay: number;
+  _currentWeekDay: number;
+  _currentMonth: number;
+  _currentYear: number;
 
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    if (this.selectedDate != undefined && this.selectedDate != null) {
+      this._selectedDate = this.selectedDate;
+    } else {
+      this._selectedDate = new Date();
+    }
+    this._selectedDay = this._selectedDate.getDate();
+    this._selectedWeekDay = this._selectedDate.getDay();
+    this._selectedMonth = this._selectedDate.getMonth();
+    this._selectedYear = this._selectedDate.getFullYear();
+
+    this._currentDay = this._selectedDate.getDate();
+    this._currentWeekDay = this._selectedDate.getDay();
+    this._currentMonth = this._selectedDate.getMonth();
+    this._currentYear = this._selectedDate.getFullYear();
+
     this._calculateDays();
     for (var i = 1900; i <= 2100; i++) {
       this._years.push(i);
@@ -86,13 +103,17 @@ export class NpDatePickerComponent implements OnInit {
     this._selectedDate = new Date(this._selectedYear, this._selectedMonth, day);
   }
 
-  _selectMonth($event){
+  _selectMonth($event) {
     this._currentMonth = parseInt($event.target.value);
     this._calculateDays();
   }
 
-  _selectYear($event){
+  _selectYear($event) {
     this._currentYear = parseInt($event.target.value);
     this._calculateDays();
+  }
+
+  getSelectedDate() {
+    return this._selectedDate;
   }
 }

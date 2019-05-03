@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NpDatePickerComponent } from './np-date-picker/np-date-picker.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'np-date-picker';
+
+  selectedDate: Date;
+
+  birthDate= new Date(1992, 9, 28);
+  
+  @ViewChild("datepicker") datepicker: NpDatePickerComponent;
+
+  getSelectedDate() {
+    this.selectedDate = this.datepicker.getSelectedDate();
+  }
 }

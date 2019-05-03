@@ -1,0 +1,12 @@
+.tbl-days {
+    table-layout: fixed;
+}
+
+.tbl-days td {
+    height: 25px;
+    width: 25px;
+}
+
+.selected{
+    background-color:lightgray;
+}

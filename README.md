@@ -1,27 +1,42 @@
-# NpDatePicker
+# np-datepicker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.png)
 
-## Development server
+Angular Version 7.1.0 or newer, 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+````
+Custom date picker for Angular.
+With Two way data binding.
+````
 
-## Code scaffolding
+````
+<app-np-date-picker [(selectedDate)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></app-np-date-picker>
+````
+### Properties
+````
+1.  selectedDate
+    two way date binding model.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2.  format
+    pass date format as string, date will be shown in given format in text box.
+    default format is dd/MM/yyyy
 
-## Build
+3.  iconClass
+    icon class css, to dispaly icon in button for datepicker.
+````
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+### Apis
+````
+1.  getSelectedDate();
+    get selected date
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2.  setSelectedDate(date: Date);
+    set date as selected
+````
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### How to configure?
+````
+1.  Copy folder np-date-picker into app folder
+2.  import { NpDatePickerModule } from './np-date-picker' in app.module.ts;
+````

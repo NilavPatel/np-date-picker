@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-np-date-picker',
@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NpDatePickerComponent implements OnInit {
 
+  _isOpen = false;
+
   _weekDays: string[] = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
   _months: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -14,8 +16,14 @@ export class NpDatePickerComponent implements OnInit {
   _years: number[] = [];
 
   _days: number[] = [];
+
+  @Input()  selectedDate: Date;
   
-  @Input() selectedDate: Date;
+  @Output() selectedDateChange = new EventEmitter();
+
+  @Input() format: string;
+
+  @Input() iconClass: string;
 
   _selectedDate: Date;
   _selectedDay: number;
@@ -28,10 +36,22 @@ export class NpDatePickerComponent implements OnInit {
   _currentMonth: number;
   _currentYear: number;
 
+  _format = "dd/MM/yyyy";
+
   constructor() {
   }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this._refreshDate()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.selectedDate != undefined) {
+      this._refreshDate()
+    }
+  }
+
+  _refreshDate() {
     if (this.selectedDate != undefined && this.selectedDate != null) {
       this._selectedDate = this.selectedDate;
     } else {
@@ -51,6 +71,10 @@ export class NpDatePickerComponent implements OnInit {
     for (var i = 1900; i <= 2100; i++) {
       this._years.push(i);
     }
+    if (this.format && this.format.length > 0) {
+      this._format = this.format;
+    }    
+    this.selectedDateChange.emit(this._selectedDate);
   }
 
   _calculateDays() {
@@ -96,11 +120,13 @@ export class NpDatePickerComponent implements OnInit {
     this._calculateDays();
   }
 
-  _selectDate(day: number) {
+  _selectDate(day: number) {    
     this._selectedDay = day;
     this._selectedMonth = this._currentMonth;
     this._selectedYear = this._currentYear;
     this._selectedDate = new Date(this._selectedYear, this._selectedMonth, day);
+    this._isOpen = false;
+    this.selectedDateChange.emit(this._selectedDate);
   }
 
   _selectMonth($event) {
@@ -113,7 +139,20 @@ export class NpDatePickerComponent implements OnInit {
     this._calculateDays();
   }
 
+  _toggleDatePicker() {
+    this._isOpen = !this._isOpen;
+  }
+
+  _close() {
+    this._isOpen = false;
+  }
+
   getSelectedDate() {
     return this._selectedDate;
+  }
+
+  setSelectedDate(date: Date) {
+    this.selectedDate = date;    
+    this._refreshDate();
   }
 }

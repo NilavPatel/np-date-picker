@@ -5,8 +5,36 @@
 .tbl-days td {
     height: 25px;
     width: 25px;
+    cursor: pointer;
+    text-align: center;
 }
 
-.selected{
-    background-color:lightgray;
+.selected {
+    background-color: #4CAF50;
+}
+
+.np-datepicker-text {
+    padding-right: 25px;
+}
+
+.np-datepicker-button {
+    margin-left: -25px;
+    width: 25px;
+    display: inline-block;
+}
+
+.np-datepicker {
+    background-color: white;
+    position: absolute;
+    padding: 10px;
+    border: 1px solid #4CAF50;
+}
+
+.np-close-button {
+    float: right;
+    cursor: pointer;
+}
+
+.np-datepicker-icon {
+    display: inline-block;
 }

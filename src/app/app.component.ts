@@ -11,11 +11,15 @@ export class AppComponent {
 
   selectedDate: Date;
 
-  birthDate= new Date(1992, 9, 28);
-  
+  birthDate = new Date(1992, 9, 28);
+
   @ViewChild("datepicker") datepicker: NpDatePickerComponent;
 
   getSelectedDate() {
     this.selectedDate = this.datepicker.getSelectedDate();
+  }
+
+  setSelectedDate() {
+    this.datepicker.setSelectedDate(new Date(1992, 9, 28));
   }
 }

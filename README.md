@@ -1,6 +1,6 @@
 # np-datepicker
 
-![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.png)
+![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.PNG)
 
 Angular Version 7.1.0 or newer, 
 

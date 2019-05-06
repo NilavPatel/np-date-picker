@@ -1,8 +1,11 @@
 <div>
-  <input class="np-datepicker-text" type="text" [ngModel]="_selectedDate | date: _format" (click)="_toggleDatePicker()">
-  <button class="np-datepicker-button" (click)="_toggleDatePicker()"><i
-      [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i></button>
-  <div *ngIf="_isOpen" class="np-datepicker">
+  <div *ngIf="!defaultOpen">
+    <input class="np-datepicker-text" type="text" [ngModel]="_selectedDate | date: _format"
+      (click)="_toggleDatePicker()">
+    <button class="np-datepicker-button" (click)="_toggleDatePicker()"><i
+        [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i></button>
+  </div>
+  <div *ngIf="_isOpen || defaultOpen" [ngClass]="{'np-datepicker' : !defaultOpen, 'np-datepicker-static': defaultOpen}">
     <table>
       <tr>
         <td>
@@ -31,36 +34,62 @@
     </table>
     <table class="tbl-days">
       <tr>
-        <td *ngFor="let day of daysArrayFromTo(0, 7)"
+        <td *ngFor="let day of _daysArrayFromTo(0, 7)"
           [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_selectDate(day)">{{day}}</a></td>
+          <a (click)="_onSelectDate(day)">{{day}}</a></td>
       </tr>
       <tr>
-        <td *ngFor="let day of daysArrayFromTo(7, 14)"
+        <td *ngFor="let day of _daysArrayFromTo(7, 14)"
           [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_selectDate(day)">{{day}}</a></td>
+          <a (click)="_onSelectDate(day)">{{day}}</a></td>
       </tr>
       <tr>
-        <td *ngFor="let day of daysArrayFromTo(14, 21)"
+        <td *ngFor="let day of _daysArrayFromTo(14, 21)"
           [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_selectDate(day)">{{day}}</a></td>
+          <a (click)="_onSelectDate(day)">{{day}}</a></td>
       </tr>
       <tr>
-        <td *ngFor="let day of daysArrayFromTo(21, 28)"
+        <td *ngFor="let day of _daysArrayFromTo(21, 28)"
           [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_selectDate(day)">{{day}}</a></td>
+          <a (click)="_onSelectDate(day)">{{day}}</a></td>
       </tr>
       <tr>
-        <td *ngFor="let day of daysArrayFromTo(28, 35)"
+        <td *ngFor="let day of _daysArrayFromTo(28, 35)"
           [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_selectDate(day)">{{day}}</a></td>
+          <a (click)="_onSelectDate(day)">{{day}}</a></td>
       </tr>
       <tr>
-        <td *ngFor="let day of daysArrayFromTo(35, 42)"
+        <td *ngFor="let day of _daysArrayFromTo(35, 42)"
           [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_selectDate(day)">{{day}}</a></td>
+          <a (click)="_onSelectDate(day)">{{day}}</a></td>
       </tr>
     </table>
-    <div (click)="_close()" class="np-close-button">X</div>
+    <table *ngIf="showTimePicker">
+      <tr>
+        <td>hh</td>
+        <td>mm</td>
+        <td>ss</td>
+      </tr>
+      <tr>
+        <td>
+          <select (change)="_changeTime($event, 'hour')">
+            <option *ngFor="let hour of _hours" value="{{hour}}" [selected]="hour == _selectedHour">{{hour}}</option>
+          </select>
+        </td>
+        <td>
+          <select (change)="_changeTime($event, 'minute')">
+            <option *ngFor="let minute of _minutes" value="{{minute}}" [selected]="minute == _selectedMinute">{{minute}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <select (change)="_changeTime($event, 'second')">
+            <option *ngFor="let second of _seconds" value="{{second}}" [selected]="second == _selectedSecond">{{second}}
+            </option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <div (click)="_close()" class="np-close-button" *ngIf="!defaultOpen">X</div>
   </div>
 </div>

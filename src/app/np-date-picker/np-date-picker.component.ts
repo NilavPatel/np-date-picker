@@ -8,83 +8,102 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@
 export class NpDatePickerComponent implements OnInit {
 
   _isOpen = false;
-
-  _weekDays: string[] = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-
-  _months: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
+  _weekDays: string[];
+  _months: string[];
   _years: number[] = [];
-
   _days: number[] = [];
-
-  @Input()  selectedDate: Date;
-  
-  @Output() selectedDateChange = new EventEmitter();
-
-  @Input() format: string;
-
-  @Input() iconClass: string;
-
+  _hours: number[] = [];
+  _minutes: number[] = [];
+  _seconds: number[] = [];
   _selectedDate: Date;
   _selectedDay: number;
-  _selectedWeekDay: number;
   _selectedMonth: number;
   _selectedYear: number;
-
+  _selectedHour: number;
+  _selectedMinute: number;
+  _selectedSecond: number;
   _currentDay: number;
   _currentWeekDay: number;
   _currentMonth: number;
   _currentYear: number;
+  _format: string;
 
-  _format = "dd/MM/yyyy";
+  @Input() value: Date;
+  @Output() valueChange = new EventEmitter();
+  @Input() format: string;
+  @Input() iconClass: string;
+  @Input() showTimePicker: boolean = false;
+  @Input() defaultOpen: boolean = false;
 
   constructor() {
   }
 
   ngOnInit() {
-    this._refreshDate()
-  }
+    this._weekDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.selectedDate != undefined) {
-      this._refreshDate()
+    this._months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    for (var i = 0; i <= 24; i++) {
+      this._hours.push(i);
     }
-  }
 
-  _refreshDate() {
-    if (this.selectedDate != undefined && this.selectedDate != null) {
-      this._selectedDate = this.selectedDate;
+    for (var i = 0; i <= 60; i++) {
+      this._minutes.push(i);
+      this._seconds.push(i);
+    }
+
+    for (var i = 1900; i <= 2100; i++) {
+      this._years.push(i);
+    }
+
+    if (this.format && this.format.length > 0) {
+      this._format = this.format;
+    } else {
+      this._format = "dd/MM/yyyy";
+    }
+
+    if (this.value != undefined && this.value != null) {
+      this._selectedDate = this.value;
     } else {
       this._selectedDate = new Date();
     }
+
+    this._resetVariables();
+    this._calculateDays();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
+      this._selectedDate = changes.value.currentValue;
+      this._resetVariables();
+    }
+  }
+
+  _resetVariables() {
     this._selectedDay = this._selectedDate.getDate();
-    this._selectedWeekDay = this._selectedDate.getDay();
     this._selectedMonth = this._selectedDate.getMonth();
     this._selectedYear = this._selectedDate.getFullYear();
+
+    if (this.showTimePicker) {
+      this._selectedHour = this._selectedDate.getHours();
+      this._selectedMinute = this._selectedDate.getMinutes();
+      this._selectedSecond = this._selectedDate.getSeconds();
+    }
 
     this._currentDay = this._selectedDate.getDate();
     this._currentWeekDay = this._selectedDate.getDay();
     this._currentMonth = this._selectedDate.getMonth();
     this._currentYear = this._selectedDate.getFullYear();
-
-    this._calculateDays();
-    for (var i = 1900; i <= 2100; i++) {
-      this._years.push(i);
-    }
-    if (this.format && this.format.length > 0) {
-      this._format = this.format;
-    }    
-    this.selectedDateChange.emit(this._selectedDate);
   }
 
   _calculateDays() {
     this._days = [];
-    var _daysInThisMonth = this.daysInThisMonth();
+    var _daysInMonth = this._daysInThisMonth();
     var _firstWeekDayOfMonth = new Date(this._currentYear, this._currentMonth, 1).getDay();
     for (let index = 0; index < _firstWeekDayOfMonth; index++) {
       this._days.push(null);
     }
-    for (let index = 1; index <= _daysInThisMonth; index++) {
+    for (let index = 1; index <= _daysInMonth; index++) {
       this._days.push(index);
     }
     for (let index = this._days.length; index <= 42; index++) {
@@ -92,11 +111,11 @@ export class NpDatePickerComponent implements OnInit {
     }
   }
 
-  daysInThisMonth() {
+  _daysInThisMonth() {
     return new Date(this._currentYear, this._currentMonth + 1, 0).getDate();
   }
 
-  daysArrayFromTo(from: number, to: number) {
+  _daysArrayFromTo(from: number, to: number) {
     return this._days.slice(from, to);
   }
 
@@ -120,13 +139,11 @@ export class NpDatePickerComponent implements OnInit {
     this._calculateDays();
   }
 
-  _selectDate(day: number) {    
-    this._selectedDay = day;
-    this._selectedMonth = this._currentMonth;
-    this._selectedYear = this._currentYear;
-    this._selectedDate = new Date(this._selectedYear, this._selectedMonth, day);
+  _onSelectDate(day: number) {
+    this._selectedDate = new Date(this._currentYear, this._currentMonth, day);
+    this._resetVariables();
     this._isOpen = false;
-    this.selectedDateChange.emit(this._selectedDate);
+    this.valueChange.emit(this._selectedDate);
   }
 
   _selectMonth($event) {
@@ -147,12 +164,29 @@ export class NpDatePickerComponent implements OnInit {
     this._isOpen = false;
   }
 
+  _changeTime($event, arg) {
+    if (arg == "hour") {
+      this._selectedHour = parseInt($event.target.value);
+    }
+    else if (arg == "minute") {
+      this._selectedMinute = parseInt($event.target.value);
+    }
+    else if (arg == "second") {
+      this._selectedSecond = parseInt($event.target.value);
+    }
+    this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedHour, this._selectedMinute, this._selectedSecond);
+    this.valueChange.emit(this._selectedDate);
+  }
+
   getSelectedDate() {
     return this._selectedDate;
   }
 
   setSelectedDate(date: Date) {
-    this.selectedDate = date;    
-    this._refreshDate();
+    this.value = date;
+    this._selectedDate = date;
+    this._resetVariables();
+    this._calculateDays();
+    this.valueChange.emit(this._selectedDate);
   }
 }

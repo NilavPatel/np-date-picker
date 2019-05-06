@@ -5,7 +5,7 @@
 Angular Version 7.1.0 or newer, 
 
 ````
-Custom date picker for Angular.
+Custom date picker for Angular (Timepicker also included).
 With Two way data binding.
 ````
 
@@ -23,6 +23,12 @@ With Two way data binding.
 
 3.  iconClass
     icon class css, to dispaly icon in button for datepicker.
+
+4.  defaultOpen
+    default open datepicker, user can not close this.
+
+5.  showTimePicker
+    Show time picker or not
 ````
 
 

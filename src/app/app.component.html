@@ -1,6 +1,6 @@
-<app-np-date-picker [(selectedDate)]="birthDate"></app-np-date-picker>
+<app-np-date-picker [(value)]="birthDate" [showTimePicker]=true></app-np-date-picker>
 
-{{birthDate}}
+{{birthDate | date : 'dd/MM/yyyy hh:mm:ss'}}
 
 <br>
 <br>
@@ -16,3 +16,8 @@
 <div>{{selectedDate | date :'dd/MMM/yy'}}</div>
 
 <button (click)="setSelectedDate()">Set date as 28/10/1992</button>
+
+<br>
+<br>
+
+<app-np-date-picker defaultOpen=true></app-np-date-picker>

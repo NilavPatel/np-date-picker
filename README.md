@@ -31,7 +31,6 @@ With Two way data binding.
     Show time picker or not
 ````
 
-
 ### Apis
 ````
 1.  getSelectedDate();
@@ -39,6 +38,12 @@ With Two way data binding.
 
 2.  setSelectedDate(date: Date);
     set date as selected
+````
+
+## Methods
+````
+1.  onChange
+    on change event binding
 ````
 
 ### How to configure?

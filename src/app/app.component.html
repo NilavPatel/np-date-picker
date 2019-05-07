@@ -8,7 +8,7 @@
 <br>
 <br>
 
-<app-np-date-picker #datepicker format="dd/MMM/yy"></app-np-date-picker>
+<app-np-date-picker [(value)]="date1" #datepicker format="dd/MMM/yy" (onChange)="onChange(date1)"></app-np-date-picker>
 
 <br>
 
@@ -20,4 +20,4 @@
 <br>
 <br>
 
-<app-np-date-picker defaultOpen=true></app-np-date-picker>
+<app-np-date-picker [(value)]="date" defaultOpen=true (onChange)="onChange(date)"></app-np-date-picker>

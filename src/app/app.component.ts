@@ -22,4 +22,10 @@ export class AppComponent {
   setSelectedDate() {
     this.datepicker.setSelectedDate(new Date(1992, 9, 28));
   }
+
+  onChange(date: Date){    
+    if(date != null){
+      alert(date.toString());
+    }    
+  }
 }

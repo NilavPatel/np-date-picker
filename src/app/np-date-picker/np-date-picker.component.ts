@@ -21,7 +21,7 @@ export class NpDatePickerComponent implements OnInit {
   _selectedYear: number;
   _selectedHour: number;
   _selectedMinute: number;
-  _selectedSecond: number;
+  _selectedSecond: number;  
   _currentDay: number;
   _currentWeekDay: number;
   _currentMonth: number;
@@ -34,6 +34,7 @@ export class NpDatePickerComponent implements OnInit {
   @Input() iconClass: string;
   @Input() showTimePicker: boolean = false;
   @Input() defaultOpen: boolean = false;
+  @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }
@@ -64,10 +65,8 @@ export class NpDatePickerComponent implements OnInit {
 
     if (this.value != undefined && this.value != null) {
       this._selectedDate = this.value;
-    } else {
-      this._selectedDate = new Date();
     }
-
+    
     this._resetVariables();
     this._calculateDays();
   }
@@ -77,23 +76,28 @@ export class NpDatePickerComponent implements OnInit {
       this._selectedDate = changes.value.currentValue;
       this._resetVariables();
     }
+    if(changes.value != undefined && changes.value != null){
+      this.onChange.emit();
+    }
   }
 
   _resetVariables() {
-    this._selectedDay = this._selectedDate.getDate();
-    this._selectedMonth = this._selectedDate.getMonth();
-    this._selectedYear = this._selectedDate.getFullYear();
+    var currentDate = this._selectedDate == null ? new Date() : this._selectedDate;
+
+    this._selectedDay = currentDate.getDate();
+    this._selectedMonth = currentDate.getMonth();
+    this._selectedYear = currentDate.getFullYear();
 
     if (this.showTimePicker) {
-      this._selectedHour = this._selectedDate.getHours();
-      this._selectedMinute = this._selectedDate.getMinutes();
-      this._selectedSecond = this._selectedDate.getSeconds();
+      this._selectedHour = currentDate.getHours();
+      this._selectedMinute = currentDate.getMinutes();
+      this._selectedSecond = currentDate.getSeconds();
     }
 
-    this._currentDay = this._selectedDate.getDate();
-    this._currentWeekDay = this._selectedDate.getDay();
-    this._currentMonth = this._selectedDate.getMonth();
-    this._currentYear = this._selectedDate.getFullYear();
+    this._currentDay = currentDate.getDate();
+    this._currentWeekDay = currentDate.getDay();
+    this._currentMonth = currentDate.getMonth();
+    this._currentYear = currentDate.getFullYear();
   }
 
   _calculateDays() {
@@ -143,7 +147,7 @@ export class NpDatePickerComponent implements OnInit {
     this._selectedDate = new Date(this._currentYear, this._currentMonth, day);
     this._resetVariables();
     this._isOpen = false;
-    this.valueChange.emit(this._selectedDate);
+    this.valueChange.emit(this._selectedDate);    
   }
 
   _selectMonth($event) {
@@ -175,7 +179,7 @@ export class NpDatePickerComponent implements OnInit {
       this._selectedSecond = parseInt($event.target.value);
     }
     this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedHour, this._selectedMinute, this._selectedSecond);
-    this.valueChange.emit(this._selectedDate);
+    this.valueChange.emit(this._selectedDate);    
   }
 
   getSelectedDate() {
@@ -187,6 +191,6 @@ export class NpDatePickerComponent implements OnInit {
     this._selectedDate = date;
     this._resetVariables();
     this._calculateDays();
-    this.valueChange.emit(this._selectedDate);
+    this.valueChange.emit(this._selectedDate);    
   }
 }

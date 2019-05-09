@@ -21,7 +21,8 @@ export class NpDatePickerComponent implements OnInit {
   _selectedYear: number;
   _selectedHour: number;
   _selectedMinute: number;
-  _selectedSecond: number;  
+  _selectedSecond: number;
+  _selectedAMPM = 'AM';
   _currentDay: number;
   _currentWeekDay: number;
   _currentMonth: number;
@@ -44,7 +45,7 @@ export class NpDatePickerComponent implements OnInit {
 
     this._months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    for (var i = 0; i <= 24; i++) {
+    for (var i = 0; i <= 12; i++) {
       this._hours.push(i);
     }
 
@@ -66,7 +67,7 @@ export class NpDatePickerComponent implements OnInit {
     if (this.value != undefined && this.value != null) {
       this._selectedDate = this.value;
     }
-    
+
     this._resetVariables();
     this._calculateDays();
   }
@@ -76,7 +77,7 @@ export class NpDatePickerComponent implements OnInit {
       this._selectedDate = changes.value.currentValue;
       this._resetVariables();
     }
-    if(changes.value != undefined && changes.value != null){
+    if (changes.value != undefined && changes.value != null) {
       this.onChange.emit();
     }
   }
@@ -89,7 +90,10 @@ export class NpDatePickerComponent implements OnInit {
     this._selectedYear = currentDate.getFullYear();
 
     if (this.showTimePicker) {
-      this._selectedHour = currentDate.getHours();
+      var _hour = currentDate.getHours();
+      this._selectedAMPM = _hour >= 12 ? "PM" : "AM";
+      _hour = _hour % 12;
+      this._selectedHour = _hour ? _hour : 12; // the hour '0' should be '12'      
       this._selectedMinute = currentDate.getMinutes();
       this._selectedSecond = currentDate.getSeconds();
     }
@@ -144,10 +148,11 @@ export class NpDatePickerComponent implements OnInit {
   }
 
   _onSelectDate(day: number) {
-    this._selectedDate = new Date(this._currentYear, this._currentMonth, day);
+    this._selectedDate = new Date(this._currentYear, this._currentMonth, day,
+      this.showTimePicker ? (this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour) : 0, this.showTimePicker ? this._selectedMinute : 0, this.showTimePicker ? this._selectedSecond : 0);
     this._resetVariables();
     this._isOpen = false;
-    this.valueChange.emit(this._selectedDate);    
+    this.valueChange.emit(this._selectedDate);
   }
 
   _selectMonth($event) {
@@ -178,8 +183,45 @@ export class NpDatePickerComponent implements OnInit {
     else if (arg == "second") {
       this._selectedSecond = parseInt($event.target.value);
     }
-    this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedHour, this._selectedMinute, this._selectedSecond);
-    this.valueChange.emit(this._selectedDate);    
+    else if (arg == "AMPM") {
+      this._selectedAMPM = $event.target.value;
+    }
+    this._setDate();
+  }
+
+  _setDate() {
+    this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour, this._selectedMinute, this._selectedSecond);
+    this.valueChange.emit(this._selectedDate);
+  }
+
+  _minusHour() {
+    this._selectedHour = this._selectedHour == 0 ? 12 : this._selectedHour - 1;
+    this._setDate();
+  }
+
+  _minusMinute() {
+    this._selectedMinute = this._selectedMinute == 0 ? 60 : this._selectedMinute - 1;
+    this._setDate();
+  }
+
+  _minusSecond() {
+    this._selectedSecond = this._selectedSecond == 0 ? 60 : this._selectedSecond - 1;
+    this._setDate();
+  }
+
+  _addHour() {
+    this._selectedHour = this._selectedHour == 12 ? 0 : this._selectedHour + 1;
+    this._setDate();
+  }
+
+  _addMinute() {
+    this._selectedMinute = this._selectedMinute == 60 ? 0 : this._selectedMinute + 1;
+    this._setDate();
+  }
+
+  _addSecond() {
+    this._selectedSecond = this._selectedSecond == 60 ? 0 : this._selectedSecond + 1;
+    this._setDate();
   }
 
   getSelectedDate() {
@@ -191,6 +233,6 @@ export class NpDatePickerComponent implements OnInit {
     this._selectedDate = date;
     this._resetVariables();
     this._calculateDays();
-    this.valueChange.emit(this._selectedDate);    
+    this.valueChange.emit(this._selectedDate);
   }
 }

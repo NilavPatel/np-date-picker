@@ -66,9 +66,15 @@
     </table>
     <table *ngIf="showTimePicker">
       <tr>
-        <td>hh</td>
-        <td>mm</td>
-        <td>ss</td>
+        <td>HH</td>
+        <td>MM</td>
+        <td>SS</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><button (click)="_minusHour()">-</button></td>
+        <td><button (click)="_minusMinute()">-</button></td>
+        <td><button (click)="_minusSecond()">-</button></td>
       </tr>
       <tr>
         <td>
@@ -88,6 +94,18 @@
             </option>
           </select>
         </td>
+        <td>
+          <select (change)="_changeTime($event, 'AMPM')">
+            <option value="AM" [selected]="'AM' == _selectedAMPM">AM</option>
+            <option value="PM" [selected]="'PM' == _selectedAMPM">PM</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><button (click)="_addHour()">+</button></td>
+        <td><button (click)="_addMinute()">+</button></td>
+        <td><button (click)="_addSecond()">+</button></td>
+        <td></td>
       </tr>
     </table>
     <div (click)="_close()" class="np-close-button" *ngIf="!defaultOpen">X</div>

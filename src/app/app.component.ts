@@ -11,7 +11,9 @@ export class AppComponent {
 
   selectedDate: Date;
 
-  birthDate = new Date(1992, 9, 28);
+  birthDate = new Date(1992, 9, 28, 20, 45, 0);
+
+  minDate = new Date(1990, 1, 1);
 
   @ViewChild("datepicker") datepicker: NpDatePickerComponent;
 
@@ -20,12 +22,12 @@ export class AppComponent {
   }
 
   setSelectedDate() {
-    this.datepicker.setSelectedDate(new Date(1992, 9, 28));
+    this.datepicker.setSelectedDate(new Date(1992, 9, 28, 20, 45, 0));
   }
 
-  onChange(date: Date){    
-    if(date != null){
+  onChange(date: Date) {
+    if (date != null) {
       alert(date.toString());
-    }    
+    }
   }
 }

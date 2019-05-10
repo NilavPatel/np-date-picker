@@ -9,5 +9,13 @@
 <button (click)="setSelectedDate()">Set date as 28/10/1992</button>
 
 <br>
+<br>
 
 <app-np-date-picker [(value)]="date" defaultOpen=true (onChange)="onChange(date)"></app-np-date-picker>
+
+<br>
+
+<p>Validations</p>
+
+<app-np-date-picker [minDate]="minDate" [maxDate]="maxDate" #dateValidations></app-np-date-picker>
+<button (click)="setInvalidDate()">Set invalid date</button>

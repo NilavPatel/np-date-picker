@@ -13,9 +13,11 @@ export class AppComponent {
 
   birthDate = new Date(1992, 9, 28, 20, 45, 0);
 
-  minDate = new Date(1990, 1, 1);
+  minDate = new Date(2019, 1, 10);
+  maxDate = new Date(2020, 5, 10);
 
   @ViewChild("datepicker") datepicker: NpDatePickerComponent;
+  @ViewChild("dateValidations") dateValidations: NpDatePickerComponent;
 
   getSelectedDate() {
     this.selectedDate = this.datepicker.getSelectedDate();
@@ -29,5 +31,9 @@ export class AppComponent {
     if (date != null) {
       alert(date.toString());
     }
+  }
+
+  setInvalidDate() {
+    this.dateValidations.setSelectedDate(new Date(2019, 1, 1));
   }
 }

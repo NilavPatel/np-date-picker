@@ -39,10 +39,18 @@
     display: inline-block;
 }
 
-.np-datepicker-static{
-    background-color: white;    
+.np-datepicker-static {
+    background-color: white;
     padding: 10px;
-    width:210px;
-    height:230px;
+    width: 210px;
+    height: 230px;
     border: 1px solid #4CAF50;
+}
+
+.np-error-message {
+    color: red;
+}
+
+.np-invalid-date {
+    border: 1px solid red;
 }

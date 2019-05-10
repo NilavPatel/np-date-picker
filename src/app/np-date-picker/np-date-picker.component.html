@@ -1,19 +1,20 @@
 <div>
   <div *ngIf="!defaultOpen">
     <input class="np-datepicker-text" type="text" [ngModel]="_selectedDate | date: _format"
-      (click)="_toggleDatePicker()">
+      (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}">
     <button class="np-datepicker-button" (click)="_toggleDatePicker()"><i
         [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i></button>
+    <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>
   </div>
   <div *ngIf="_isOpen || defaultOpen" [ngClass]="{'np-datepicker' : !defaultOpen, 'np-datepicker-static': defaultOpen}">
     <table>
       <tr>
         <td>
-          <button (click)="_prevMonth()">Prev</button>
+          <button (click)="_prevMonth()" [disabled]="_disablePrevButton">Prev</button>
         </td>
         <td>
           <select (change)="_selectMonth($event)">
-            <option *ngFor="let month of _months;let i=index" value="{{i}}" [selected]="i == _currentMonth">{{month}}
+            <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">{{month.value}}
             </option>
           </select>
         </td>
@@ -23,7 +24,7 @@
           </select>
         </td>
         <td>
-          <button (click)="_nextMonth()">Next</button>
+          <button (click)="_nextMonth()" [disabled]="_disableNextButton">Next</button>
         </td>
       </tr>
     </table>

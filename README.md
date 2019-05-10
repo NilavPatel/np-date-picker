@@ -25,10 +25,16 @@ With Two way data binding.
     icon class css, to dispaly icon in button for datepicker.
 
 4.  defaultOpen
-    default open datepicker, user can not close this.
+    default open datepicker, user can not close this.(no textbox will be shown)
 
 5.  showTimePicker
     Show time picker or not
+
+6.  minDate
+    no date will be shown less than min date
+
+7.  maxDate
+    no date will be show greater than max date
 ````
 
 ### Apis
@@ -38,6 +44,9 @@ With Two way data binding.
 
 2.  setSelectedDate(date: Date);
     set date as selected
+
+3.  validate();
+    returns boolean, selected date is valid or not?
 ````
 
 ## Methods

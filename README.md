@@ -2,7 +2,7 @@
 
 ![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.PNG)
 
-Angular Version 7.1.0 or newer, 
+Angular Version 8 (for angular 7 check branch v7).
 
 ````
 Custom date picker for Angular (Timepicker also included).

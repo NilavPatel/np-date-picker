@@ -16,8 +16,8 @@ export class AppComponent {
   minDate = new Date(2019, 1, 10);
   maxDate = new Date(2020, 5, 10);
 
-  @ViewChild("datepicker") datepicker: NpDatePickerComponent;
-  @ViewChild("dateValidations") dateValidations: NpDatePickerComponent;
+  @ViewChild("datepicker", { static: true }) datepicker: NpDatePickerComponent;
+  @ViewChild("dateValidations", { static: true }) dateValidations: NpDatePickerComponent;
 
   getSelectedDate() {
     this.selectedDate = this.datepicker.getSelectedDate();

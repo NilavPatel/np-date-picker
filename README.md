@@ -8,6 +8,9 @@ Angular Version 8 (for angular 7 check branch v7).
 Custom date picker for Angular (Timepicker also included).
 With Two way data binding.
 ````
+````
+npm i np-date-time-picker
+````
 
 ````
 <app-np-date-picker [(selectedDate)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></app-np-date-picker>

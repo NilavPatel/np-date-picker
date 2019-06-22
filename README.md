@@ -9,7 +9,7 @@ Custom date picker for Angular (Timepicker also included).
 With Two way data binding.
 ````
 ````
-npm i np-date-time-picker
+npm i @nilavpatel/np-date-picker
 ````
 
 ````

@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "np-date-picker": [
+        "dist/np-date-picker"
+      ],
+      "np-date-picker/*": [
+        "dist/np-date-picker/*"
+      ]
+    }
   }
 }

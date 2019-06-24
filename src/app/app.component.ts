@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NpDatePickerComponent } from './np-date-picker/np-date-picker.component';
+import { NpDatePickerComponent } from 'projects/np-date-picker/src/public-api';
 
 @Component({
   selector: 'app-root',

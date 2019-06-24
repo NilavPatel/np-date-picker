@@ -1,11 +1,7 @@
 # np-datepicker
 
-![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.PNG)
-
-Angular Version 8 (for angular 7 check branch v7).
-
 ````
-Custom date picker for Angular (Timepicker also included).
+Custom date picker for Angular 8 (Timepicker also included).
 With Two way data binding.
 ````
 ````

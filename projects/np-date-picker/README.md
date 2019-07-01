@@ -56,5 +56,5 @@ npm i @nilavpatel/np-date-picker
 
 ### How to configure?
 ````
-1.  import { NpDatePickerModule } from './np-date-picker' in app.module.ts;
+1.  import NpDatePickerModule app.module.ts
 ````

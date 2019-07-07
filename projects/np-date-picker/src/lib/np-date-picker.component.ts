@@ -20,9 +20,9 @@ export class NpDatePickerComponent implements OnInit {
   _selectedDay: number;
   _selectedMonth: number;
   _selectedYear: number;
-  _selectedHour: number;
-  _selectedMinute: number;
-  _selectedSecond: number;
+  _selectedHour: number = 0;
+  _selectedMinute: number = 0;
+  _selectedSecond: number = 0;
   _selectedAMPM = 'AM';
   _currentDay: number;
   _currentWeekDay: number;
@@ -286,8 +286,10 @@ export class NpDatePickerComponent implements OnInit {
   }
 
   _setDate() {
-    this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour, this._selectedMinute, this._selectedSecond);
-    this.valueChange.emit(this._selectedDate);
+    if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
+      this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour, this._selectedMinute, this._selectedSecond);
+      this.valueChange.emit(this._selectedDate);
+    }
   }
 
   _minusHour() {

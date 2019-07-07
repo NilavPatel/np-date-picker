@@ -17,5 +17,14 @@
 
 <p>Validations</p>
 
-<np-date-picker [minDate]="minDate" [maxDate]="maxDate" #dateValidations></np-date-picker>
+
+<form>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <np-date-picker [minDate]="minDate" [maxDate]="maxDate" #dateValidations></np-date-picker>
+        </div>
+    </div>
+</form>>
+
 <button (click)="setInvalidDate()">Set invalid date</button>

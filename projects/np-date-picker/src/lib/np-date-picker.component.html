@@ -2,19 +2,21 @@
   <div *ngIf="!defaultOpen">
     <input class="np-datepicker-text" type="text" [ngModel]="_selectedDate | date: _format"
       (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}">
-    <button class="np-datepicker-button" (click)="_toggleDatePicker()"><i
-        [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i></button>
+    <button type="button" class="np-datepicker-button" (click)="_toggleDatePicker()">
+      <i [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i>
+    </button>
     <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>
   </div>
   <div *ngIf="_isOpen || defaultOpen" [ngClass]="{'np-datepicker' : !defaultOpen, 'np-datepicker-static': defaultOpen}">
     <table>
       <tr>
         <td>
-          <button (click)="_prevMonth()" [disabled]="_disablePrevButton">Prev</button>
+          <button type="button" (click)="_prevMonth()" [disabled]="_disablePrevButton">Prev</button>
         </td>
         <td>
           <select (change)="_selectMonth($event)">
-            <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">{{month.value}}
+            <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">
+              {{month.value}}
             </option>
           </select>
         </td>
@@ -24,7 +26,7 @@
           </select>
         </td>
         <td>
-          <button (click)="_nextMonth()" [disabled]="_disableNextButton">Next</button>
+          <button type="button" (click)="_nextMonth()" [disabled]="_disableNextButton">Next</button>
         </td>
       </tr>
     </table>
@@ -73,9 +75,9 @@
         <td></td>
       </tr>
       <tr>
-        <td><button (click)="_minusHour()">-</button></td>
-        <td><button (click)="_minusMinute()">-</button></td>
-        <td><button (click)="_minusSecond()">-</button></td>
+        <td><button type="button" (click)="_minusHour()">-</button></td>
+        <td><button type="button" (click)="_minusMinute()">-</button></td>
+        <td><button type="button" (click)="_minusSecond()">-</button></td>
       </tr>
       <tr>
         <td>
@@ -103,9 +105,9 @@
         </td>
       </tr>
       <tr>
-        <td><button (click)="_addHour()">+</button></td>
-        <td><button (click)="_addMinute()">+</button></td>
-        <td><button (click)="_addSecond()">+</button></td>
+        <td><button type="button" (click)="_addHour()">+</button></td>
+        <td><button type="button" (click)="_addMinute()">+</button></td>
+        <td><button type="button" (click)="_addSecond()">+</button></td>
         <td></td>
       </tr>
     </table>

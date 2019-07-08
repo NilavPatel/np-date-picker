@@ -34,6 +34,9 @@ npm i @nilavpatel/np-date-picker
 
 7.  maxDate
     no date will be show greater than max date
+
+8.  disabled
+    true/false - set component disabled
 ````
 
 ### Apis

@@ -1,8 +1,8 @@
 <div>
   <div *ngIf="!defaultOpen">
     <input class="np-datepicker-text" type="text" [ngModel]="_selectedDate | date: _format"
-      (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}">
-    <button type="button" class="np-datepicker-button" (click)="_toggleDatePicker()">
+      (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}" [disabled]="disabled">
+    <button type="button" class="np-datepicker-button" (click)="_toggleDatePicker()" [disabled]="disabled">
       <i [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i>
     </button>
     <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>

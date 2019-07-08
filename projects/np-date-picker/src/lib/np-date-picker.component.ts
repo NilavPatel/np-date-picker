@@ -49,6 +49,7 @@ export class NpDatePickerComponent implements OnInit {
   @Input() showTimePicker: boolean = false;
   @Input() defaultOpen: boolean = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
+  @Input() disabled: boolean;
 
   constructor() {
   }

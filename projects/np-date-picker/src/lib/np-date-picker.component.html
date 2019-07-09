@@ -1,13 +1,13 @@
-<div>
-  <div *ngIf="!defaultOpen">
-    <input class="np-datepicker-text" type="text" [ngModel]="_selectedDate | date: _format"
+<div class="np-component-main">
+  <div class="np-input-group" *ngIf="!defaultOpen">
+    <input class="np-component-input" type="text" [ngModel]="_selectedDate | date: _format"
       (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}" [disabled]="disabled">
-    <button type="button" class="np-datepicker-button" (click)="_toggleDatePicker()" [disabled]="disabled">
+    <button type="button" class="np-component-button" (click)="_toggleDatePicker()" [disabled]="disabled">
       <i [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i>
     </button>
     <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>
   </div>
-  <div *ngIf="_isOpen || defaultOpen" [ngClass]="{'np-datepicker' : !defaultOpen, 'np-datepicker-static': defaultOpen}">
+  <div *ngIf="_isOpen || defaultOpen" class="np-component-div" [ngClass]="{'np-open-component': defaultOpen}">
     <table>
       <tr>
         <td>

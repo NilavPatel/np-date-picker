@@ -113,9 +113,9 @@ export class NpDatePickerComponent implements OnInit {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
       this._selectedDate = changes.value.currentValue;
       this._resetVariables();
-    }
-    if (changes.value != undefined && changes.value != null) {
-      this.onChange.emit();
+      if (this.onChange && !changes.value.firstChange) {
+        this.onChange.emit(this._selectedDate);
+      }
     }
   }
 
@@ -216,6 +216,9 @@ export class NpDatePickerComponent implements OnInit {
     this._isOpen = false;
     this.valueChange.emit(this._selectedDate);
     this._isValidDate = true;
+    if (this.onChange) {
+      this.onChange.emit(this._selectedDate);
+    }
   }
 
   _selectMonth($event) {
@@ -287,9 +290,13 @@ export class NpDatePickerComponent implements OnInit {
   }
 
   _setDate() {
+    debugger;
     if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
       this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour, this._selectedMinute, this._selectedSecond);
       this.valueChange.emit(this._selectedDate);
+      if (this.onChange) {
+        this.onChange.emit(this._selectedDate);
+      }
     }
   }
 
@@ -349,5 +356,8 @@ export class NpDatePickerComponent implements OnInit {
     this._resetVariables();
     this._calculateDays();
     this.valueChange.emit(this._selectedDate);
+    if (this.onChange) {
+      this.onChange.emit(this._selectedDate);
+    }
   }
 }

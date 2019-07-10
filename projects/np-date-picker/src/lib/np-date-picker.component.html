@@ -3,15 +3,16 @@
     <input class="np-component-input" type="text" [ngModel]="_selectedDate | date: _format"
       (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}" [disabled]="disabled">
     <button type="button" class="np-component-button" (click)="_toggleDatePicker()" [disabled]="disabled">
-      <i [class]="iconClass ? iconClass : 'np-datepicker-icon' "></i>
+      <i [class]="iconClass ? iconClass : 'np-icon icon-calendar-alt' "></i>
     </button>
     <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>
   </div>
   <div *ngIf="_isOpen || defaultOpen" class="np-component-div" [ngClass]="{'np-open-component': defaultOpen}">
-    <table>
+    <table style="width:100%">
       <tr>
         <td>
-          <button type="button" (click)="_prevMonth()" [disabled]="_disablePrevButton">Prev</button>
+          <button type="button" (click)="_prevMonth()" [disabled]="_disablePrevButton"><i
+              class="np-icon icon-chevron-left"></i></button>
         </td>
         <td>
           <select (change)="_selectMonth($event)">
@@ -26,7 +27,8 @@
           </select>
         </td>
         <td>
-          <button type="button" (click)="_nextMonth()" [disabled]="_disableNextButton">Next</button>
+          <button type="button" (click)="_nextMonth()" [disabled]="_disableNextButton"><i
+              class="np-icon icon-chevron-right"></i></button>
         </td>
       </tr>
     </table>
@@ -75,9 +77,9 @@
         <td></td>
       </tr>
       <tr>
-        <td><button type="button" (click)="_minusHour()">-</button></td>
-        <td><button type="button" (click)="_minusMinute()">-</button></td>
-        <td><button type="button" (click)="_minusSecond()">-</button></td>
+        <td><button type="button" (click)="_minusHour()"><i class="np-icon icon-minus"></i></button></td>
+        <td><button type="button" (click)="_minusMinute()"><i class="np-icon icon-minus"></i></button></td>
+        <td><button type="button" (click)="_minusSecond()"><i class="np-icon icon-minus"></i></button></td>
       </tr>
       <tr>
         <td>
@@ -105,12 +107,14 @@
         </td>
       </tr>
       <tr>
-        <td><button type="button" (click)="_addHour()">+</button></td>
-        <td><button type="button" (click)="_addMinute()">+</button></td>
-        <td><button type="button" (click)="_addSecond()">+</button></td>
+        <td><button type="button" (click)="_addHour()"><i class="np-icon icon-plus"></i></button></td>
+        <td><button type="button" (click)="_addMinute()"><i class="np-icon icon-plus"></i></button></td>
+        <td><button type="button" (click)="_addSecond()"><i class="np-icon icon-plus"></i></button></td>
         <td></td>
       </tr>
     </table>
-    <div (click)="_close()" class="np-close-button" *ngIf="!defaultOpen">X</div>
+    <div (click)="_close()" class="np-close-button" *ngIf="!defaultOpen">
+      <i class="np-icon icon-close"></i>
+    </div>
   </div>
 </div>

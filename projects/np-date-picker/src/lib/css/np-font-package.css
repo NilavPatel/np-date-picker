@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'np-font-package';
+  src: url('../font/np-font-package.eot?13139932');
+  src: url('../font/np-font-package.eot?13139932#iefix') format('embedded-opentype'),
+       url('../font/np-font-package.woff2?13139932') format('woff2'),
+       url('../font/np-font-package.woff?13139932') format('woff'),
+       url('../font/np-font-package.ttf?13139932') format('truetype'),
+       url('../font/np-font-package.svg?13139932#np-font-package') format('svg');
+}
+ 
+.np-icon {
+  font-family: "np-font-package";
+  font-style: normal;    
+  text-align: center;            
+  color: darkgray;
+}
+ 
+.icon-sort-alpha-up:before { content: '\e800'; }
+.icon-clock:before { content: '\e801'; }
+.icon-calendar-alt:before { content: '\e802'; }
+.icon-filter:before { content: '\e803'; }
+.icon-minus:before { content: '\e804'; }
+.icon-plus:before { content: '\e805'; }
+.icon-eye-dropper:before { content: '\e806'; }
+.icon-chevron-left:before { content: '\e807'; }
+.icon-chevron-right:before { content: '\e808'; }
+.icon-close:before { content: '\e809'; }
+.icon-sort-alpha-down-alt:before { content: '\e80a'; }

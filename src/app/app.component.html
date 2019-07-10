@@ -1,11 +1,12 @@
-<np-date-picker [(value)]="birthDate" [showTimePicker]=true (onChange)="onChange($event)"></np-date-picker>
+<np-date-picker [(value)]="birthDate" [showTimePicker]=true (onChange)="onChange($event)" [format]="'dd/MM/yyyy hh:mm:ss a'"></np-date-picker>
 <div>{{birthDate | date : 'dd/MM/yyyy hh:mm:ss a'}}</div>
 
 <br>
+<br>
 
 <np-date-picker [(value)]="date1" #datepicker format="dd/MMM/yy" (onChange)="onChange($event)"></np-date-picker>
-<button (click)="getSelectedDate()">Get Selected Date</button>
 <div>{{selectedDate | date :'dd/MMM/yy'}}</div>
+<button (click)="getSelectedDate()">Get Selected Date</button>
 <button (click)="setSelectedDate()">Set date as 28/10/1992</button>
 
 <br>
@@ -13,6 +14,7 @@
 
 <np-date-picker [(value)]="date" defaultOpen=true (onChange)="onChange($event)"></np-date-picker>{{date}}
 
+<br>
 <br>
 
 <p>Validations</p>

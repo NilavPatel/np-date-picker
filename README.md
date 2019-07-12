@@ -2,19 +2,17 @@
 
 ![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.PNG)
 
-Angular Version 8 (for angular 7 check branch v7).
+Angular Version 8.
 
 ````
 Custom date picker for Angular (Timepicker also included).
 With Two way data binding.
 ````
-````
-npm i @nilavpatel/np-date-picker
-````
 
 ````
 <np-date-picker [(selectedDate)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></np-date-picker>
 ````
+
 ### Properties
 ````
 1.  selectedDate
@@ -59,9 +57,4 @@ npm i @nilavpatel/np-date-picker
 ````
 1.  onChange
     on change event binding
-````
-
-### How to configure?
-````
-1.  import NpDatePickerModule app.module.ts
 ````

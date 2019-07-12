@@ -1,15 +1,9 @@
-
 .np-component-main {
     position: relative;
-    display: inline-block;    
-}
-
-.np-component-input {
-    padding-right: 25px;
+    display: inline-block;
 }
 
 .np-component-button {
-    margin-left: -25px;
     width: 25px;
     display: inline-block;
     height: 20px;

@@ -3,7 +3,7 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@
 @Component({
   selector: 'np-date-picker',
   templateUrl: './np-date-picker.component.html',
-  styleUrls: ['./np-date-picker.component.css', './css/np-font-package.css']
+  styleUrls: ['./np-date-picker.component.css']
 })
 export class NpDatePickerComponent implements OnInit {
 
@@ -29,7 +29,6 @@ export class NpDatePickerComponent implements OnInit {
   _currentMonth: number;
   _currentYear: number;
   _format: string;
-
   _minYear: number;
   _minMonth: number;
   _minDay: number;
@@ -84,6 +83,7 @@ export class NpDatePickerComponent implements OnInit {
       this._minMonth = this.minDate.getMonth();
       this._minYear = this.minDate.getFullYear();
     }
+    
     if (this.maxDate) {
       this._maxDay = this.maxDate.getDate();
       this._maxMonth = this.maxDate.getMonth();
@@ -101,11 +101,8 @@ export class NpDatePickerComponent implements OnInit {
     }
 
     this._resetVariables();
-
     this._setYears();
-
     this._setMonths();
-
     this._calculateDays();
   }
 

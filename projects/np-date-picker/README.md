@@ -9,12 +9,12 @@ Example is given in github repository.
 ````
 
 ````
-<np-date-picker [(selectedDate)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></np-date-picker>
+<np-date-picker [(value)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></np-date-picker>
 ````
 
 ### Properties
 ````
-1.  selectedDate
+1.  value
     two way date binding model.
 
 2.  format

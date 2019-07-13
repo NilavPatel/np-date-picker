@@ -10,7 +10,7 @@ With Two way data binding.
 ````
 
 ````
-npm i np-date-picker
+npm i np-ui-date-picker
 ````
 
 ````

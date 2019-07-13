@@ -10,6 +10,10 @@ With Two way data binding.
 ````
 
 ````
+npm i np-date-picker
+````
+
+````
 <np-date-picker [(selectedDate)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></np-date-picker>
 ````
 

@@ -5,6 +5,7 @@ Angular Version 8.
 ````
 Custom date picker for Angular (Timepicker also included).
 With Two way data binding.
+Example is given in github repository.
 ````
 
 ````

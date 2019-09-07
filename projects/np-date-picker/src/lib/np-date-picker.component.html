@@ -1,116 +1,113 @@
 <div class="np-component-main">
-  <div class="np-input-group" *ngIf="!defaultOpen">
-    <input class="np-component-input" type="text" [ngModel]="_selectedDate | date: _format"
-      (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}" [disabled]="disabled">
-    <button type="button" class="np-component-button" (click)="_toggleDatePicker()" [disabled]="disabled">
-      <i [class]="iconClass"></i>
+    <div class="np-input-group" *ngIf="!defaultOpen">
+        <input class="np-component-input" type="text" [ngModel]="_selectedDate | date: _format" (click)="_toggleDatePicker()" [ngClass]="{'np-invalid-date': !_isValidDate}" [disabled]="disabled">
+        <button type="button" class="np-component-button" (click)="_toggleDatePicker()" [disabled]="disabled">
+      <i class="demo-icon icon-calendar"></i>
     </button>
-    <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>
-  </div>
-  <div *ngIf="_isOpen || defaultOpen" class="np-component-div" [ngClass]="{'np-open-component': defaultOpen}">
-    <table style="width:100%">
-      <tr>
-        <td>
-          <button type="button" (click)="_prevMonth()" [disabled]="_disablePrevButton">&lt;</button>
-        </td>
-        <td>
-          <select (change)="_selectMonth($event)">
+        <div *ngIf="!_isValidDate" class="np-error-message">Invalid Date</div>
+    </div>
+    <div *ngIf="_isOpen || defaultOpen" class="np-component-div" [ngClass]="{'np-open-component': defaultOpen}">
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <button type="button" (click)="_prevMonth()" [disabled]="_disablePrevButton"><i
+              class="demo-icon icon-left"></i></button>
+                </td>
+                <td>
+                    <select (change)="_selectMonth($event)">
             <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">
               {{month.value}}
             </option>
           </select>
-        </td>
-        <td>
-          <select (change)="_selectYear($event)">
+                </td>
+                <td>
+                    <select (change)="_selectYear($event)">
             <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}</option>
           </select>
-        </td>
-        <td>
-          <button type="button" (click)="_nextMonth()" [disabled]="_disableNextButton">&gt;</button>
-        </td>
-      </tr>
-    </table>
-    <table class="tbl-days">
-      <tr>
-        <td *ngFor="let day of _weekDays">{{day}}</td>
-      </tr>
-    </table>
-    <table class="tbl-days">
-      <tr>
-        <td *ngFor="let day of _daysArrayFromTo(0, 7)"
-          [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_onSelectDate(day)">{{day}}</a></td>
-      </tr>
-      <tr>
-        <td *ngFor="let day of _daysArrayFromTo(7, 14)"
-          [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_onSelectDate(day)">{{day}}</a></td>
-      </tr>
-      <tr>
-        <td *ngFor="let day of _daysArrayFromTo(14, 21)"
-          [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_onSelectDate(day)">{{day}}</a></td>
-      </tr>
-      <tr>
-        <td *ngFor="let day of _daysArrayFromTo(21, 28)"
-          [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_onSelectDate(day)">{{day}}</a></td>
-      </tr>
-      <tr>
-        <td *ngFor="let day of _daysArrayFromTo(28, 35)"
-          [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_onSelectDate(day)">{{day}}</a></td>
-      </tr>
-      <tr>
-        <td *ngFor="let day of _daysArrayFromTo(35, 42)"
-          [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
-          <a (click)="_onSelectDate(day)">{{day}}</a></td>
-      </tr>
-    </table>
-    <table *ngIf="showTimePicker">
-      <tr>
-        <td>HH</td>
-        <td>MM</td>
-        <td>SS</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><button type="button" (click)="_minusHour()">-</button></td>
-        <td><button type="button" (click)="_minusMinute()">-</button></td>
-        <td><button type="button" (click)="_minusSecond()">-</button></td>
-      </tr>
-      <tr>
-        <td>
-          <select (change)="_changeTime($event, 'hour')">
+                </td>
+                <td>
+                    <button type="button" (click)="_nextMonth()" [disabled]="_disableNextButton"><i
+              class="demo-icon icon-right"></i></button>
+                </td>
+                <td>
+                    <div (click)="_close()" *ngIf="!defaultOpen"><i class="demo-icon icon-cancel"></i></div>
+                </td>
+            </tr>
+        </table>
+        <table class="tbl-days">
+            <tr>
+                <td *ngFor="let day of _weekDays">{{day}}</td>
+            </tr>
+        </table>
+        <table class="tbl-days">
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(0, 7)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
+                    <a (click)="_onSelectDate(day)">{{day}}</a></td>
+            </tr>
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(7, 14)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
+                    <a (click)="_onSelectDate(day)">{{day}}</a></td>
+            </tr>
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(14, 21)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
+                    <a (click)="_onSelectDate(day)">{{day}}</a></td>
+            </tr>
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(21, 28)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
+                    <a (click)="_onSelectDate(day)">{{day}}</a></td>
+            </tr>
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(28, 35)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
+                    <a (click)="_onSelectDate(day)">{{day}}</a></td>
+            </tr>
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(35, 42)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}">
+                    <a (click)="_onSelectDate(day)">{{day}}</a></td>
+            </tr>
+        </table>
+        <table *ngIf="showTimePicker">
+            <tr>
+                <td>HH</td>
+                <td>MM</td>
+                <td>SS</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><button type="button" (click)="_minusHour()"><i class="demo-icon icon-up"></i></button></td>
+                <td><button type="button" (click)="_minusMinute()"><i class="demo-icon icon-up"></i></button></td>
+                <td><button type="button" (click)="_minusSecond()"><i class="demo-icon icon-up"></i></button></td>
+            </tr>
+            <tr>
+                <td>
+                    <select (change)="_changeTime($event, 'hour')">
             <option *ngFor="let hour of _hours" value="{{hour}}" [selected]="hour == _selectedHour">{{hour}}</option>
           </select>
-        </td>
-        <td>
-          <select (change)="_changeTime($event, 'minute')">
+                </td>
+                <td>
+                    <select (change)="_changeTime($event, 'minute')">
             <option *ngFor="let minute of _minutes" value="{{minute}}" [selected]="minute == _selectedMinute">{{minute}}
             </option>
           </select>
-        </td>
-        <td>
-          <select (change)="_changeTime($event, 'second')">
+                </td>
+                <td>
+                    <select (change)="_changeTime($event, 'second')">
             <option *ngFor="let second of _seconds" value="{{second}}" [selected]="second == _selectedSecond">{{second}}
             </option>
           </select>
-        </td>
-        <td>
-          <select (change)="_changeTime($event, 'AMPM')">
+                </td>
+                <td>
+                    <select (change)="_changeTime($event, 'AMPM')">
             <option value="AM" [selected]="'AM' == _selectedAMPM">AM</option>
             <option value="PM" [selected]="'PM' == _selectedAMPM">PM</option>
           </select>
-        </td>
-      </tr>
-      <tr>
-        <td><button type="button" (click)="_addHour()">+</button></td>
-        <td><button type="button" (click)="_addMinute()">+</button></td>
-        <td><button type="button" (click)="_addSecond()">+</button></td>
-        <td></td>
-      </tr>
-    </table>
-    <div (click)="_close()" class="np-close-button" *ngIf="!defaultOpen">X</div>
-  </div>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="button" (click)="_addHour()"><i class="demo-icon icon-down"></i></button></td>
+                <td><button type="button" (click)="_addMinute()"><i class="demo-icon icon-down"></i></button></td>
+                <td><button type="button" (click)="_addSecond()"><i class="demo-icon icon-down"></i></button></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
 </div>

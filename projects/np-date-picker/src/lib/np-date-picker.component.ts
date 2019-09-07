@@ -44,7 +44,6 @@ export class NpDatePickerComponent implements OnInit {
   @Input() maxDate: Date;
   @Output() valueChange = new EventEmitter();
   @Input() format: string;
-  @Input() iconClass: string;
   @Input() showTimePicker: boolean = false;
   @Input() defaultOpen: boolean = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();

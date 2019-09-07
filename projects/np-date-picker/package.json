@@ -1,35 +1,35 @@
 {
-  "name": "np-ui-date-picker",
-  "version": "1.0.0",
-  "private": false,
-  "author": {
-    "name": "nilavpatel"
-  },
-  "keywords": [
-    "angular",
-    "datepicker",
-    "datetimepicker",
-    "calenar",
-    "customcomponenets",
-    "typescript",
-    "date-picker"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NilavPatel/np-date-picker-package.git"
-  },
-  "peerDependencies": {
-    "@angular/animations": "~8.0.0",
-    "@angular/common": "~8.0.0",
-    "@angular/compiler": "~8.0.0",
-    "@angular/core": "~8.0.0",
-    "@angular/forms": "~8.0.0",
-    "@angular/platform-browser": "~8.0.0",
-    "@angular/platform-browser-dynamic": "~8.0.0",
-    "@angular/router": "~8.0.0",
-    "core-js": "^2.5.4",
-    "rxjs": "~6.5.2",
-    "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
-  }
+    "name": "np-ui-date-picker",
+    "version": "1.0.1",
+    "private": false,
+    "author": {
+        "name": "nilavpatel"
+    },
+    "keywords": [
+        "angular",
+        "datepicker",
+        "datetimepicker",
+        "calenar",
+        "customcomponenets",
+        "typescript",
+        "date-picker"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/NilavPatel/np-date-picker-package.git"
+    },
+    "peerDependencies": {
+        "@angular/animations": "~8.0.0",
+        "@angular/common": "~8.0.0",
+        "@angular/compiler": "~8.0.0",
+        "@angular/core": "~8.0.0",
+        "@angular/forms": "~8.0.0",
+        "@angular/platform-browser": "~8.0.0",
+        "@angular/platform-browser-dynamic": "~8.0.0",
+        "@angular/router": "~8.0.0",
+        "core-js": "^2.5.4",
+        "rxjs": "~6.5.2",
+        "tslib": "^1.9.0",
+        "zone.js": "~0.9.1"
+    }
 }

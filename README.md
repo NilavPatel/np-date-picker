@@ -1,47 +1,49 @@
-# np-datepicker
+# np-ui-color-picker component
 
-![image login](https://github.com/NilavPatel/np-date-picker/blob/master/src/assets/images/image1.PNG)
-
-Angular Version 8.
+Angular 8 date picker component.
 
 ````
 Custom date picker for Angular (Timepicker also included).
 With Two way data binding.
+Example is given in github repository.
 ````
+
+<img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker/master/src/assets/images/logo-large.png" width="300" height="80">
+
+<img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker/master/src/assets/images/image1.png">
+
+### [Demo](https://stackblitz.com/edit/np-ui-date-picker)
 
 ````
 npm i np-ui-date-picker
 ````
 
 ````
-<np-date-picker [(value)]="birthDate" format="dd/MMM/yy" iconClass="fa fa-calendar"></np-date-picker>
+<np-date-picker [(value)]="birthDate" format="dd/MMM/yy"></np-date-picker>
 ````
 
 ### Properties
 ````
-1.  value
+1.  value : Date
     two way date binding model.
 
-2.  format
+2.  format : string
     pass date format as string, date will be shown in given format in text box.
     default format is dd/MM/yyyy
 
-3.  iconClass
-    icon class css, to dispaly icon in button for datepicker.
-
-4.  defaultOpen
+3.  defaultOpen : boolean
     default open datepicker, user can not close this.(no textbox will be shown)
 
-5.  showTimePicker
+4.  showTimePicker : boolean
     Show time picker or not
 
-6.  minDate
+5.  minDate : Date
     no date will be shown less than min date
 
-7.  maxDate
+6.  maxDate : Date
     no date will be show greater than max date
 
-8.  disabled
+7.  disabled : boolean
     true/false - set component disabled
 ````
 

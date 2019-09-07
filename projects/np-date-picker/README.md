@@ -10,7 +10,7 @@ Example is given in github repository.
 
 <img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker/master/src/assets/images/logo-large.png" width="300" height="80">
 
-<img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker/master/src/assets/images/image1.png">
+<img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker-package/master/src/assets/images/image1.PNG">
 
 ### [Demo](https://stackblitz.com/edit/np-ui-date-picker)
 

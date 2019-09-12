@@ -29,14 +29,11 @@
                     <button type="button" (click)="_nextMonth()" [disabled]="_disableNextButton"><i
               class="demo-icon icon-right"></i></button>
                 </td>
-                <td>
-                    <div (click)="_close()" *ngIf="!defaultOpen"><i class="demo-icon icon-cancel"></i></div>
-                </td>
             </tr>
         </table>
         <table class="tbl-days">
             <tr>
-                <td *ngFor="let day of _weekDays">{{day}}</td>
+                <td class="np-days" *ngFor="let day of _weekDays">{{day}}</td>
             </tr>
         </table>
         <table class="tbl-days">

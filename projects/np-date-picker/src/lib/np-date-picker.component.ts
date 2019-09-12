@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'np-date-picker',
@@ -49,7 +49,14 @@ export class NpDatePickerComponent implements OnInit {
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Input() disabled: boolean;
 
-  constructor() {
+  constructor(private elRef: ElementRef) {
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutSide(event: any) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this._close();
+    }
   }
 
   ngOnInit() {
@@ -82,7 +89,7 @@ export class NpDatePickerComponent implements OnInit {
       this._minMonth = this.minDate.getMonth();
       this._minYear = this.minDate.getFullYear();
     }
-    
+
     if (this.maxDate) {
       this._maxDay = this.maxDate.getDate();
       this._maxMonth = this.maxDate.getMonth();
@@ -234,6 +241,9 @@ export class NpDatePickerComponent implements OnInit {
   }
 
   _close() {
+    if (this.defaultOpen == true) {
+      return;
+    }
     this._isOpen = false;
   }
 

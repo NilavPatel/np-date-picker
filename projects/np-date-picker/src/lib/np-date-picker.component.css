@@ -43,13 +43,6 @@
     display: inline-block;
 }
 
-.np-close-button {
-    cursor: pointer;
-    position: absolute;
-    padding: 5px;
-    right: 0px;
-}
-
 .np-datepicker-icon {
     display: inline-block;
 }
@@ -79,6 +72,10 @@
 .np-input-group {
     border: 1px solid gray;
     padding: 2px;
+}
+
+.np-days{
+    font-weight: bold;
 }
 
 

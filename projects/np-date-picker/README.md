@@ -1,10 +1,9 @@
-# np-ui-date-picker component
+# np-ui-date-picker
 
 <img src="https://raw.githubusercontent.com/NilavPatel/np-ui-data-grid-package/master/src/assets/images/logo-large.png" width="300" height="80">
 
 ````
-Custom date picker for Angular 8 (Timepicker also included).
-With Two way data binding.
+Custom date picker for Angular 8 (Timepicker is also included).
 ````
 
 <img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker-package/master/src/assets/images/image1.PNG">

@@ -6,8 +6,6 @@
 Custom date picker for Angular 8 (Timepicker is also included).
 ````
 
-<img src="https://raw.githubusercontent.com/NilavPatel/np-date-picker-package/master/src/assets/images/image1.PNG">
-
 ### [Demo](https://stackblitz.com/edit/np-ui-date-picker)
 
 ````
@@ -55,7 +53,7 @@ npm i np-ui-date-picker
     returns boolean, selected date is valid or not?
 ````
 
-## Methods
+### Methods
 ````
 1.  onChange
     on change event binding

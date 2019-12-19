@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NpDatePickerComponent } from './np-date-picker.component';
+import { NpUiDatePickerComponent } from './np-ui-date-picker.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [NpDatePickerComponent],
+  declarations: [NpUiDatePickerComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [NpDatePickerComponent]
+  exports: [NpUiDatePickerComponent]
 })
-export class NpDatePickerModule { }
+export class NpUiDatePickerModule { }

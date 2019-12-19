@@ -1,10 +1,11 @@
-<np-date-picker [(value)]="birthDate" [showTimePicker]=true (onChange)="onChange($event)" [format]="'dd/MM/yyyy hh:mm:ss a'"></np-date-picker>
-<div>{{birthDate | date : 'dd/MM/yyyy hh:mm:ss a'}}</div>
+<np-ui-date-picker [(value)]="birthDate" (onChange)="onChange($event)" [format]="'dd-MM-yyyy'">
+</np-ui-date-picker>
+<div>{{birthDate | date : 'dd-MM-yyy'}}</div>
 
 <br>
 <br>
 
-<np-date-picker [(value)]="date1" #datepicker format="dd/MMM/yy" (onChange)="onChange($event)"></np-date-picker>
+<np-ui-date-picker [(value)]="date1" #datepicker format="dd/MMM/yy" (onChange)="onChange($event)"></np-ui-date-picker>
 <div>{{selectedDate | date :'dd/MMM/yy'}}</div>
 <button (click)="getSelectedDate()">Get Selected Date</button>
 <button (click)="setSelectedDate()">Set date as 28/10/1992</button>
@@ -12,7 +13,7 @@
 <br>
 <br>
 
-<np-date-picker [(value)]="date" defaultOpen=true (onChange)="onChange($event)"></np-date-picker>{{date}}
+<np-ui-date-picker [(value)]="date" defaultOpen=true (onChange)="onChange($event)"></np-ui-date-picker>{{date}}
 
 <br>
 <br>
@@ -24,7 +25,7 @@
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            <np-date-picker [showTimePicker]=true [minDate]="minDate" [maxDate]="maxDate" #dateValidations></np-date-picker>
+            <np-ui-date-picker [minDate]="minDate" [maxDate]="maxDate" #dateValidations></np-ui-date-picker>
         </div>
     </div>
 </form>

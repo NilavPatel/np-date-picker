@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'np-date-picker-package'`, () => {
+  it(`should have as title 'np-ui-date-picker-package'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('np-date-picker-package');
+    expect(app.title).toEqual('np-ui-date-picker-package');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to np-date-picker-package!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to np-ui-date-picker-package!');
   });
 });

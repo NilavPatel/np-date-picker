@@ -3,23 +3,25 @@
 <img src="https://raw.githubusercontent.com/NilavPatel/np-ui-data-grid-package/master/src/assets/images/logo-large.png" width="300" height="80">
 
 ````
-Custom date picker for Angular 8 (Timepicker is also included).
+Custom date picker for Angular 8.
 ````
 
-### [Demo](https://stackblitz.com/edit/np-ui-date-picker)
+## [Demo](https://stackblitz.com/edit/np-ui-date-picker)
 
 ````
 npm i np-ui-date-picker
 ````
 
+## HTML
 ````
-<np-date-picker [(value)]="birthDate" format="dd/MMM/yy"></np-date-picker>
+<np-ui-date-picker [(value)]="birthDate" format="dd/MMM/yy"></np-ui-date-picker>
 ````
 
-### Properties
+## Properties
 ````
 1.  value : Date
     two way date binding model.
+    value is always date type object.
 
 2.  format : string
     pass date format as string, date will be shown in given format in text box.
@@ -28,20 +30,17 @@ npm i np-ui-date-picker
 3.  defaultOpen : boolean
     default open datepicker, user can not close this.(no textbox will be shown)
 
-4.  showTimePicker : boolean
-    Show time picker or not
-
-5.  minDate : Date
+4.  minDate : Date
     no date will be shown less than min date
 
-6.  maxDate : Date
+5.  maxDate : Date
     no date will be show greater than max date
 
-7.  disabled : boolean
+6.  disabled : boolean
     true/false - set component disabled
 ````
 
-### Apis
+## Apis
 ````
 1.  getSelectedDate();
     get selected date
@@ -53,7 +52,7 @@ npm i np-ui-date-picker
     returns boolean, selected date is valid or not?
 ````
 
-### Methods
+## Methods
 ````
 1.  onChange
     on change event binding

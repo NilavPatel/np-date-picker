@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NpDatePickerComponent } from 'projects/np-date-picker/src/public-api';
+import { NpUiDatePickerComponent } from 'projects/np-ui-date-picker/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -7,24 +7,21 @@ import { NpDatePickerComponent } from 'projects/np-date-picker/src/public-api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'np-date-picker';
-
+  title = 'np-ui-date-picker';
   selectedDate: Date;
-
-  birthDate = new Date(1992, 9, 28, 20, 45, 0);
-
+  birthDate = new Date(1992, 9, 28);  
   minDate = new Date(2019, 1, 10);
   maxDate = new Date(2020, 5, 10);
 
-  @ViewChild("datepicker", { static: true }) datepicker: NpDatePickerComponent;
-  @ViewChild("dateValidations", { static: true }) dateValidations: NpDatePickerComponent;
+  @ViewChild("datepicker", { static: true }) datepicker: NpUiDatePickerComponent;
+  @ViewChild("dateValidations", { static: true }) dateValidations: NpUiDatePickerComponent;
 
   getSelectedDate() {
     this.selectedDate = this.datepicker.getSelectedDate();
   }
 
   setSelectedDate() {
-    this.datepicker.setSelectedDate(new Date(1992, 9, 28, 20, 45, 0));
+    this.datepicker.setSelectedDate(new Date(1992, 9, 28));
   }
 
   onChange(date: Date) {

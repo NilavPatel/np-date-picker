@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'np-date-picker',
-  templateUrl: './np-date-picker.component.html',
-  styleUrls: ['./np-date-picker.component.css']
+  selector: 'np-ui-date-picker',
+  templateUrl: './np-ui-date-picker.component.html',
+  styleUrls: ['./np-ui-date-picker.component.css']
 })
-export class NpDatePickerComponent implements OnInit {
+export class NpUiDatePickerComponent implements OnInit {
 
   _isOpen = false;
   _weekDays: string[];
@@ -13,17 +13,10 @@ export class NpDatePickerComponent implements OnInit {
   _months: any[];
   _years: number[] = [];
   _days: number[] = [];
-  _hours: number[] = [];
-  _minutes: number[] = [];
-  _seconds: number[] = [];
   _selectedDate: Date;
   _selectedDay: number;
   _selectedMonth: number;
   _selectedYear: number;
-  _selectedHour: number = 0;
-  _selectedMinute: number = 0;
-  _selectedSecond: number = 0;
-  _selectedAMPM = 'AM';
   _currentDay: number;
   _currentWeekDay: number;
   _currentMonth: number;
@@ -44,7 +37,6 @@ export class NpDatePickerComponent implements OnInit {
   @Input() maxDate: Date;
   @Output() valueChange = new EventEmitter();
   @Input() format: string;
-  @Input() showTimePicker: boolean = false;
   @Input() defaultOpen: boolean = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Input() disabled: boolean;
@@ -75,14 +67,6 @@ export class NpDatePickerComponent implements OnInit {
     { key: 10, value: "Nov" },
     { key: 11, value: "Dec" }];
 
-    for (var i = 0; i <= 12; i++) {
-      this._hours.push(i);
-    }
-
-    for (var i = 0; i <= 60; i++) {
-      this._minutes.push(i);
-      this._seconds.push(i);
-    }
 
     if (this.minDate) {
       this._minDay = this.minDate.getDate();
@@ -115,6 +99,7 @@ export class NpDatePickerComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
       this._selectedDate = changes.value.currentValue;
+      this._validate();
       this._resetVariables();
       if (this.onChange && !changes.value.firstChange) {
         this.onChange.emit(this._selectedDate);
@@ -129,15 +114,6 @@ export class NpDatePickerComponent implements OnInit {
       this._selectedDay = currentDate.getDate();
       this._selectedMonth = currentDate.getMonth();
       this._selectedYear = currentDate.getFullYear();
-
-      if (this.showTimePicker) {
-        var _hour = currentDate.getHours();
-        this._selectedAMPM = _hour >= 12 ? "PM" : "AM";
-        _hour = _hour % 12;
-        this._selectedHour = _hour ? _hour : 12; // the hour '0' should be '12'      
-        this._selectedMinute = currentDate.getMinutes();
-        this._selectedSecond = currentDate.getSeconds();
-      }
     }
 
     this._currentDay = currentDate.getDate();
@@ -213,8 +189,7 @@ export class NpDatePickerComponent implements OnInit {
   }
 
   _onSelectDate(day: number) {
-    this._selectedDate = new Date(this._currentYear, this._currentMonth, day,
-      this.showTimePicker ? (this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour) : 0, this.showTimePicker ? this._selectedMinute : 0, this.showTimePicker ? this._selectedSecond : 0);
+    this._selectedDate = new Date(this._currentYear, this._currentMonth, day);
     this._resetVariables();
     this._isOpen = false;
     this.valueChange.emit(this._selectedDate);
@@ -245,22 +220,6 @@ export class NpDatePickerComponent implements OnInit {
       return;
     }
     this._isOpen = false;
-  }
-
-  _changeTime($event, arg) {
-    if (arg == "hour") {
-      this._selectedHour = parseInt($event.target.value);
-    }
-    else if (arg == "minute") {
-      this._selectedMinute = parseInt($event.target.value);
-    }
-    else if (arg == "second") {
-      this._selectedSecond = parseInt($event.target.value);
-    }
-    else if (arg == "AMPM") {
-      this._selectedAMPM = $event.target.value;
-    }
-    this._setDate();
   }
 
   _setYears() {
@@ -297,7 +256,7 @@ export class NpDatePickerComponent implements OnInit {
 
   _setDate() {
     if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
-      this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay, this._selectedAMPM == "PM" ? this._selectedHour + 12 : this._selectedHour, this._selectedMinute, this._selectedSecond);
+      this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay);
       this.valueChange.emit(this._selectedDate);
       if (this.onChange) {
         this.onChange.emit(this._selectedDate);
@@ -305,37 +264,7 @@ export class NpDatePickerComponent implements OnInit {
     }
   }
 
-  _minusHour() {
-    this._selectedHour = this._selectedHour == 0 ? 12 : this._selectedHour - 1;
-    this._setDate();
-  }
-
-  _minusMinute() {
-    this._selectedMinute = this._selectedMinute == 0 ? 60 : this._selectedMinute - 1;
-    this._setDate();
-  }
-
-  _minusSecond() {
-    this._selectedSecond = this._selectedSecond == 0 ? 60 : this._selectedSecond - 1;
-    this._setDate();
-  }
-
-  _addHour() {
-    this._selectedHour = this._selectedHour == 12 ? 0 : this._selectedHour + 1;
-    this._setDate();
-  }
-
-  _addMinute() {
-    this._selectedMinute = this._selectedMinute == 60 ? 0 : this._selectedMinute + 1;
-    this._setDate();
-  }
-
-  _addSecond() {
-    this._selectedSecond = this._selectedSecond == 60 ? 0 : this._selectedSecond + 1;
-    this._setDate();
-  }
-
-  validate() {
+  _validate() {
     if ((this.minDate && this._selectedDate < this.minDate) || (this.maxDate && this._selectedDate > this.maxDate)) {
       this._isValidDate = false;
       this._selectedDate = null;
@@ -345,11 +274,16 @@ export class NpDatePickerComponent implements OnInit {
     return this._isValidDate;
   }
 
+  validate() {
+    this._validate();
+  }
+
   getSelectedDate() {
     return this._selectedDate;
   }
 
   setSelectedDate(date: Date) {
+    this.validate();
     if ((this.minDate && date < this.minDate) || (this.maxDate && date > this.maxDate)) {
       this._isValidDate = false;
       this._selectedDate = null;

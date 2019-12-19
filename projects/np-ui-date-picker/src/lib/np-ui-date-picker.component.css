@@ -5,6 +5,8 @@
 
 .np-component-button {
     display: inline-block;
+    background-color:transparent;
+    cursor: pointer;
 }
 
 .np-component-div {

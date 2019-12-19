@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "np-date-picker": [
-        "dist/np-date-picker"
+      "np-ui-date-picker": [
+        "dist/np-ui-date-picker"
       ],
-      "np-date-picker/*": [
-        "dist/np-date-picker/*"
+      "np-ui-date-picker/*": [
+        "dist/np-ui-date-picker/*"
       ]
     }
   }

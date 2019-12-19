@@ -1,6 +1,6 @@
 {
     "name": "np-ui-date-picker",
-    "version": "1.2.0",
+    "version": "1.4.0",
     "private": false,
     "author": {
         "name": "nilavpatel"
@@ -17,7 +17,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/NilavPatel/np-date-picker-package.git"
+        "url": "https://github.com/NilavPatel/np-ui-date-picker-package.git"
     },
     "peerDependencies": {
         "@angular/animations": "~8.0.0",

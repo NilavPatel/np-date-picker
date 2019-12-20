@@ -8,6 +8,7 @@ Date picker for Angular 8 and 8+
 
 ## [Demo](https://stackblitz.com/edit/np-ui-date-picker)
 
+## NPM
 ````
 npm i np-ui-date-picker
 ````

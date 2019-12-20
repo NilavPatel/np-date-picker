@@ -3,7 +3,7 @@
 <img src="https://raw.githubusercontent.com/NilavPatel/np-ui-data-grid-package/master/src/assets/images/logo-large.png" width="300" height="80">
 
 ````
-Custom date picker for Angular 8.
+Date picker for Angular 8 and 8+
 ````
 
 ## [Demo](https://stackblitz.com/edit/np-ui-date-picker)
@@ -14,7 +14,7 @@ npm i np-ui-date-picker
 
 ## HTML
 ````
-<np-ui-date-picker [(value)]="birthDate" format="dd/MMM/yy"></np-ui-date-picker>
+<np-ui-date-picker [(value)]="date" [format]="'dd/MMM/yy'"></np-ui-date-picker>
 ````
 
 ## Properties
@@ -28,32 +28,34 @@ npm i np-ui-date-picker
     default format is dd/MM/yyyy
 
 3.  defaultOpen : boolean
-    default open datepicker, user can not close this.(no textbox will be shown)
+    default open datepicker, user can not close this.(no textbox will be shown).
 
 4.  minDate : Date
-    no date will be shown less than min date
+    no date will be shown less than min date.
 
 5.  maxDate : Date
-    no date will be show greater than max date
+    no date will be show greater than max date.
 
 6.  disabled : boolean
-    true/false - set component disabled
+    true/false - set component disabled.
 ````
 
 ## Apis
 ````
 1.  getSelectedDate();
-    get selected date
+    get selected date.
 
 2.  setSelectedDate(date: Date);
-    set date as selected
+    set date as selected.
 
 3.  validate();
-    returns boolean, selected date is valid or not?
+    returns boolean, selected date is valid or not?.
+    Check min and max date validation if used. else returns true always.
+    If date is set by Api, then use validate Api to check weather date is within min max range or not.
 ````
 
 ## Methods
 ````
 1.  onChange
-    on change event binding
+    on change event binding.
 ````

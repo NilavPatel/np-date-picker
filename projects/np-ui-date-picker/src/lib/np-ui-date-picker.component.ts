@@ -54,18 +54,18 @@ export class NpUiDatePickerComponent implements OnInit {
   ngOnInit() {
     this._weekDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-    this._monthsList = [{ key: 0, value: "Jan" },
-    { key: 1, value: "Feb" },
-    { key: 2, value: "Mar" },
-    { key: 3, value: "Apr" },
+    this._monthsList = [{ key: 0, value: "January" },
+    { key: 1, value: "February" },
+    { key: 2, value: "March" },
+    { key: 3, value: "April" },
     { key: 4, value: "May" },
-    { key: 5, value: "Jun" },
-    { key: 6, value: "Jul" },
-    { key: 7, value: "Aug" },
-    { key: 8, value: "Sep" },
-    { key: 9, value: "Oct" },
-    { key: 10, value: "Nov" },
-    { key: 11, value: "Dec" }];
+    { key: 5, value: "June" },
+    { key: 6, value: "July" },
+    { key: 7, value: "August" },
+    { key: 8, value: "September" },
+    { key: 9, value: "October" },
+    { key: 10, value: "November" },
+    { key: 11, value: "December" }];
 
 
     if (this.minDate) {
@@ -99,7 +99,6 @@ export class NpUiDatePickerComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
       this._selectedDate = changes.value.currentValue;
-      this._validate();
       this._resetVariables();
       if (this.onChange && !changes.value.firstChange) {
         this.onChange.emit(this._selectedDate);
@@ -189,6 +188,9 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _onSelectDate(day: number) {
+    if (day == null) {
+      return;
+    }
     this._selectedDate = new Date(this._currentYear, this._currentMonth, day);
     this._resetVariables();
     this._isOpen = false;
@@ -266,12 +268,10 @@ export class NpUiDatePickerComponent implements OnInit {
 
   _validate() {
     if ((this.minDate && this._selectedDate < this.minDate) || (this.maxDate && this._selectedDate > this.maxDate)) {
-      this._isValidDate = false;
-      this._selectedDate = null;
+      return false;
     } else {
-      this._isValidDate = true;
+      return true
     }
-    return this._isValidDate;
   }
 
   validate() {
@@ -283,13 +283,6 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   setSelectedDate(date: Date) {
-    this.validate();
-    if ((this.minDate && date < this.minDate) || (this.maxDate && date > this.maxDate)) {
-      this._isValidDate = false;
-      this._selectedDate = null;
-      this._resetVariables();
-      return;
-    }
     this.value = date;
     this._selectedDate = date;
     this._resetVariables();

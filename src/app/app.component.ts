@@ -8,29 +8,36 @@ import { NpUiDatePickerComponent } from 'projects/np-ui-date-picker/src/public-a
 })
 export class AppComponent {
   title = 'np-ui-date-picker';
-  selectedDate: Date;
-  birthDate = new Date(1992, 9, 28);  
-  minDate = new Date(2019, 1, 10);
-  maxDate = new Date(2020, 5, 10);
+  date1: Date = new Date(1992, 9, 28);
 
-  @ViewChild("datepicker", { static: true }) datepicker: NpUiDatePickerComponent;
-  @ViewChild("dateValidations", { static: true }) dateValidations: NpUiDatePickerComponent;
+  date2: Date = new Date(1992, 9, 28);
+  selectedDate2 = null;
+
+  minDate4: Date = new Date();
+  maxDate4: Date = new Date();
+
+  constructor() {    
+    this.minDate4.setMonth(1);
+    this.maxDate4.setMonth(2);
+  }
+
+  @ViewChild("datepicker2", { static: true }) datepicker2: NpUiDatePickerComponent;
 
   getSelectedDate() {
-    this.selectedDate = this.datepicker.getSelectedDate();
+    this.selectedDate2 = this.datepicker2.getSelectedDate();
   }
 
   setSelectedDate() {
-    this.datepicker.setSelectedDate(new Date(1992, 9, 28));
+    this.datepicker2.setSelectedDate(new Date(1992, 9, 28));
+  }
+
+  setNullSelectedDate() {
+    this.datepicker2.setSelectedDate(undefined);
   }
 
   onChange(date: Date) {
     if (date != null) {
       alert(date.toString());
     }
-  }
-
-  setInvalidDate() {
-    this.dateValidations.setSelectedDate(new Date(2019, 1, 1));
   }
 }

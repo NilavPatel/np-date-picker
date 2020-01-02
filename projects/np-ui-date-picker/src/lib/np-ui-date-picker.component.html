@@ -18,16 +18,11 @@
                     </button>
                 </td>
                 <td>
+
                     <select (change)="_selectMonth($event)">
                         <option *ngFor="let month of _months" value="{{month.key}}"
                             [selected]="month.key == _currentMonth">
                             {{month.value}}
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <select (change)="_selectYear($event)">
-                        <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}
                         </option>
                     </select>
                 </td>
@@ -37,52 +32,56 @@
                         <i class="demo-icon icon-right np-component-button"></i>
                     </button>
                 </td>
+                <td>
+                    <select (change)="_selectYear($event)">
+                        <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}
+                        </option>
+                    </select>
+                </td>
             </tr>
         </table>
         <table class="tbl-days">
             <tr>
                 <td class="np-days" *ngFor="let day of _weekDays">{{day}}</td>
             </tr>
-        </table>
-        <table class="tbl-days">
             <tr>
                 <td *ngFor="let day of _daysArrayFromTo(0, 7)"
-                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}"
+                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                        'np-today-bg':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear }" (click)="_onSelectDate(day)">
+                    {{day}}
+                </td>
+            </tr>
+            <tr>
+                <td *ngFor="let day of _daysArrayFromTo(7, 14)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                    'np-today-bg':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear }"
                     (click)="_onSelectDate(day)">
                     {{day}}
                 </td>
             </tr>
             <tr>
-                <td *ngFor="let day of _daysArrayFromTo(7, 14)"
-                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}"
+                <td *ngFor="let day of _daysArrayFromTo(14, 21)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                    'np-today-bg':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear }"
                     (click)="_onSelectDate(day)">
                     {{day}}
                 </td>
             </tr>
             <tr>
-                <td *ngFor="let day of _daysArrayFromTo(14, 21)"
-                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}"
+                <td *ngFor="let day of _daysArrayFromTo(21, 28)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                    'np-today-bg':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear }"
                     (click)="_onSelectDate(day)">
                     {{day}}
                 </td>
             </tr>
             <tr>
-                <td *ngFor="let day of _daysArrayFromTo(21, 28)"
-                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}"
+                <td *ngFor="let day of _daysArrayFromTo(28, 35)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                    'np-today-bg':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear }"
                     (click)="_onSelectDate(day)">
                     {{day}}
                 </td>
             </tr>
-            <tr>
-                <td *ngFor="let day of _daysArrayFromTo(28, 35)"
-                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}"
-                    (click)="_onSelectDate(day)">
-                    {{day}}
-                </td>
-            </tr>
-            <tr>
-                <td *ngFor="let day of _daysArrayFromTo(35, 42)"
-                    [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear}"
+            <tr *ngIf="_days.length > 35 && _days[35] != null">
+                <td *ngFor="let day of _daysArrayFromTo(35, 42)" [ngClass]="{'selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                    'np-today-bg':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear }"
                     (click)="_onSelectDate(day)">
                     {{day}}
                 </td>

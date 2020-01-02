@@ -32,6 +32,10 @@ export class NpUiDatePickerComponent implements OnInit {
   _disableNextButton = false;
   _isValidDate = true;
 
+  _todayDate: number;
+  _todayMonth: number;
+  _todayYear: number;
+
   @Input() value: Date;
   @Input() minDate: Date;
   @Input() maxDate: Date;
@@ -43,6 +47,10 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() placeholder: string;
 
   constructor(private elRef: ElementRef) {
+    var today = new Date();
+    this._todayDate = today.getDate();
+    this._todayMonth = today.getMonth();
+    this._todayYear = today.getFullYear();
   }
 
   @HostListener('document:click', ['$event'])

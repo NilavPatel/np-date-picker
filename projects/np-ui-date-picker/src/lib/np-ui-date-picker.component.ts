@@ -40,6 +40,7 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() defaultOpen: boolean = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Input() disabled: boolean;
+  @Input() placeholder: string;
 
   constructor(private elRef: ElementRef) {
   }

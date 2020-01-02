@@ -2,7 +2,7 @@
     <div class="np-input-group" *ngIf="!defaultOpen">
         <input class="np-component-input" type="text" [ngModel]="_selectedDate | date: _format"
             [ngClass]="{'np-invalid-date': !_isValidDate}" [readonly]="true" [disabled]="disabled"
-            (click)="_toggleDatePicker()">
+            (click)="_toggleDatePicker()" placeholder="{{placeholder}}">
         <button type="button" class="np-component-button" (click)="_toggleDatePicker()" [disabled]="disabled">
             <i class="demo-icon icon-calendar"></i>
         </button>

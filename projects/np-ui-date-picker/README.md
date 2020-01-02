@@ -1,10 +1,10 @@
 # np-ui-date-picker
 
-<img src="https://raw.githubusercontent.com/NilavPatel/np-ui-data-grid-package/master/src/assets/images/logo-large.png" width="300" height="80">
-
 ````
 Date picker for Angular 8 and 8+
 ````
+
+<img src="https://raw.githubusercontent.com/NilavPatel/np-ui-data-grid-package/master/src/assets/images/logo-large.png" width="300" height="80">
 
 ## [Demo](https://stackblitz.com/edit/np-ui-date-picker)
 
@@ -39,6 +39,9 @@ npm i np-ui-date-picker
 
 6.  disabled : boolean
     true/false - set component disabled.
+
+7.  placeholder : string
+    set placeholder for datepicker
 ````
 
 ## Apis

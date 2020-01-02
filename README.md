@@ -42,6 +42,9 @@ npm i np-ui-date-picker
 
 7.  placeholder : string
     set placeholder for datepicker
+
+8.  showToday : boolean
+    show/hide Today link in datepicker pop up, on click of link today's date will be set as selected.
 ````
 
 ## Apis

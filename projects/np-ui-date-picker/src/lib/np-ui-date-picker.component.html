@@ -41,6 +41,7 @@
             </tr>
         </table>
         <table class="tbl-days">
+
             <tr>
                 <td class="np-days" *ngFor="let day of _weekDays">{{day}}</td>
             </tr>
@@ -87,5 +88,8 @@
                 </td>
             </tr>
         </table>
+        <div class="np-today-link" *ngIf="showToday">
+            <a (click)="_setToday()">Today</a>
+        </div>
     </div>
 </div>

@@ -45,6 +45,7 @@ export class NpUiDatePickerComponent implements OnInit {
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Input() disabled: boolean;
   @Input() placeholder: string;
+  @Input() showToday: boolean;
 
   constructor(private elRef: ElementRef) {
     var today = new Date();
@@ -281,6 +282,11 @@ export class NpUiDatePickerComponent implements OnInit {
     } else {
       return true
     }
+  }
+
+  _setToday() {
+    this.setSelectedDate(new Date());
+    this._close();
   }
 
   validate() {

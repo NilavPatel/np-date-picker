@@ -84,6 +84,11 @@
     background-color: lightgray;
 }
 
+.np-today-link{
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 /*font css start*/
 

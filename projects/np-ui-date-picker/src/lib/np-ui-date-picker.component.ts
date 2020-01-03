@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'np-ui-date-picker',
@@ -174,6 +175,9 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _prevMonth() {
+    if (this._disablePrevButton) {
+      return;
+    }
     this._toggleNextPrevButtons();
     if (this._currentMonth == 0) {
       this._currentMonth = 11;
@@ -186,6 +190,9 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _nextMonth() {
+    if (this._disableNextButton) {
+      return;
+    }
     this._toggleNextPrevButtons();
     if (this._currentMonth == 11) {
       this._currentMonth = 0;
@@ -224,6 +231,9 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _toggleDatePicker() {
+    if (this.disabled) {
+      return;
+    }
     this._isOpen = !this._isOpen;
   }
 

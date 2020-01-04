@@ -87,23 +87,6 @@ export class NpUiDatePickerComponent implements OnInit {
       this._maxYear = this.maxDate.getFullYear();
     }
 
-    var today = new Date();
-    if (this.minDate && this.minDate > today) {
-      this._todayDate = this.minDate.getDate();
-      this._todayMonth = this.minDate.getMonth();
-      this._todayYear = this.minDate.getFullYear();
-    }
-    else if (this.maxDate && this.maxDate < today) {
-      this._todayDate = this.maxDate.getDate();
-      this._todayMonth = this.maxDate.getMonth();
-      this._todayYear = this.maxDate.getFullYear();
-    }
-    else {
-      this._todayDate = today.getDate();
-      this._todayMonth = today.getMonth();
-      this._todayYear = today.getFullYear();
-    }
-
     if (this.format && this.format.length > 0) {
       this._format = this.format;
     } else {
@@ -114,10 +97,16 @@ export class NpUiDatePickerComponent implements OnInit {
       this._selectedDate = this.value;
     }
 
+    var today = new Date();
+    this._todayDate = today.getDate();
+    this._todayMonth = today.getMonth();
+    this._todayYear = today.getFullYear();
+
     this._resetVariables();
     this._setYears();
     this._setMonths();
     this._calculateDays();
+    this._toggleNextPrevButtons();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -183,12 +172,12 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _toggleNextPrevButtons() {
-    if (this._currentYear == this._minYear && this._currentMonth == (this._minMonth + 1)) {
+    if (this._currentYear == this._minYear && this._currentMonth == this._minMonth) {
       this._disablePrevButton = true;
     } else {
       this._disablePrevButton = false;
     }
-    if (this._currentYear == this._maxYear && this._currentMonth == (this._maxMonth - 1)) {
+    if (this._currentYear == this._maxYear && this._currentMonth == this._maxMonth) {
       this._disableNextButton = true;
     } else {
       this._disableNextButton = false;
@@ -198,8 +187,7 @@ export class NpUiDatePickerComponent implements OnInit {
   _prevMonth() {
     if (this._disablePrevButton) {
       return;
-    }
-    this._toggleNextPrevButtons();
+    }    
     if (this._currentMonth == 0) {
       this._currentMonth = 11;
       this._currentYear = this._currentYear - 1;
@@ -208,13 +196,13 @@ export class NpUiDatePickerComponent implements OnInit {
       this._currentMonth = this._currentMonth - 1;
     }
     this._calculateDays();
+    this._toggleNextPrevButtons();
   }
 
   _nextMonth() {
     if (this._disableNextButton) {
       return;
-    }
-    this._toggleNextPrevButtons();
+    }    
     if (this._currentMonth == 11) {
       this._currentMonth = 0;
       this._currentYear = this._currentYear + 1;
@@ -223,6 +211,7 @@ export class NpUiDatePickerComponent implements OnInit {
       this._currentMonth = this._currentMonth + 1;
     }
     this._calculateDays();
+    this._toggleNextPrevButtons();
   }
 
   _onSelectDate(day: number) {

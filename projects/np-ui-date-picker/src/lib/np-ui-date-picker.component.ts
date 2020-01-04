@@ -49,10 +49,6 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() showToday: boolean;
 
   constructor(private elRef: ElementRef) {
-    var today = new Date();
-    this._todayDate = today.getDate();
-    this._todayMonth = today.getMonth();
-    this._todayYear = today.getFullYear();
   }
 
   @HostListener('document:click', ['$event'])
@@ -91,6 +87,23 @@ export class NpUiDatePickerComponent implements OnInit {
       this._maxYear = this.maxDate.getFullYear();
     }
 
+    var today = new Date();
+    if (this.minDate && this.minDate > today) {
+      this._todayDate = this.minDate.getDate();
+      this._todayMonth = this.minDate.getMonth();
+      this._todayYear = this.minDate.getFullYear();
+    }
+    else if (this.maxDate && this.maxDate < today) {
+      this._todayDate = this.maxDate.getDate();
+      this._todayMonth = this.maxDate.getMonth();
+      this._todayYear = this.maxDate.getFullYear();
+    }
+    else {
+      this._todayDate = today.getDate();
+      this._todayMonth = today.getMonth();
+      this._todayYear = today.getFullYear();
+    }
+
     if (this.format && this.format.length > 0) {
       this._format = this.format;
     } else {
@@ -118,7 +131,15 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _resetVariables() {
-    var currentDate = this._selectedDate == null ? new Date() : this._selectedDate;
+    var dateToSet = new Date();
+    if (this.minDate && this.minDate > dateToSet) {
+      dateToSet = this.minDate;
+    }
+    if (this.maxDate && this.maxDate < dateToSet) {
+      dateToSet = this.maxDate;
+    }
+
+    var currentDate = this._selectedDate == null ? dateToSet : this._selectedDate;
 
     if (this._selectedDate) {
       this._selectedDay = currentDate.getDate();
@@ -162,12 +183,12 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _toggleNextPrevButtons() {
-    if (this._currentYear == this._minYear && (this._currentMonth - 1) == this._minMonth) {
+    if (this._currentYear == this._minYear && this._currentMonth == (this._minMonth + 1)) {
       this._disablePrevButton = true;
     } else {
       this._disablePrevButton = false;
     }
-    if (this._currentYear == this._maxYear && (this._currentMonth + 1) == this._maxMonth) {
+    if (this._currentYear == this._maxYear && this._currentMonth == (this._maxMonth - 1)) {
       this._disableNextButton = true;
     } else {
       this._disableNextButton = false;

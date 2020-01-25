@@ -45,8 +45,10 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() defaultOpen: boolean = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Input() disabled: boolean;
-  @Input() placeholder: string;
+  @Input() placeholder: string = "";
   @Input() showToday: boolean;
+  @Input() required: boolean = false;
+  @Input() name: string = "";
 
   constructor(private elRef: ElementRef) {
   }
@@ -187,7 +189,7 @@ export class NpUiDatePickerComponent implements OnInit {
   _prevMonth() {
     if (this._disablePrevButton) {
       return;
-    }    
+    }
     if (this._currentMonth == 0) {
       this._currentMonth = 11;
       this._currentYear = this._currentYear - 1;
@@ -202,7 +204,7 @@ export class NpUiDatePickerComponent implements OnInit {
   _nextMonth() {
     if (this._disableNextButton) {
       return;
-    }    
+    }
     if (this._currentMonth == 11) {
       this._currentMonth = 0;
       this._currentYear = this._currentYear + 1;

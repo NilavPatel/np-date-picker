@@ -40,6 +40,13 @@ npm i np-ui-date-picker
 
 8.  showToday : boolean
     show/hide Today link in datepicker pop up, on click of link today's date will be set as selected.
+
+9.  required : boolean
+    default value is false.
+    add required attribute to input textbox.
+
+10. name : string
+    add name attribute to input textbox.
 ````
 
 ## Apis

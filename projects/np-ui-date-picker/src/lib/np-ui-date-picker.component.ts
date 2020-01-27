@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
-import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'np-ui-date-picker',
@@ -8,13 +7,13 @@ import { IfStmt } from '@angular/compiler';
 })
 export class NpUiDatePickerComponent implements OnInit {
 
-  _isOpen = false;
   _weekDays: string[];
   _monthsList: any[];
   _months: any[];
   _years: number[] = [];
   _days: number[] = [];
   _selectedDate: Date;
+  _format: string;
   _selectedDay: number;
   _selectedMonth: number;
   _selectedYear: number;
@@ -22,33 +21,32 @@ export class NpUiDatePickerComponent implements OnInit {
   _currentWeekDay: number;
   _currentMonth: number;
   _currentYear: number;
-  _format: string;
   _minYear: number;
   _minMonth: number;
   _minDay: number;
-  _disablePrevButton = false;
   _maxYear: number;
   _maxMonth: number;
   _maxDay: number;
-  _disableNextButton = false;
-  _isValidDate = true;
-
   _todayDate: number;
   _todayMonth: number;
   _todayYear: number;
+  _isOpen = false;
+  _disablePrevButton = false;
+  _disableNextButton = false;
+  _isValidDate = true;
 
   @Input() value: Date;
   @Input() minDate: Date;
-  @Input() maxDate: Date;
-  @Output() valueChange = new EventEmitter();
+  @Input() maxDate: Date;  
   @Input() format: string;
-  @Input() defaultOpen: boolean = false;
-  @Output() onChange: EventEmitter<any> = new EventEmitter();
+  @Input() defaultOpen: boolean = false;  
   @Input() disabled: boolean;
   @Input() placeholder: string = "";
   @Input() showToday: boolean;
   @Input() required: boolean = false;
   @Input() name: string = "";
+  @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   constructor(private elRef: ElementRef) {
   }
@@ -115,7 +113,7 @@ export class NpUiDatePickerComponent implements OnInit {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
       this._selectedDate = changes.value.currentValue;
       this._resetVariables();
-      if (this.onChange && !changes.value.firstChange) {
+      if (!changes.value.firstChange) {
         this.onChange.emit(this._selectedDate);
       }
     }
@@ -136,6 +134,10 @@ export class NpUiDatePickerComponent implements OnInit {
       this._selectedDay = currentDate.getDate();
       this._selectedMonth = currentDate.getMonth();
       this._selectedYear = currentDate.getFullYear();
+    } else {
+      this._selectedDay = null;
+      this._selectedMonth = null;
+      this._selectedYear = null;
     }
 
     this._currentDay = currentDate.getDate();
@@ -225,9 +227,7 @@ export class NpUiDatePickerComponent implements OnInit {
     this._isOpen = false;
     this.valueChange.emit(this._selectedDate);
     this._isValidDate = true;
-    if (this.onChange) {
-      this.onChange.emit(this._selectedDate);
-    }
+    this.onChange.emit(this._selectedDate);
   }
 
   _selectMonth($event) {
@@ -257,8 +257,9 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _setYears() {
-    var minYear = this._minYear ? this._minYear : 1900;
-    var maxYear = this._maxYear ? this._maxYear : 2100;
+    var currentYear = new Date().getFullYear();
+    var minYear = this._minYear ? this._minYear : currentYear - 100;
+    var maxYear = this._maxYear ? this._maxYear : currentYear + 100;
     for (var i = minYear; i <= maxYear; i++) {
       this._years.push(i);
     }
@@ -292,9 +293,7 @@ export class NpUiDatePickerComponent implements OnInit {
     if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
       this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay);
       this.valueChange.emit(this._selectedDate);
-      if (this.onChange) {
-        this.onChange.emit(this._selectedDate);
-      }
+      this.onChange.emit(this._selectedDate);
     }
   }
 
@@ -311,6 +310,10 @@ export class NpUiDatePickerComponent implements OnInit {
     this._close();
   }
 
+  _clear() {
+    this.setSelectedDate(null);
+  }
+
   validate() {
     this._validate();
   }
@@ -325,8 +328,6 @@ export class NpUiDatePickerComponent implements OnInit {
     this._resetVariables();
     this._calculateDays();
     this.valueChange.emit(this._selectedDate);
-    if (this.onChange) {
-      this.onChange.emit(this._selectedDate);
-    }
+    this.onChange.emit(this._selectedDate);
   }
 }

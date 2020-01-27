@@ -28,9 +28,13 @@ npm i np-ui-date-picker
 
 4.  minDate : Date
     no date will be shown less than min date.
+    Default calender shows min year upto CurrentYear - 100, but if need to set years less than that,
+    then set minDate validation with less year numbers.
 
 5.  maxDate : Date
     no date will be show greater than max date.
+    Default calender shows max year upto CurrentYear + 100, but if need to set years more than that,
+    then set maxDate validation with high year numbers.
 
 6.  disabled : boolean
     true/false - set component disabled.

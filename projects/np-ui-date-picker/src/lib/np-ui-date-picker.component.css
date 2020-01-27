@@ -81,7 +81,7 @@
     width: 25px;
     cursor: pointer;
     text-align: center;
-    padding:2px;
+    padding: 2px;
 }
 
 .selected {
@@ -97,8 +97,12 @@
     background-color: lightgray;
 }
 
-.np-today-link {
-    text-align: center;
+.np-links {
+    text-align: center
+}
+
+.np-links a {
     text-decoration: underline;
     cursor: pointer;
+    padding: 10px 24px;
 }

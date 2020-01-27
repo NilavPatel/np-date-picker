@@ -16,7 +16,7 @@ export class AppComponent {
   minDate4: Date = new Date();
   maxDate4: Date = new Date();
 
-  constructor() {    
+  constructor() {
     this.minDate4.setMonth(1);
     this.maxDate4.setMonth(2);
   }
@@ -38,6 +38,8 @@ export class AppComponent {
   onChange(date: Date) {
     if (date != null) {
       alert(date.toString());
+    } else {
+      alert("null");
     }
   }
 }

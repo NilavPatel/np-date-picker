@@ -7,7 +7,7 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostList
 })
 export class NpUiDatePickerComponent implements OnInit {
 
-  _weekDays: string[];
+  _weekDays: string[] = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   _monthsList: any[];
   _months: any[];
   _years: number[] = [];
@@ -18,7 +18,6 @@ export class NpUiDatePickerComponent implements OnInit {
   _selectedMonth: number;
   _selectedYear: number;
   _currentDay: number;
-  _currentWeekDay: number;
   _currentMonth: number;
   _currentYear: number;
   _minYear: number;
@@ -37,14 +36,16 @@ export class NpUiDatePickerComponent implements OnInit {
 
   @Input() value: Date;
   @Input() minDate: Date;
-  @Input() maxDate: Date;  
+  @Input() maxDate: Date;
   @Input() format: string;
-  @Input() defaultOpen: boolean = false;  
+  @Input() defaultOpen: boolean = false;
   @Input() disabled: boolean;
   @Input() placeholder: string = "";
   @Input() showToday: boolean;
   @Input() required: boolean = false;
   @Input() name: string = "";
+  @Input() disabledDays: string[] = [];
+  @Input() disabledDates: Date[] = [];
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -59,7 +60,6 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._weekDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
     this._monthsList = [{ key: 0, value: "January" },
     { key: 1, value: "February" },
@@ -111,7 +111,9 @@ export class NpUiDatePickerComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
-      this._selectedDate = changes.value.currentValue;
+      if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
+        this._selectedDate = changes.value.currentValue;
+      }
       this._resetVariables();
       if (!changes.value.firstChange) {
         this.onChange.emit(this._selectedDate);
@@ -120,30 +122,36 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _resetVariables() {
-    var dateToSet = new Date();
-    if (this.minDate && this.minDate > dateToSet) {
-      dateToSet = this.minDate;
+    if (this._selectedDate) {
+      if (this.minDate && this.minDate > this._selectedDate) {
+        this._selectedDate = null;
+      }
+      if (this.maxDate && this.maxDate < this._selectedDate) {
+        this._selectedDate = null;
+      }
     }
-    if (this.maxDate && this.maxDate < dateToSet) {
-      dateToSet = this.maxDate;
-    }
-
-    var currentDate = this._selectedDate == null ? dateToSet : this._selectedDate;
 
     if (this._selectedDate) {
-      this._selectedDay = currentDate.getDate();
-      this._selectedMonth = currentDate.getMonth();
-      this._selectedYear = currentDate.getFullYear();
+      this._selectedDay = this._selectedDate.getDate();
+      this._selectedMonth = this._selectedDate.getMonth();
+      this._selectedYear = this._selectedDate.getFullYear();
     } else {
       this._selectedDay = null;
       this._selectedMonth = null;
       this._selectedYear = null;
     }
 
+    var currentDate = this._selectedDate ? this._selectedDate : new Date();
+    if (currentDate < this.minDate) {
+      currentDate = this.minDate;
+    }
+    if (currentDate > this.maxDate) {
+      currentDate = this.maxDate;
+    }
     this._currentDay = currentDate.getDate();
-    this._currentWeekDay = currentDate.getDay();
     this._currentMonth = currentDate.getMonth();
     this._currentYear = currentDate.getFullYear();
+    this._toggleNextPrevButtons();
   }
 
   _calculateDays() {
@@ -222,7 +230,11 @@ export class NpUiDatePickerComponent implements OnInit {
     if (day == null) {
       return;
     }
-    this._selectedDate = new Date(this._currentYear, this._currentMonth, day);
+    var date = new Date(this._currentYear, this._currentMonth, day);
+    if (this._checkDateIsDisabled(date)) {
+      return;
+    }
+    this._selectedDate = date;
     this._resetVariables();
     this._isOpen = false;
     this.valueChange.emit(this._selectedDate);
@@ -291,7 +303,11 @@ export class NpUiDatePickerComponent implements OnInit {
 
   _setDate() {
     if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
-      this._selectedDate = new Date(this._selectedYear, this._selectedMonth, this._selectedDay);
+      var date = new Date(this._selectedYear, this._selectedMonth, this._selectedDay)
+      if (this._checkDateIsDisabled(date)) {
+        return;
+      }
+      this._selectedDate = date;
       this.valueChange.emit(this._selectedDate);
       this.onChange.emit(this._selectedDate);
     }
@@ -306,7 +322,11 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   _setToday() {
-    this.setSelectedDate(new Date());
+    var today = new Date();
+    if (this._checkDateIsDisabled(today)) {
+      return;
+    }
+    this.setSelectedDate(today);
     this._close();
   }
 
@@ -315,7 +335,10 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   validate() {
-    this._validate();
+    if (this._validate() == false) {
+      return false;
+    }
+    return this._checkDateIsDisabled(this._selectedDate);
   }
 
   getSelectedDate() {
@@ -323,11 +346,37 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   setSelectedDate(date: Date) {
+    if (this._checkDateIsDisabled(date)) {
+      return;
+    }
     this.value = date;
     this._selectedDate = date;
     this._resetVariables();
     this._calculateDays();
     this.valueChange.emit(this._selectedDate);
     this.onChange.emit(this._selectedDate);
+  }
+
+  _checkDateDisabled(year: number, month: number, day: number) {
+    if (day) {
+      return this._checkDateIsDisabled(new Date(year, month, day));
+    }
+    return true;
+  }
+
+  private _checkIsDayDisabled(index: number) {
+    var day = this._weekDays[index];
+    return this.disabledDays.includes(day);
+  }
+
+  private _checkDateIsDisabled(date: Date) {
+    if (date == undefined || date == null) {
+      return false;
+    }
+    var day = date.getDay();
+    if (this._checkIsDayDisabled(day)) {
+      return true;
+    }
+    return this.disabledDates.findIndex(function (item) { return item.toString() == date.toString() }) > -1;
   }
 }

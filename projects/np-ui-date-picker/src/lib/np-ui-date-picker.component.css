@@ -106,3 +106,8 @@
     cursor: pointer;
     padding: 10px 24px;
 }
+
+.np-disabled {
+    color: gray;
+    cursor: not-allowed !important;
+}

@@ -13,12 +13,17 @@ export class AppComponent {
   date2: Date = new Date(1992, 9, 28);
   selectedDate2 = null;
 
+  date4: Date;
   minDate4: Date = new Date();
   maxDate4: Date = new Date();
-
+  
+  disabledDays: string[] = ["Su", "Sa"];
+  disabledDates: Date[];
   constructor() {
     this.minDate4.setMonth(1);
     this.maxDate4.setMonth(2);
+    var today = new Date();
+    this.disabledDates = [new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)];
   }
 
   @ViewChild("datepicker2", { static: true }) datepicker2: NpUiDatePickerComponent;

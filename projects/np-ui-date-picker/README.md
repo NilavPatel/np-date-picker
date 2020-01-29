@@ -40,6 +40,10 @@ Date picker custom component for Angular 8 and 8+, Created using only Angular.
     default value is false. add required attribute to input textbox.  
 10. `name` : string  
     add name attribute to input textbox.  
+11. `disabledDays` : string[]  
+    disable week days for date picker. Possible values for array are "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa".  
+12. `disabledDates` : Date[]  
+    disable dates in date picker. Assign array of dates to property.  
 
 ## Apis  
 1.  `getSelectedDate()`  
@@ -62,7 +66,7 @@ Date picker custom component for Angular 8 and 8+, Created using only Angular.
 4. [Color picker](https://www.npmjs.com/package/np-ui-color-picker)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
 
 ## Contributors
 ![](https://raw.githubusercontent.com/NilavPatel/nilavpatel.github.io/master/images/logo-large.png)

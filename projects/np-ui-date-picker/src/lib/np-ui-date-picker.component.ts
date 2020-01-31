@@ -105,14 +105,15 @@ export class NpUiDatePickerComponent implements OnInit {
     this._resetVariables();
     this._setYears();
     this._setMonths();
-    this._calculateDays();
-    this._toggleNextPrevButtons();
+    this._calculateDays();    
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
       if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
         this._selectedDate = changes.value.currentValue;
+      }else{
+        this._selectedDate = null;
       }
       this._resetVariables();
       if (!changes.value.firstChange) {
@@ -121,7 +122,7 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  _resetVariables() {
+  private _resetVariables() {
     if (this._selectedDate) {
       if (this.minDate && this.minDate > this._selectedDate) {
         this._selectedDate = null;
@@ -154,7 +155,7 @@ export class NpUiDatePickerComponent implements OnInit {
     this._toggleNextPrevButtons();
   }
 
-  _calculateDays() {
+  private _calculateDays() {
     this._days = [];
     var _daysInMonth = this._daysInThisMonth();
     var _firstWeekDayOfMonth = new Date(this._currentYear, this._currentMonth, 1).getDay();
@@ -175,7 +176,7 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  _daysInThisMonth() {
+  private _daysInThisMonth() {
     return new Date(this._currentYear, this._currentMonth + 1, 0).getDate();
   }
 
@@ -226,7 +227,7 @@ export class NpUiDatePickerComponent implements OnInit {
     this._toggleNextPrevButtons();
   }
 
-  _onSelectDate(day: number) {
+  _onSelectDate(day: number) {    
     if (day == null) {
       return;
     }
@@ -268,7 +269,7 @@ export class NpUiDatePickerComponent implements OnInit {
     this._isOpen = false;
   }
 
-  _setYears() {
+  private _setYears() {
     var currentYear = new Date().getFullYear();
     var minYear = this._minYear ? this._minYear : currentYear - 100;
     var maxYear = this._maxYear ? this._maxYear : currentYear + 100;
@@ -277,7 +278,7 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  _setMonths() {
+  private _setMonths() {
     if (this._minYear && this._minYear == this._currentYear && this._maxYear != this._currentYear) {
       this._months = [];
       for (var i = this._minMonth; i <= 11; i++) {
@@ -296,12 +297,9 @@ export class NpUiDatePickerComponent implements OnInit {
     } else {
       this._months = this._monthsList;
     }
-    if (this._currentMonth + 1 > this._months.length) {
-      this._currentMonth = this._months.length - 1;
-    }
   }
 
-  _setDate() {
+  private _setDate() {
     if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
       var date = new Date(this._selectedYear, this._selectedMonth, this._selectedDay)
       if (this._checkDateIsDisabled(date)) {
@@ -313,7 +311,7 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  _validate() {
+  private _validate() {
     if ((this.minDate && this._selectedDate < this.minDate) || (this.maxDate && this._selectedDate > this.maxDate)) {
       return false;
     } else {
@@ -332,6 +330,7 @@ export class NpUiDatePickerComponent implements OnInit {
 
   _clear() {
     this.setSelectedDate(null);
+    this._close();
   }
 
   validate() {
@@ -377,6 +376,6 @@ export class NpUiDatePickerComponent implements OnInit {
     if (this._checkIsDayDisabled(day)) {
       return true;
     }
-    return this.disabledDates.findIndex(function (item) { return item.toString() == date.toString() }) > -1;
+    return this.disabledDates.findIndex(function (item) { return item.toDateString() == date.toDateString() }) > -1;
   }
 }

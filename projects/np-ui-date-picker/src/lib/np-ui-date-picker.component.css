@@ -5,18 +5,17 @@
 
 .np-input-group {
     display: inline-flex;
-    border: 1px solid lightgray;
+    border: 1px solid black;
     padding: 2px;
 }
 
 .np-input {
     border: 1px solid transparent;
-    padding: 0px 2px;
 }
 
 .np-input-group-append {
-    margin-left: -1px;
     display: flex;
+    align-items: center;
 }
 
 .ng-invalid {
@@ -27,8 +26,7 @@
     background-color: white;
     position: absolute;
     padding: 5px;
-    border: 1px solid lightgray;
-    overflow-x: auto;
+    border: 1px solid black;
     z-index: 9999;
 }
 
@@ -37,79 +35,10 @@
     z-index: auto;
 }
 
-.np-table {
-    table-layout: fixed;
-    border-collapse: collapse;
-}
-
-.tbl-days {
-    margin: 5px;
-}
-
-.tbl-days tbody td {
-    height: 25px;
-    width: 25px;
-    cursor: pointer;
-    text-align: center;
-    padding: 4px;
-    border: 1px solid lightgray;
-}
-
-.tbl-days thead th {
-    height: 25px;
-    width: 25px;
-    padding: 4px;
-    font-weight: bold;
-    background-color: lightgray;
-    border: 1px solid lightgray;
-}
-
-.np-selected {
-    background-color: lightgreen !important;
-}
-
-.np-today {
-    background-color: lightsteelblue;
-}
-
-.np-disabled {
-    color: gray;
-    cursor: not-allowed !important;
-    background-color: #f7f7f7;
-}
-
-.np-select {
-    display: inline-block;
-    padding: .375rem;
-}
-
-.np-button {
-    display: inline-block;
-    border: 1px solid transparent;
-    padding: .375rem;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    margin-left: .5rem!important;
-}
-
-.np-button-group {
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-}
-
-.np-button-icon {
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid transparent;
-}
-
 .np-icon {
     height: 18px;
     width: 18px;
+    margin: auto;
 }
 
 .np-icon-lg {
@@ -117,15 +46,79 @@
     width: 24px;
 }
 
-.np-button-disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.np-overlay-header {
+    display: flex;
 }
 
-.np-align-right {
-    float: right;
-}
-
-.w-100 {
+.np-table {
+    border-collapse: collapse;
     width: 100%;
+}
+
+.np-table thead th {
+    border: 1px solid black;
+    background-color: gray;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+.np-table tbody td {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+}
+
+.clearfix {
+    padding-top: 5px;
+}
+
+.np-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+.np-button-group {
+    display: flex;
+}
+
+.np-button {
+    padding: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.np-button-group .np-button {
+    margin: auto;
+}
+
+.np-button:hover {
+    background-color: lightgray;
+}
+
+.np-select {
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.np-selected {
+    background-color: lightgreen;
+}
+
+.np-today {
+    background-color: lightblue;
+}
+
+.np-button-icon {
+    cursor: pointer;
+}
+
+.ml-5 {
+    margin-left: 5px;
+}
+
+.np-table .np-disabled {
+    background-color: lightgray;
 }

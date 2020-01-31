@@ -33,6 +33,8 @@ export class NpUiDatePickerComponent implements OnInit {
   _disablePrevButton = false;
   _disableNextButton = false;
   _isValidDate = true;
+  _minDate: Date;
+  _maxDate: Date;
 
   @Input() value: Date;
   @Input() minDate: Date;
@@ -79,12 +81,14 @@ export class NpUiDatePickerComponent implements OnInit {
       this._minDay = this.minDate.getDate();
       this._minMonth = this.minDate.getMonth();
       this._minYear = this.minDate.getFullYear();
+      this._minDate = new Date(this._minYear, this._minMonth, this._minDay);
     }
 
     if (this.maxDate) {
       this._maxDay = this.maxDate.getDate();
       this._maxMonth = this.maxDate.getMonth();
       this._maxYear = this.maxDate.getFullYear();
+      this._maxDate = new Date(this._maxYear, this._maxMonth, this._maxDay);
     }
 
     if (this.format && this.format.length > 0) {
@@ -105,14 +109,14 @@ export class NpUiDatePickerComponent implements OnInit {
     this._resetVariables();
     this._setYears();
     this._setMonths();
-    this._calculateDays();    
+    this._calculateDays();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
       if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
         this._selectedDate = changes.value.currentValue;
-      }else{
+      } else {
         this._selectedDate = null;
       }
       this._resetVariables();
@@ -124,10 +128,10 @@ export class NpUiDatePickerComponent implements OnInit {
 
   private _resetVariables() {
     if (this._selectedDate) {
-      if (this.minDate && this.minDate > this._selectedDate) {
+      if (this._minDate && this._minDate > this._selectedDate) {
         this._selectedDate = null;
       }
-      if (this.maxDate && this.maxDate < this._selectedDate) {
+      if (this._maxDate && this._maxDate < this._selectedDate) {
         this._selectedDate = null;
       }
     }
@@ -143,11 +147,11 @@ export class NpUiDatePickerComponent implements OnInit {
     }
 
     var currentDate = this._selectedDate ? this._selectedDate : new Date();
-    if (currentDate < this.minDate) {
-      currentDate = this.minDate;
+    if (currentDate < this._minDate) {
+      currentDate = this._minDate;
     }
-    if (currentDate > this.maxDate) {
-      currentDate = this.maxDate;
+    if (currentDate > this._maxDate) {
+      currentDate = this._maxDate;
     }
     this._currentDay = currentDate.getDate();
     this._currentMonth = currentDate.getMonth();
@@ -227,7 +231,7 @@ export class NpUiDatePickerComponent implements OnInit {
     this._toggleNextPrevButtons();
   }
 
-  _onSelectDate(day: number) {    
+  _onSelectDate(day: number) {
     if (day == null) {
       return;
     }
@@ -312,7 +316,7 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   private _validate() {
-    if ((this.minDate && this._selectedDate < this.minDate) || (this.maxDate && this._selectedDate > this.maxDate)) {
+    if ((this._minDate && this._selectedDate < this._minDate) || (this._maxDate && this._selectedDate > this._maxDate)) {
       return false;
     } else {
       return true

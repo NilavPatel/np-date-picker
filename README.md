@@ -66,7 +66,7 @@ Date picker custom component for Angular 8 and 8+, Created using only Angular.
 4. [Color picker](https://www.npmjs.com/package/np-ui-color-picker)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Contributors
 ![](https://raw.githubusercontent.com/NilavPatel/nilavpatel.github.io/master/images/logo-large.png)

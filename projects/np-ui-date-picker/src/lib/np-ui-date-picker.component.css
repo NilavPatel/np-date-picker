@@ -103,14 +103,6 @@
     padding: 2px;
 }
 
-.np-selected {
-    background-color: lightgreen;
-}
-
-.np-today {
-    background-color: lightblue;
-}
-
 .np-button-icon {
     cursor: pointer;
 }
@@ -119,6 +111,14 @@
     margin-left: 5px;
 }
 
-.np-table .np-disabled {
+.np-disabled {
     background-color: lightgray;
+}
+
+.np-today {
+    background-color: lightblue;
+}
+
+.np-selected {
+    background-color: lightgreen;
 }

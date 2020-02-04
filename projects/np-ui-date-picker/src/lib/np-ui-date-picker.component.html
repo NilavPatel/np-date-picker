@@ -40,44 +40,56 @@
         <table class="np-table">
             <thead>
                 <tr>
-                    <th *ngFor="let day of _weekDays">{{day}}</th>
+                    <th *ngFor="let weekDay of _weekDays">{{weekDay}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td *ngFor="let day of _daysArrayFromTo(0, 7); let i = index;" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                            'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day)}" (click)="_onSelectDate(day)">
+                            'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
+                        (click)="_onSelectDate(day)">
                         {{day}}
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
                     </td>
                 </tr>
                 <tr>
                     <td *ngFor="let day of _daysArrayFromTo(7, 14); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day)}" (click)="_onSelectDate(day)">
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
+                        (click)="_onSelectDate(day)">
                         {{day}}
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
                     </td>
                 </tr>
                 <tr>
                     <td *ngFor="let day of _daysArrayFromTo(14, 21); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day) }" (click)="_onSelectDate(day)">
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
+                        (click)="_onSelectDate(day)">
                         {{day}}
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
                     </td>
                 </tr>
                 <tr>
                     <td *ngFor="let day of _daysArrayFromTo(21, 28); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day) }" (click)="_onSelectDate(day)">
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
+                        (click)="_onSelectDate(day)">
                         {{day}}
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
                     </td>
                 </tr>
                 <tr>
                     <td *ngFor="let day of _daysArrayFromTo(28, 35); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day) }" (click)="_onSelectDate(day)">
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
+                        (click)="_onSelectDate(day)">
                         {{day}}
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
                     </td>
                 </tr>
                 <tr *ngIf="_days.length > 35 && _days[35] != null">
                     <td *ngFor="let day of _daysArrayFromTo(35, 42); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day) }" (click)="_onSelectDate(day)">
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
+                        (click)="_onSelectDate(day)">
                         {{day}}
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
                     </td>
                 </tr>
             </tbody>

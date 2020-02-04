@@ -1,18 +1,30 @@
 <div>
+    <h1>np-ui-date-picker Examples</h1>
+</div>
+
+<div>
     <fieldset>
-        <legend>1. Default Date picker</legend>
-        <np-ui-date-picker [(value)]="date1" [format]="'dd-MM-yyyy'">
+        <legend>1. Default Date picker control.</legend>
+        <np-ui-date-picker [(value)]="date1">
         </np-ui-date-picker>
-        <div>Selected Date : {{date1 | date : 'dd-MM-yyy'}}</div>
+        <div>Selected Date : {{date1}}</div>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>2. Get and Set value in Date picker</legend>
-        <np-ui-date-picker #datepicker2 [(value)]="date2" [format]="'dd/MMM/yy'" (onChange)="onChange($event)">
+        <legend>2. Set display format for date picker.</legend>
+        <np-ui-date-picker [format]="'dd-MM-yyyy'">
         </np-ui-date-picker>
-        <div>Selected Date : {{selectedDate2 | date : 'dd/MMM/yy'}}</div>
+    </fieldset>
+</div>
+
+<div>
+    <fieldset>
+        <legend>3. Get and Set value in Date picker using apis.</legend>
+        <np-ui-date-picker #datepicker2 [(value)]="date3">
+        </np-ui-date-picker>
+        <div>Selected Date : {{selectedDate3}}</div>
         <div>
             <button (click)="getSelectedDate()">Get Selected Date</button>
             <button (click)="setSelectedDate()">Set date as 28/Oct/19</button>
@@ -23,21 +35,28 @@
 
 <div>
     <fieldset>
-        <legend>3. Always open Date picker</legend>
-        <np-ui-date-picker defaultOpen=true></np-ui-date-picker>
+        <legend>4. Bind onchange event for date picker.</legend>
+        <np-ui-date-picker (onChange)="onChange($event)"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>4. Min Max validation in Date picker</legend>
-        <np-ui-date-picker [minDate]="minDate4" [maxDate]="maxDate4"></np-ui-date-picker>
+        <legend>5. Show date picker as always open.</legend>
+        <np-ui-date-picker [defaultOpen]="true"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>5. Toggle Enable/Disable Date picker</legend>
+        <legend>6. Min Max validation in Date picker, minimum will be today and maximum will be after 2 months</legend>
+        <np-ui-date-picker [minDate]="minDate6" [maxDate]="maxDate6"></np-ui-date-picker>
+    </fieldset>
+</div>
+
+<div>
+    <fieldset>
+        <legend>7. Toggle Enable/Disable Date picker using button click.</legend>
         <np-ui-date-picker [disabled]="date5Enabled"></np-ui-date-picker>
         <div>
             <button (click)="date5Enabled = !date5Enabled">Toggle Enable/Disable</button>
@@ -47,28 +66,35 @@
 
 <div>
     <fieldset>
-        <legend>6. Set placeholder for datepicker</legend>
+        <legend>8. Set placeholder for datepicker.</legend>
         <np-ui-date-picker [placeholder]="'Select Date'"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>7. Show today button in datepicker</legend>
+        <legend>9. Show today button in datepicker.</legend>
         <np-ui-date-picker [showToday]="true"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>8. Required validation</legend>
-        <np-ui-date-picker [showToday]="true" [required]="true" [name]="'txtDate'"></np-ui-date-picker>
+        <legend>10. Required validation when selected date is null. Also set name attribute for control.</legend>
+        <np-ui-date-picker [required]="true" [name]="'txtDate'"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>9. Disabled days and dates, all sat and sun, and today and tomorrow are disabled in below example.</legend>
-        <np-ui-date-picker [showToday]="true" [disabledDays]="disabledDays" [disabledDates]="disabledDates" [(value)]="date9"></np-ui-date-picker>
+        <legend>11. Disabled days and dates, all sat and sun, and today and tomorrow are disabled in below example.</legend>
+        <np-ui-date-picker [disabledDays]="disabledDays11" [disabledDates]="disabledDates11"></np-ui-date-picker>
+    </fieldset>
+</div>
+
+<div>
+    <fieldset>
+        <legend>12. Show Date labels on hover of today and tomorrow.</legend>
+        <np-ui-date-picker [dateLabels]="dateLabels12"></np-ui-date-picker>
     </fieldset>
 </div>

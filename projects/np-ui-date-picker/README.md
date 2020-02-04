@@ -44,6 +44,9 @@ Date picker custom component for Angular 8 and 8+, Created using only Angular.
     disable week days for date picker. Possible values for array are "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa".  
 12. `disabledDates` : Date[]  
     disable dates in date picker. Assign array of dates to property.  
+13. `dateLabels`: any[]
+    Example: [{ date : new Date(), label: "Today"}]
+    Lables tooltip will be shown on hover of dates passed in this property.
 
 ## Apis  
 1.  `getSelectedDate()`  

@@ -75,9 +75,15 @@
     padding-top: 5px;
 }
 
+.np-tooltip-target {
+    background-color: lightsalmon;
+    text-decoration: underline;
+}
+
 .np-disabled {
-    opacity: 0.5;
     cursor: not-allowed !important;
+    background-color: lightgray;
+    color: gray;
 }
 
 .np-button-group {
@@ -121,4 +127,19 @@
 
 .np-selected {
     background-color: lightgreen;
+}
+
+.np-tooltip-overlay {
+    background-color: white;
+    position: absolute;
+    padding: 5px;
+    border: 1px solid black;
+    z-index: 99999;
+    visibility: hidden;
+    color: white;
+    background-color: black;
+}
+
+.np-tooltip-target:hover .np-tooltip-overlay {
+    visibility: visible;
 }

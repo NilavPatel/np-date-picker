@@ -48,6 +48,7 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() name: string = "";
   @Input() disabledDays: string[] = [];
   @Input() disabledDates: Date[] = [];
+  @Input() dateLabels: any[] = [];
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -365,6 +366,15 @@ export class NpUiDatePickerComponent implements OnInit {
       return this._checkDateIsDisabled(new Date(year, month, day));
     }
     return true;
+  }
+
+  _getTitle(year: number, month: number, day: number) {
+    if (day && this.dateLabels.length > 0) {
+      var currentDate = new Date(year, month, day);
+      var dateLabel: any = this.dateLabels.find(function (item) { return item.date.toDateString() == currentDate.toDateString(); });
+      return dateLabel ? dateLabel.label : null;
+    }
+    return null;
   }
 
   private _checkIsDayDisabled(index: number) {

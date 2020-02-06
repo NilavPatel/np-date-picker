@@ -1,0 +1,14 @@
+fieldset {
+    margin-bottom: 20px;
+}
+
+legend,
+h1,
+h3 {
+    color: brown;
+}
+
+button {
+    margin-right: 5px;
+    margin-top: 5px;
+}

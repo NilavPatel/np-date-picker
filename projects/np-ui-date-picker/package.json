@@ -1,6 +1,6 @@
 {
     "name": "np-ui-date-picker",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "private": false,
     "author": {
         "name": "nilavpatel"
@@ -8,6 +8,8 @@
     "license": "MIT",
     "keywords": [
         "angular",
+        "angular 8",
+        "angular 9",
         "datepicker",
         "datetimepicker",
         "calenar",

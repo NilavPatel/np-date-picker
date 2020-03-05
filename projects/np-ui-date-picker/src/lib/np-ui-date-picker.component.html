@@ -1,43 +1,48 @@
 <div class="np-component">
     <div class="np-input-group" *ngIf="!defaultOpen">
-        <input class="np-input" type="text" [ngModel]="_selectedDate | date: _format" [ngClass]="{'np-invalid-date': !_isValidDate}" [name]="name" [readonly]="true" [disabled]="disabled" [required]="required" [placeholder]="placeholder" (click)="_toggleDatePicker()">
+        <input class="np-input" #datepickerinput type="text" [ngModel]="_selectedDate | date: _format"
+            [ngClass]="{'np-invalid-date': !_isValidDate}" [name]="name" [readonly]="true" [disabled]="disabled"
+            [required]="required" [placeholder]="placeholder" (click)="_toggleDatePicker()">
         <a class="np-input-group-append" (click)="_toggleDatePicker()">
             <svg class="np-icon" viewBox="0 0 24 24">
-                <path
+                <path fill="currentcolor"
                     d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
                 <path fill="none" d="M0 0h24v24H0z" /></svg>
         </a>
     </div>
-    <div *ngIf="_isOpen || defaultOpen" class="np-overlay" [ngClass]="{'np-overlay-open': defaultOpen}">
-        <div class="np-overlay-header">
-            <a class="np-button-icon" (click)="_prevMonth()" [ngClass]="{'np-disabled': _disablePrevButton}">
+    <div *ngIf="_isOpen || defaultOpen" class="np-overlay" [ngClass]="{'np-overlay-datepicker-open': defaultOpen}">
+        <ul class="np-overlay-header">
+            <li class="np-button-icon" (click)="_prevMonth()" [ngClass]="{'np-date-disabled': _disablePrevButton}">
                 <svg class="np-icon-lg" viewBox="0 0 24 24">
-                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+                    <path fill="currentcolor" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
                     <path fill="none" d="M0 0h24v24H0V0z" /></svg>
-            </a>
-            <select class="np-select" (change)="_selectMonth($event)">
-                <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">
-                    {{month.value}}
-                </option>
-            </select>
-            <select class="np-select ml-5" (change)="_selectYear($event)">
-                <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}
-                </option>
-            </select>
-            <a class="np-button-icon" (click)="_nextMonth()" [ngClass]="{'np-disabled': _disableNextButton}">
+            </li>
+            <li>
+                <select class="np-select" (change)="_selectMonth($event)">
+                    <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">
+                        {{month.value}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <select class="np-select ml-5" (change)="_selectYear($event)">
+                    <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}
+                    </option>
+                </select>
+            </li>
+            <li class="np-button-icon" (click)="_nextMonth()" [ngClass]="{'np-date-disabled': _disableNextButton}">
                 <svg class="np-icon-lg" viewBox="0 0 24 24">
-                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+                    <path fill="currentcolor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
                     <path fill="none" d="M0 0h24v24H0V0z" /></svg>
-            </a>
-            <a class="np-button-icon" *ngIf="!defaultOpen" (click)="_close()">
-                <svg class="np-icon-lg" viewBox="0 0 24 24">
-                    <path
+            </li>
+            <li class="np-button-icon" *ngIf="!defaultOpen" (click)="_close()">
+                <svg class="np-icon" viewBox="0 0 24 24">
+                    <path fill="currentcolor"
                         d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                     <path d="M0 0h24v24H0z" fill="none" /></svg>
-            </a>
-        </div>
-        <div class="clearfix"></div>
-        <table class="np-table">
+            </li>
+        </ul>
+        <table class="np-datepicker-table">
             <thead>
                 <tr>
                     <th *ngFor="let weekDay of _weekDays">{{weekDay}}</th>
@@ -45,56 +50,73 @@
             </thead>
             <tbody>
                 <tr>
-                    <td *ngFor="let day of _daysArrayFromTo(0, 7); let i = index;" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                            'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
+                    <td *ngFor="let day of _daysArrayFromTo(0, 7); let i = index;"
+                        [ngClass]="{'np-date-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                            'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
                         (click)="_onSelectDate(day)">
                         {{day}}
-                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">
+                            {{label}}
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td *ngFor="let day of _daysArrayFromTo(7, 14); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
+                    <td *ngFor="let day of _daysArrayFromTo(7, 14); let i = index"
+                        [ngClass]="{'np-date-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
                         (click)="_onSelectDate(day)">
                         {{day}}
-                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">
+                            {{label}}
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td *ngFor="let day of _daysArrayFromTo(14, 21); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
+                    <td *ngFor="let day of _daysArrayFromTo(14, 21); let i = index"
+                        [ngClass]="{'np-date-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
                         (click)="_onSelectDate(day)">
                         {{day}}
-                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">
+                            {{label}}
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td *ngFor="let day of _daysArrayFromTo(21, 28); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
+                    <td *ngFor="let day of _daysArrayFromTo(21, 28); let i = index"
+                        [ngClass]="{'np-date-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
                         (click)="_onSelectDate(day)">
                         {{day}}
-                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">
+                            {{label}}
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td *ngFor="let day of _daysArrayFromTo(28, 35); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
+                    <td *ngFor="let day of _daysArrayFromTo(28, 35); let i = index"
+                        [ngClass]="{'np-date-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day)}"
                         (click)="_onSelectDate(day)">
                         {{day}}
-                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">
+                            {{label}}
+                        </div>
                     </td>
                 </tr>
                 <tr *ngIf="_days.length > 35 && _days[35] != null">
-                    <td *ngFor="let day of _daysArrayFromTo(35, 42); let i = index" [ngClass]="{'np-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
-                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
+                    <td *ngFor="let day of _daysArrayFromTo(35, 42); let i = index"
+                        [ngClass]="{'np-date-selected': day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear,
+                        'np-today':day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear, 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day), 'np-tooltip-target' : _getTitle(_currentYear,_currentMonth,day) }"
                         (click)="_onSelectDate(day)">
                         {{day}}
-                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">{{label}}</div>
+                        <div class="np-tooltip-overlay" *ngIf="_getTitle(_currentYear,_currentMonth,day); let label">
+                            {{label}}
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="clearfix"></div>
         <div class="np-button-group">
             <a class="np-button" *ngIf="showToday" (click)="_setToday()">Today</a>
             <a class="np-button" (click)="_clear()">Clear</a>

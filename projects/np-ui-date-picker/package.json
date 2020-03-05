@@ -1,14 +1,13 @@
 {
     "name": "np-ui-date-picker",
-    "version": "1.5.1",
+    "version": "9.0.0",
     "private": false,
     "author": {
         "name": "nilavpatel"
     },
     "license": "MIT",
     "keywords": [
-        "angular",
-        "angular 8",
+        "angular",        
         "angular 9",
         "datepicker",
         "datetimepicker",
@@ -22,17 +21,16 @@
         "url": "https://github.com/NilavPatel/np-ui-date-picker-package.git"
     },
     "peerDependencies": {
-        "@angular/animations": "~8.0.0",
-        "@angular/common": "~8.0.0",
-        "@angular/compiler": "~8.0.0",
-        "@angular/core": "~8.0.0",
-        "@angular/forms": "~8.0.0",
-        "@angular/platform-browser": "~8.0.0",
-        "@angular/platform-browser-dynamic": "~8.0.0",
-        "@angular/router": "~8.0.0",
-        "core-js": "^2.5.4",
-        "rxjs": "~6.5.2",
-        "tslib": "^1.9.0",
-        "zone.js": "~0.9.1"
+        "@angular/animations": "~9.0.5",
+        "@angular/common": "~9.0.5",
+        "@angular/compiler": "~9.0.5",
+        "@angular/core": "~9.0.5",
+        "@angular/forms": "~9.0.5",
+        "@angular/platform-browser": "~9.0.5",
+        "@angular/platform-browser-dynamic": "~9.0.5",
+        "@angular/router": "~9.0.5",
+        "rxjs": "~6.5.4",
+        "tslib": "^1.10.0",
+        "zone.js": "~0.10.2"
     }
 }

@@ -1,145 +1,131 @@
-.np-component {
+.np-componenet {
     position: relative;
-    display: inline-block;
-}
-
-.np-input-group {
-    display: inline-flex;
-    border: 1px solid black;
-    padding: 2px;
-}
-
-.np-input {
-    border: 1px solid transparent;
-}
-
-.np-input-group-append {
-    display: flex;
-    align-items: center;
-}
-
-.ng-invalid {
-    border: 1px solid red;
-}
-
-.np-overlay {
-    background-color: white;
-    position: absolute;
-    padding: 5px;
-    border: 1px solid black;
-    z-index: 9999;
-}
-
-.np-overlay-open {
-    position: relative;
-    z-index: auto;
+    width: 100%;
+    height: 100%;    
 }
 
 .np-icon {
-    height: 18px;
-    width: 18px;
-    margin: auto;
+    height: 16px;
+    width: 16px;
+    padding: 1px;
 }
 
 .np-icon-lg {
     height: 24px;
     width: 24px;
+    padding: 1px;
 }
 
-.np-overlay-header {
-    display: flex;
+.np-input {
+    padding-right: 20px;
 }
 
-.np-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.np-table thead th {
-    border: 1px solid black;
-    background-color: gray;
-    color: white;
-    text-align: center;
-    padding: 5px;
-}
-
-.np-table tbody td {
-    height: 30px;
-    width: 30px;
-    border: 1px solid black;
-    text-align: center;
+.np-input-group-append {
+    display: inline-block;
+    right: 18px;
+    position: relative;
+    vertical-align: middle;
     cursor: pointer;
 }
 
-.clearfix {
-    padding-top: 5px;
-}
-
-.np-tooltip-target {
-    background-color: lightsalmon;
-    text-decoration: underline;
-}
-
-.np-disabled {
-    cursor: not-allowed !important;
-    background-color: lightgray;
-    color: gray;
-}
-
-.np-button-group {
-    display: flex;
-}
-
-.np-button {
+.np-overlay {
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    border: 1px solid black;
     padding: 5px;
-    border: 1px solid black;
-    cursor: pointer;
+    min-width: 200px;
 }
 
-.np-button-group .np-button {
-    margin: auto;
-}
-
-.np-button:hover {
-    background-color: lightgray;
-}
-
-.np-select {
-    border: 1px solid black;
-    padding: 2px;
+.np-icon-close {
+    position: absolute;
+    right: 5px;
 }
 
 .np-button-icon {
     cursor: pointer;
 }
 
-.ml-5 {
-    margin-left: 5px;
+.np-overlay table td {
+    text-align: center;
 }
 
-.np-disabled {
-    background-color: lightgray;
+.np-button {
+    border: 1px solid black;
+    padding: 2px;
+    margin-left: 5px;
+    display: inline-block;
+    cursor: pointer;
+    min-width: 50px;
+    text-align: center;
+}
+
+.np-overlay-datepicker-open {
+    position: relative;
+    width: 220px;
+    z-index: auto;
+}
+
+.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.np-datepicker-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.np-datepicker-table thead th {
+    border-bottom: 1px solid black;
+    height: 30px;
+    width: 30px;
+    user-select: none;
+}
+
+.np-datepicker-table tbody td {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.np-overlay-header {
+    padding: 0px;
+    margin: 0px;
+}
+
+.np-overlay-header li {
+    display: inline-block;
+    padding: 2px;
+    vertical-align: middle;
+}
+
+.np-date-disabled {
+    cursor: default !important;
+    opacity: 0.5;
 }
 
 .np-today {
+    background-color: lightgoldenrodyellow;
+}
+
+.np-date-selected {
     background-color: lightblue;
 }
 
-.np-selected {
-    background-color: lightgreen;
+.np-tooltip-target{
+    text-decoration: underline;
 }
 
-.np-tooltip-overlay {
-    background-color: white;
-    position: absolute;
-    padding: 5px;
-    border: 1px solid black;
-    z-index: 99999;
-    visibility: hidden;
-    color: white;
-    background-color: black;
+.np-tooltip-overlay{
+    display: none;
 }
 
 .np-tooltip-target:hover .np-tooltip-overlay {
-    visibility: visible;
+    display: block;
+    position: absolute;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 2;
 }

@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   disabledDays11: string[];
   disabledDates11: Date[];
   dateLabels12: any[];
+  date5Enabled: boolean = false;
 
   @ViewChild("datepicker2", { static: true }) datepicker2: NpUiDatePickerComponent;
 

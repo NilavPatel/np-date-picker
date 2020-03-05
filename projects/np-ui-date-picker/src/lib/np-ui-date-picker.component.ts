@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostListener, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'np-ui-date-picker',
   templateUrl: './np-ui-date-picker.component.html',
-  styleUrls: ['./np-ui-date-picker.component.css']
+  styleUrls: ['./np-ui-date-picker.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class NpUiDatePickerComponent implements OnInit {
 
@@ -51,6 +53,8 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() dateLabels: any[] = [];
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('datepickerinput') input: ElementRef;
 
   constructor(private elRef: ElementRef) {
   }
@@ -265,6 +269,9 @@ export class NpUiDatePickerComponent implements OnInit {
       return;
     }
     this._isOpen = !this._isOpen;
+    if (this._isOpen) {
+      this.input.nativeElement.focus();
+    }
   }
 
   _close() {

@@ -26,6 +26,7 @@
     position: relative;
     vertical-align: middle;
     cursor: pointer;
+    user-select: none;
 }
 
 .np-overlay {
@@ -40,14 +41,11 @@
 .np-icon-close {
     position: absolute;
     right: 5px;
+    user-select: none;
 }
 
 .np-button-icon {
     cursor: pointer;
-}
-
-.np-overlay table td {
-    text-align: center;
 }
 
 .np-button {
@@ -58,6 +56,7 @@
     cursor: pointer;
     min-width: 50px;
     text-align: center;
+    user-select: none;
 }
 
 .np-overlay-datepicker-open {
@@ -80,6 +79,7 @@
     height: 30px;
     width: 30px;
     user-select: none;
+    text-align: center;
 }
 
 .np-datepicker-table tbody td {
@@ -87,6 +87,7 @@
     width: 30px;
     cursor: pointer;
     user-select: none;
+    text-align: center;
 }
 
 .np-overlay-header {
@@ -98,6 +99,7 @@
     display: inline-block;
     padding: 2px;
     vertical-align: middle;
+    user-select: none;
 }
 
 .np-date-disabled {

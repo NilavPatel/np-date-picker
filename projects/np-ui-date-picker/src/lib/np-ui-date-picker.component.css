@@ -40,12 +40,18 @@
 
 .np-icon-close {
     position: absolute;
-    right: 5px;
+    right: 0px;
+    top: 0px;
+    cursor: pointer;
     user-select: none;
 }
 
-.np-button-icon {
+.np-icon-button-lg {
+    height: 28px;
+    width: 28px;
+    padding: 1px;
     cursor: pointer;
+    user-select: none;
 }
 
 .np-button {
@@ -130,4 +136,8 @@
     background-color: white;
     border: 1px solid black;
     z-index: 2;
+}
+
+.np-button-group{
+    text-align: right;
 }

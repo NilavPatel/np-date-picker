@@ -1,7 +1,7 @@
 .np-componenet {
     position: relative;
     width: 100%;
-    height: 100%;    
+    height: 100%;
 }
 
 .np-icon {
@@ -35,7 +35,6 @@
     z-index: 1;
     border: 1px solid black;
     padding: 5px;
-    min-width: 200px;
 }
 
 .np-icon-close {
@@ -75,33 +74,7 @@
     border: 1px solid red;
 }
 
-.np-datepicker-table {
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.np-datepicker-table thead th {
-    border-bottom: 1px solid black;
-    height: 30px;
-    width: 30px;
-    user-select: none;
-    text-align: center;
-}
-
-.np-datepicker-table tbody td {
-    height: 30px;
-    width: 30px;
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-}
-
-.np-overlay-header {
-    padding: 0px;
-    margin: 0px;
-}
-
-.np-overlay-header li {
+.np-overlay-header .np-overlay-header-item {
     display: inline-block;
     padding: 2px;
     vertical-align: middle;
@@ -121,15 +94,15 @@
     background-color: lightblue;
 }
 
-.np-tooltip-target{
+.np-tooltip-target {
     text-decoration: underline;
 }
 
-.np-tooltip-overlay{
+.np-tooltip-overlay {
     display: none;
 }
 
-.np-tooltip-target:hover .np-tooltip-overlay {
+.np-datepicker-dates-items:hover .np-tooltip-overlay {
     display: block;
     position: absolute;
     padding: 5px;
@@ -138,6 +111,39 @@
     z-index: 2;
 }
 
-.np-button-group{
+.np-button-group {
     text-align: right;
+}
+
+.np-datepicker-weekdays {
+    width: 210px;
+}
+
+.np-datepicker-weekdays .np-datepicker-dates-items {
+    display: inline-block;
+    border-bottom: 1px solid black;
+    height: 20px;
+    width: 20px;
+    user-select: none;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.np-datepicker-dates {
+    width: 210px;
+}
+
+.np-datepicker-dates .np-datepicker-dates-items {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    user-select: none;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.np-tooltip-target{
+    border-bottom: 1px solid black;
 }

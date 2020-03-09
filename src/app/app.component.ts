@@ -9,8 +9,10 @@ import { NpUiDatePickerComponent } from 'projects/np-ui-date-picker/src/public-a
 export class AppComponent implements OnInit {
 
   title = 'np-ui-date-picker examples';
-  date1: Date = new Date(1992, 9, 28);
-  date3: Date = new Date(1992, 9, 28);
+  date1: Date = new Date();
+  date2: Date = new Date();
+  date3: Date = new Date();
+  date4: Date = new Date();
   selectedDate3: Date;
   minDate6: Date = new Date();
   maxDate6: Date = new Date();
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit {
   disabledDates11: Date[];
   dateLabels12: any[];
   date5Enabled: boolean = false;
+  format = 'dd-MM-yyyy';
 
   @ViewChild("datepicker2", { static: true }) datepicker2: NpUiDatePickerComponent;
 
@@ -60,5 +63,9 @@ export class AppComponent implements OnInit {
     } else {
       alert("null");
     }
+  }
+
+  changeFormat() {
+    this.format = "dd/MMM/yyyy";
   }
 }

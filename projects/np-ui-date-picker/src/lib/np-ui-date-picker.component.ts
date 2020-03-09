@@ -15,7 +15,6 @@ export class NpUiDatePickerComponent implements OnInit {
   _years: number[] = [];
   _days: number[] = [];
   _selectedDate: Date;
-  _format: string;
   _selectedDay: number;
   _selectedMonth: number;
   _selectedYear: number;
@@ -41,11 +40,11 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() value: Date;
   @Input() minDate: Date;
   @Input() maxDate: Date;
-  @Input() format: string;
+  @Input() format: string = "";
   @Input() defaultOpen: boolean = false;
-  @Input() disabled: boolean;
+  @Input() disabled: boolean = false;
   @Input() placeholder: string = "";
-  @Input() showToday: boolean;
+  @Input() showToday: boolean = false;;
   @Input() required: boolean = false;
   @Input() name: string = "";
   @Input() disabledDays: string[] = [];
@@ -57,6 +56,27 @@ export class NpUiDatePickerComponent implements OnInit {
   @ViewChild('datepickerinput') input: ElementRef;
 
   constructor(private elRef: ElementRef) {
+    this._monthsList = [
+      { key: 0, value: "January" },
+      { key: 1, value: "February" },
+      { key: 2, value: "March" },
+      { key: 3, value: "April" },
+      { key: 4, value: "May" },
+      { key: 5, value: "June" },
+      { key: 6, value: "July" },
+      { key: 7, value: "August" },
+      { key: 8, value: "September" },
+      { key: 9, value: "October" },
+      { key: 10, value: "November" },
+      { key: 11, value: "December" }
+    ];
+
+    var today = new Date();
+    this._todayDate = today.getDate();
+    this._todayMonth = today.getMonth();
+    this._todayYear = today.getFullYear();
+
+    this.format = "dd/MM/yyyy";
   }
 
   @HostListener('document:click', ['$event'])
@@ -67,68 +87,58 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
 
-    this._monthsList = [{ key: 0, value: "January" },
-    { key: 1, value: "February" },
-    { key: 2, value: "March" },
-    { key: 3, value: "April" },
-    { key: 4, value: "May" },
-    { key: 5, value: "June" },
-    { key: 6, value: "July" },
-    { key: 7, value: "August" },
-    { key: 8, value: "September" },
-    { key: 9, value: "October" },
-    { key: 10, value: "November" },
-    { key: 11, value: "December" }];
-
-
-    if (this.minDate) {
-      this._minDay = this.minDate.getDate();
-      this._minMonth = this.minDate.getMonth();
-      this._minYear = this.minDate.getFullYear();
-      this._minDate = new Date(this._minYear, this._minMonth, this._minDay);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.value && changes.value.currentValue == this._selectedDate) {
+      return;
     }
 
-    if (this.maxDate) {
-      this._maxDay = this.maxDate.getDate();
-      this._maxMonth = this.maxDate.getMonth();
-      this._maxYear = this.maxDate.getFullYear();
-      this._maxDate = new Date(this._maxYear, this._maxMonth, this._maxDay);
+    if (changes.minDate) {
+      if (this.minDate) {
+        this.minDate.setHours(0, 0, 0, 0);
+        this._minDay = this.minDate.getDate();
+        this._minMonth = this.minDate.getMonth();
+        this._minYear = this.minDate.getFullYear();
+        this._minDate = this.minDate;
+      }
+      else {
+        this._minDay = null;
+        this._minMonth = null;
+        this._minYear = null;
+        this._minDate = null;
+      }
     }
 
-    if (this.format && this.format.length > 0) {
-      this._format = this.format;
-    } else {
-      this._format = "dd/MM/yyyy";
+    if (changes.maxDate) {
+      if (this.maxDate) {
+        this.maxDate.setHours(0, 0, 0, 0);
+        this._maxDay = this.maxDate.getDate();
+        this._maxMonth = this.maxDate.getMonth();
+        this._maxYear = this.maxDate.getFullYear();
+        this._maxDate = this.maxDate;
+      } else {
+        this._maxDay = null;
+        this._maxMonth = null;
+        this._maxYear = null;
+        this._maxDate = null;
+      }
     }
 
-    if (this.value != undefined && this.value != null) {
-      this._selectedDate = this.value;
+    if (changes.value) {
+      if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
+        var val = changes.value.currentValue;
+        val.setHours(0, 0, 0, 0);
+        this._selectedDate = val;
+      } else {
+        this._selectedDate = null;
+      }
     }
-
-    var today = new Date();
-    this._todayDate = today.getDate();
-    this._todayMonth = today.getMonth();
-    this._todayYear = today.getFullYear();
 
     this._resetVariables();
     this._setYears();
     this._setMonths();
     this._calculateDays();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.value != undefined && changes.value.currentValue != this._selectedDate) {
-      if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
-        this._selectedDate = changes.value.currentValue;
-      } else {
-        this._selectedDate = null;
-      }
-      this._resetVariables();
-      if (!changes.value.firstChange) {
-        this.onChange.emit(this._selectedDate);
-      }
-    }
   }
 
   private _resetVariables() {
@@ -180,17 +190,31 @@ export class NpUiDatePickerComponent implements OnInit {
         this._days.push(index);
       }
     }
-    for (let index = this._days.length; index <= 42; index++) {
-      this._days.push(null);
-    }
   }
 
   private _daysInThisMonth() {
-    return new Date(this._currentYear, this._currentMonth + 1, 0).getDate();
-  }
-
-  _daysArrayFromTo(from: number, to: number) {
-    return this._days.slice(from, to);
+    var days = 0;
+    switch (this._currentMonth) {
+      case 0:
+      case 2:
+      case 4:
+      case 6:
+      case 8:
+      case 10:
+        days = 31;
+        break;
+      case 3:
+      case 5:
+      case 7:
+      case 9:
+      case 11:
+        days = 30;
+        break;
+      case 1:
+        days = this._currentYear % 4 == 0 ? 29 : 28;
+        break;
+    }
+    return days;
   }
 
   _toggleNextPrevButtons() {
@@ -247,8 +271,8 @@ export class NpUiDatePickerComponent implements OnInit {
     this._selectedDate = date;
     this._resetVariables();
     this._isOpen = false;
-    this.valueChange.emit(this._selectedDate);
     this._isValidDate = true;
+    this.valueChange.emit(this._selectedDate);
     this.onChange.emit(this._selectedDate);
   }
 
@@ -311,18 +335,6 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  private _setDate() {
-    if (this._selectedYear > 0 && this._selectedMonth > 0 && this._selectedDay > 0) {
-      var date = new Date(this._selectedYear, this._selectedMonth, this._selectedDay)
-      if (this._checkDateIsDisabled(date)) {
-        return;
-      }
-      this._selectedDate = date;
-      this.valueChange.emit(this._selectedDate);
-      this.onChange.emit(this._selectedDate);
-    }
-  }
-
   private _validate() {
     if ((this._minDate && this._selectedDate < this._minDate) || (this._maxDate && this._selectedDate > this._maxDate)) {
       return false;
@@ -357,6 +369,9 @@ export class NpUiDatePickerComponent implements OnInit {
   }
 
   setSelectedDate(date: Date) {
+    if (date) {
+      date.setHours(0, 0, 0, 0);
+    }
     if (this._checkDateIsDisabled(date)) {
       return;
     }
@@ -364,6 +379,7 @@ export class NpUiDatePickerComponent implements OnInit {
     this._selectedDate = date;
     this._resetVariables();
     this._calculateDays();
+    this._isValidDate = true;
     this.valueChange.emit(this._selectedDate);
     this.onChange.emit(this._selectedDate);
   }
@@ -375,7 +391,7 @@ export class NpUiDatePickerComponent implements OnInit {
     return true;
   }
 
-  _getTitle(year: number, month: number, day: number) {
+  _getToolTip(year: number, month: number, day: number) {
     if (day && this.dateLabels.length > 0) {
       var currentDate = new Date(year, month, day);
       var dateLabel: any = this.dateLabels.find(function (item) { return item.date.toDateString() == currentDate.toDateString(); });

@@ -15,8 +15,9 @@
 <div>
     <fieldset>
         <legend>2. Set display format for date picker.</legend>
-        <np-ui-date-picker [format]="'dd-MM-yyyy'">
+        <np-ui-date-picker [(value)]="date2" [format]="format">
         </np-ui-date-picker>
+        <button (click)="changeFormat()">Change Format to dd/MMM/yyyy</button>
     </fieldset>
 </div>
 
@@ -37,7 +38,7 @@
 <div>
     <fieldset>
         <legend>4. Bind onchange event for date picker.</legend>
-        <np-ui-date-picker (onChange)="onChange($event)"></np-ui-date-picker>
+        <np-ui-date-picker (onChange)="onChange($event)" [(value)]="date4"></np-ui-date-picker>
     </fieldset>
 </div>
 
@@ -50,8 +51,9 @@
 
 <div>
     <fieldset>
-        <legend>6. Min Max validation in Date picker, minimum will be today and maximum will be after 2 months</legend>
-        <np-ui-date-picker [minDate]="minDate6" [maxDate]="maxDate6"></np-ui-date-picker>
+        <legend>6. Min Max validation in Date picker</legend>
+        From :<np-ui-date-picker [maxDate]="maxDate6" [(value)]="minDate6"></np-ui-date-picker>
+        To: <np-ui-date-picker [minDate]="minDate6" [(value)]="maxDate6"></np-ui-date-picker>
     </fieldset>
 </div>
 
@@ -88,7 +90,8 @@
 
 <div>
     <fieldset>
-        <legend>11. Disabled days and dates, all sat and sun, and today and tomorrow are disabled in below example.</legend>
+        <legend>11. Disabled days and dates, all sat and sun, and today and tomorrow are disabled in below example.
+        </legend>
         <np-ui-date-picker [disabledDays]="disabledDays11" [disabledDates]="disabledDates11"></np-ui-date-picker>
     </fieldset>
 </div>

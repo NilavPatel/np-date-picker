@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
   minDate6: Date = new Date();
   maxDate6: Date = new Date();
   disabledDays11: string[];
-  disabledDates11: Date[];
-  dateLabels12: any[];
+  disabledDates12: Date[];
+  dateLabels13: any[];
   date5Enabled: boolean = false;
   format = 'dd-MM-yyyy';
 
@@ -32,10 +32,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.disabledDays11 = ["Su", "Sa"];
     var today = new Date();
-    this.disabledDates11 = [new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)];
+    this.disabledDates12 = [new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)];
     var date = new Date();
     date.setMonth(date.getMonth() + 2);
-    this.dateLabels12 = [{
+    this.dateLabels13 = [{
       date: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
       label: "Today"
     },

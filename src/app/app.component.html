@@ -90,15 +90,30 @@
 
 <div>
     <fieldset>
-        <legend>11. Disabled days and dates, all sat and sun, and today and tomorrow are disabled in below example.
+        <legend>11. All Saturdays and Sundays are disabled in below example.
         </legend>
-        <np-ui-date-picker [disabledDays]="disabledDays11" [disabledDates]="disabledDates11"></np-ui-date-picker>
+        <np-ui-date-picker [disabledDays]="disabledDays11"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>12. Show Date labels on hover of today and tomorrow.</legend>
-        <np-ui-date-picker [dateLabels]="dateLabels12"></np-ui-date-picker>
+        <legend>12. Today and tomorrow are disabled in below example.
+        </legend>
+        <np-ui-date-picker [disabledDates]="disabledDates12"></np-ui-date-picker>
+    </fieldset>
+</div>
+
+<div>
+    <fieldset>
+        <legend>13. Show Date labels on hover of today and tomorrow.</legend>
+        <np-ui-date-picker [dateLabels]="dateLabels13"></np-ui-date-picker>
+    </fieldset>
+</div>
+
+<div>
+    <fieldset>
+        <legend>14. Start with monday</legend>
+        <np-ui-date-picker [startWithMonday]="true"></np-ui-date-picker>
     </fieldset>
 </div>

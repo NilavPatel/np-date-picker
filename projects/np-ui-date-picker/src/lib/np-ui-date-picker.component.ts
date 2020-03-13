@@ -9,7 +9,7 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostList
 })
 export class NpUiDatePickerComponent implements OnInit {
 
-  _weekDays: string[] = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  _weekDays: string[];
   _monthsList: any[];
   _months: any[];
   _years: number[] = [];
@@ -50,6 +50,7 @@ export class NpUiDatePickerComponent implements OnInit {
   @Input() disabledDays: string[] = [];
   @Input() disabledDates: Date[] = [];
   @Input() dateLabels: any[] = [];
+  @Input() startWithMonday: boolean = false;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -77,6 +78,8 @@ export class NpUiDatePickerComponent implements OnInit {
     this._todayYear = today.getFullYear();
 
     this.format = "dd/MM/yyyy";
+
+    this._weekDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   }
 
   @HostListener('document:click', ['$event'])
@@ -135,6 +138,10 @@ export class NpUiDatePickerComponent implements OnInit {
       }
     }
 
+    if (changes.startWithMonday) {
+      this._weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+    }
+
     this._resetVariables();
     this._setYears();
     this._setMonths();
@@ -171,28 +178,28 @@ export class NpUiDatePickerComponent implements OnInit {
     this._currentDay = currentDate.getDate();
     this._currentMonth = currentDate.getMonth();
     this._currentYear = currentDate.getFullYear();
-    this._toggleNextPrevButtons();
   }
 
   private _calculateDays() {
     this._days = [];
-    var _daysInMonth = this._daysInThisMonth();
+    var _daysInMonth = this._daysInCurrentMonth();
     var _firstWeekDayOfMonth = new Date(this._currentYear, this._currentMonth, 1).getDay();
     for (let index = 0; index < _firstWeekDayOfMonth; index++) {
       this._days.push(null);
     }
-    for (let index = 1; index <= _daysInMonth; index++) {
-      // min/max day validation
-      if ((this._currentYear == this._minYear && this._currentMonth == this._minMonth && index < this._minDay) ||
-        (this._currentYear == this._maxYear && this._currentMonth == this._maxMonth && index > this._maxDay)) {
-        this._days.push(null);
+    if (this.startWithMonday) {
+      if (_firstWeekDayOfMonth == 0) {
+        this._days.push(null, null, null, null, null, null);
       } else {
-        this._days.push(index);
+        this._days.pop();
       }
+    }
+    for (let index = 1; index <= _daysInMonth; index++) {
+      this._days.push(index);
     }
   }
 
-  private _daysInThisMonth() {
+  private _daysInCurrentMonth() {
     var days = 0;
     switch (this._currentMonth) {
       case 0:
@@ -217,20 +224,7 @@ export class NpUiDatePickerComponent implements OnInit {
     return days;
   }
 
-  _toggleNextPrevButtons() {
-    if (this._currentYear == this._minYear && this._currentMonth == this._minMonth) {
-      this._disablePrevButton = true;
-    } else {
-      this._disablePrevButton = false;
-    }
-    if (this._currentYear == this._maxYear && this._currentMonth == this._maxMonth) {
-      this._disableNextButton = true;
-    } else {
-      this._disableNextButton = false;
-    }
-  }
-
-  _prevMonth() {
+  private _prevMonth() {
     if (this._disablePrevButton) {
       return;
     }
@@ -242,10 +236,9 @@ export class NpUiDatePickerComponent implements OnInit {
       this._currentMonth = this._currentMonth - 1;
     }
     this._calculateDays();
-    this._toggleNextPrevButtons();
   }
 
-  _nextMonth() {
+  private _nextMonth() {
     if (this._disableNextButton) {
       return;
     }
@@ -257,10 +250,9 @@ export class NpUiDatePickerComponent implements OnInit {
       this._currentMonth = this._currentMonth + 1;
     }
     this._calculateDays();
-    this._toggleNextPrevButtons();
   }
 
-  _onSelectDate(day: number) {
+  private _onSelectDate(day: number) {
     if (day == null) {
       return;
     }
@@ -276,19 +268,18 @@ export class NpUiDatePickerComponent implements OnInit {
     this.onChange.emit(this._selectedDate);
   }
 
-  _selectMonth($event) {
+  private _selectMonth($event) {
     this._currentMonth = parseInt($event.target.value);
-    this._toggleNextPrevButtons();
     this._calculateDays();
   }
 
-  _selectYear($event) {
+  private _selectYear($event) {
     this._currentYear = parseInt($event.target.value);
     this._setMonths();
     this._calculateDays();
   }
 
-  _toggleDatePicker() {
+  private _toggleDatePicker() {
     if (this.disabled) {
       return;
     }
@@ -298,7 +289,7 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  _close() {
+  private _close() {
     if (this.defaultOpen == true) {
       return;
     }
@@ -307,32 +298,15 @@ export class NpUiDatePickerComponent implements OnInit {
 
   private _setYears() {
     var currentYear = new Date().getFullYear();
-    var minYear = this._minYear ? this._minYear : currentYear - 100;
-    var maxYear = this._maxYear ? this._maxYear : currentYear + 100;
+    var minYear = currentYear - 100;
+    var maxYear = currentYear + 100;
     for (var i = minYear; i <= maxYear; i++) {
       this._years.push(i);
     }
   }
 
   private _setMonths() {
-    if (this._minYear && this._minYear == this._currentYear && this._maxYear != this._currentYear) {
-      this._months = [];
-      for (var i = this._minMonth; i <= 11; i++) {
-        this._months.push(this._monthsList[i]);
-      }
-    } else if (this._maxYear && this._maxYear == this._currentYear && this._minYear != this._currentYear) {
-      this._months = [];
-      for (var i = 0; i <= this._maxMonth; i++) {
-        this._months.push(this._monthsList[i]);
-      }
-    } else if (this._minYear && this._minYear == this._maxYear && this._maxYear) {
-      this._months = [];
-      for (var i = this._minMonth; i <= this._maxMonth; i++) {
-        this._months.push(this._monthsList[i]);
-      }
-    } else {
-      this._months = this._monthsList;
-    }
+    this._months = this._monthsList;
   }
 
   private _validate() {
@@ -343,7 +317,7 @@ export class NpUiDatePickerComponent implements OnInit {
     }
   }
 
-  _setToday() {
+  private _setToday() {
     var today = new Date();
     if (this._checkDateIsDisabled(today)) {
       return;
@@ -352,9 +326,55 @@ export class NpUiDatePickerComponent implements OnInit {
     this._close();
   }
 
-  _clear() {
+  private _clear() {
     this.setSelectedDate(null);
     this._close();
+  }
+
+  private _checkDateDisabled(year: number, month: number, day: number) {
+    if (day) {
+      return this._checkDateIsDisabled(new Date(year, month, day));
+    }
+    return true;
+  }
+
+  private _getToolTip(year: number, month: number, day: number) {
+    if (day && this.dateLabels.length > 0) {
+      var currentDate = new Date(year, month, day);
+      var dateLabel: any = this.dateLabels.find(function (item) { return item.date.toDateString() == currentDate.toDateString(); });
+      return dateLabel ? dateLabel.label : null;
+    }
+    return null;
+  }
+
+  private _checkIsDayDisabled(index: number) {
+    var day = this._weekDays[index];
+    return this.disabledDays.includes(day);
+  }
+
+  private _checkDateIsDisabled(date: Date) {
+    if (date == undefined || date == null) {
+      return false;
+    }
+    var day = date.getDay();
+    if (this._checkIsDayDisabled(day)) {
+      return true;
+    }
+    if (this.minDate && date < this.minDate) {
+      return true;
+    }
+    if (this.maxDate && date > this.maxDate) {
+      return true;
+    }
+    return this.disabledDates.findIndex(function (item) { return item.toDateString() == date.toDateString() }) > -1;
+  }
+
+  private _checkIsToday(day) {
+    return day == this._todayDate && this._currentMonth == this._todayMonth && this._currentYear == this._todayYear;
+  }
+
+  private _checkIsSelected(day) {
+    return day == this._selectedDay && this._currentMonth == this._selectedMonth && this._currentYear == this._selectedYear;
   }
 
   validate() {
@@ -382,37 +402,5 @@ export class NpUiDatePickerComponent implements OnInit {
     this._isValidDate = true;
     this.valueChange.emit(this._selectedDate);
     this.onChange.emit(this._selectedDate);
-  }
-
-  _checkDateDisabled(year: number, month: number, day: number) {
-    if (day) {
-      return this._checkDateIsDisabled(new Date(year, month, day));
-    }
-    return true;
-  }
-
-  _getToolTip(year: number, month: number, day: number) {
-    if (day && this.dateLabels.length > 0) {
-      var currentDate = new Date(year, month, day);
-      var dateLabel: any = this.dateLabels.find(function (item) { return item.date.toDateString() == currentDate.toDateString(); });
-      return dateLabel ? dateLabel.label : null;
-    }
-    return null;
-  }
-
-  private _checkIsDayDisabled(index: number) {
-    var day = this._weekDays[index];
-    return this.disabledDays.includes(day);
-  }
-
-  private _checkDateIsDisabled(date: Date) {
-    if (date == undefined || date == null) {
-      return false;
-    }
-    var day = date.getDay();
-    if (this._checkIsDayDisabled(day)) {
-      return true;
-    }
-    return this.disabledDates.findIndex(function (item) { return item.toDateString() == date.toDateString() }) > -1;
   }
 }

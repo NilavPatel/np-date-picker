@@ -12,39 +12,39 @@
         </a>
     </div>
     <div *ngIf="_isOpen || defaultOpen" class="np-overlay" [ngClass]="{'np-overlay-datepicker-open': defaultOpen}">
-        <div class="np-icon-close" *ngIf="!defaultOpen">
-            <a (click)="_close()">
-                <svg class="np-icon" viewBox="0 0 24 24">
-                    <path fill="currentcolor"
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                    <path d="M0 0h24v24H0z" fill="none" />
-                </svg>
-            </a>
-        </div>
-        <div class="np-overlay-header">
+        <a *ngIf="!defaultOpen" (click)="_close()" title="Close" class="np-icon-close">
+            <svg class="np-icon" viewBox="0 0 24 24">
+                <path fill="currentcolor"
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+        </a>
+        <div class="np-overlay-header np-ui-background">
             <div class="np-overlay-header-item">
-                <select class="np-select ml-5" (change)="_selectYear($event)">
-                    <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}
-                    </option>
-                </select>
-            </div>
-            <div class="np-overlay-header-item">
-                <select class="np-select" (change)="_selectMonth($event)">
-                    <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">
-                        {{month.value}}
-                    </option>
-                </select>
-            </div>
-            <div class="np-overlay-header-item np-icon-button-lg" [ngClass]="{'np-date-disabled': _disablePrevButton}">
-                <a (click)="_prevMonth()">
+                <a (click)="_prevMonth()" class="np-icon-button" title="Previous"
+                    [ngClass]="{'np-date-disabled': _disablePrevButton}">
                     <svg class="np-icon-lg" viewBox="0 0 24 24">
                         <path fill="currentcolor" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
                         <path fill="none" d="M0 0h24v24H0V0z" />
                     </svg>
                 </a>
             </div>
-            <div class="np-overlay-header-item np-icon-button-lg" [ngClass]="{'np-date-disabled': _disableNextButton}">
-                <a (click)="_nextMonth()">
+            <div class="np-overlay-header-item">
+                <select class="np-ui-select" (change)="_selectYear($event)">
+                    <option *ngFor="let year of _years" value="{{year}}" [selected]="year == _currentYear">{{year}}
+                    </option>
+                </select>
+            </div>
+            <div class="np-overlay-header-item">
+                <select class="np-ui-select" (change)="_selectMonth($event)">
+                    <option *ngFor="let month of _months" value="{{month.key}}" [selected]="month.key == _currentMonth">
+                        {{month.value}}
+                    </option>
+                </select>
+            </div>
+            <div class="np-overlay-header-item">
+                <a (click)="_nextMonth()" class="np-icon-button" title="Next"
+                    [ngClass]="{'np-date-disabled': _disableNextButton}">
                     <svg class="np-icon-lg" viewBox="0 0 24 24">
                         <path fill="currentcolor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
                         <path fill="none" d="M0 0h24v24H0V0z" />
@@ -52,28 +52,27 @@
                 </a>
             </div>
         </div>
-        <div class="np-datepicker-weekdays">
-            <ng-container *ngFor="let weekDay of _weekDays">
-                <div class="np-datepicker-dates-items">{{weekDay}}</div>
+        <div class="np-datepicker-weekdays np-ui-background">
+            <ng-container *ngFor="let weekDay of _weekDays;let i = index;">
+                <div class="np-datepicker-weekdays-items">{{weekDay}}</div>
             </ng-container>
         </div>
         <div class="np-datepicker-dates">
             <ng-container *ngFor="let day of _days; let i = index;">
-                <div class="np-datepicker-dates-items"
-                    [ngClass]="{'np-date-selected': (day == _selectedDay && _currentMonth == _selectedMonth && _currentYear == _selectedYear),
-                                'np-today': (day == _todayDate && _currentMonth == _todayMonth && _currentYear == _todayYear),
+                <div class="np-datepicker-dates-items" [ngClass]="{'np-date-selected': _checkIsSelected(day),
+                                'np-today': _checkIsToday(day),
                                 'np-date-disabled' : _checkDateDisabled(_currentYear,_currentMonth,day)}"
                     (click)="_onSelectDate(day)">
                     {{day}}
                     <div *ngIf="_getToolTip(_currentYear,_currentMonth,day); let label" class="np-tooltip-target">
-                        <div class="np-tooltip-overlay">{{label}}</div>
+                        <div class="np-tooltip-overlay np-ui-background">{{label}}</div>
                     </div>
                 </div>
             </ng-container>
         </div>
-        <div class="np-button-group">
-            <a class="np-button" *ngIf="showToday" (click)="_setToday()">Today</a>
-            <a class="np-button" (click)="_clear()">Clear</a>
+        <div class="np-button-group np-ui-background">
+            <a class="np-button" title="Select today" *ngIf="showToday" (click)="_setToday()">Today</a>
+            <a class="np-button" title="Clear" (click)="_clear()">Clear</a>
         </div>
     </div>
 </div>

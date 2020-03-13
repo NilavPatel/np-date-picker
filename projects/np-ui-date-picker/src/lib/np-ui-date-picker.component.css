@@ -7,24 +7,35 @@
 .np-icon {
     height: 16px;
     width: 16px;
-    padding: 1px;
 }
 
 .np-icon-lg {
     height: 24px;
     width: 24px;
-    padding: 1px;
+}
+
+.np-icon-button {
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.np-icon-button:hover {
+    background-color: lightblue;
 }
 
 .np-input {
-    padding-right: 20px;
+    width: 100%;
+}
+
+.np-input-group {
+    display: flex;
 }
 
 .np-input-datepicker-append {
-    display: inline-block;
-    right: 18px;
-    position: relative;
-    vertical-align: middle;
     cursor: pointer;
     user-select: none;
 }
@@ -34,7 +45,6 @@
     background-color: white;
     z-index: 1;
     border: 1px solid black;
-    padding: 5px;
 }
 
 .np-icon-close {
@@ -45,28 +55,32 @@
     user-select: none;
 }
 
-.np-icon-button-lg {
-    height: 28px;
-    width: 28px;
-    padding: 1px;
-    cursor: pointer;
-    user-select: none;
+.np-button-group {
+    padding: 5px;
+    text-align: end;
+}
+
+.np-button-group .np-button {
+    margin-left: 5px;
+    display: inline-flex;
 }
 
 .np-button {
-    border: 1px solid black;
-    padding: 2px;
-    margin-left: 5px;
-    display: inline-block;
-    cursor: pointer;
-    min-width: 50px;
+    padding: 5px;
     text-align: center;
+    cursor: pointer;
     user-select: none;
+    display: block;
+    border: 1px solid black;
+}
+
+.np-button:hover {
+    background-color: lightblue;
 }
 
 .np-overlay-datepicker-open {
     position: relative;
-    width: 220px;
+    width: 245px;
     z-index: auto;
 }
 
@@ -74,24 +88,24 @@
     border: 1px solid red;
 }
 
-.np-overlay-header .np-overlay-header-item {
-    display: inline-block;
-    padding: 2px;
-    vertical-align: middle;
+.np-overlay-header {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.np-overlay-header-item {
+    padding-right: 2px;
     user-select: none;
+    vertical-align: middle;
 }
 
 .np-date-disabled {
-    cursor: default !important;
+    cursor: not-allowed !important;
     opacity: 0.5;
-}
-
-.np-today {
-    background-color: lightgoldenrodyellow;
-}
-
-.np-date-selected {
-    background-color: lightblue;
 }
 
 .np-tooltip-target {
@@ -100,50 +114,77 @@
 
 .np-tooltip-overlay {
     display: none;
+    margin-top: 5px;
 }
 
 .np-datepicker-dates-items:hover .np-tooltip-overlay {
     display: block;
     position: absolute;
     padding: 5px;
-    background-color: white;
     border: 1px solid black;
     z-index: 2;
 }
 
-.np-button-group {
-    text-align: right;
-}
-
 .np-datepicker-weekdays {
-    width: 210px;
+    width: 245px;
+    border-bottom: 1px solid black;
 }
 
-.np-datepicker-weekdays .np-datepicker-dates-items {
+.np-datepicker-weekdays-items {
     display: inline-block;
-    border-bottom: 1px solid black;
-    height: 20px;
-    width: 20px;
+    width: 35px;
     user-select: none;
     text-align: center;
     padding: 5px;
+    font-style: italic;
     font-weight: bold;
+    border-right: 1px solid black;
+    box-sizing: border-box;
+}
+
+.np-datepicker-weekdays-items:last-child {
+    border-right: none;
 }
 
 .np-datepicker-dates {
-    width: 210px;
+    width: 245px;
+    border-bottom: 1px solid black
 }
 
-.np-datepicker-dates .np-datepicker-dates-items {
+.np-datepicker-dates-items {
     display: inline-block;
-    height: 20px;
-    width: 20px;
+    width: 25px;
     user-select: none;
     text-align: center;
     padding: 5px;
     cursor: pointer;
+    ;
 }
 
-.np-tooltip-target{
+.np-tooltip-target {
     border-bottom: 1px solid black;
+}
+
+.np-datepicker-dates-items:hover {
+    background-color: aliceblue;
+}
+
+.np-date-disabled:hover {
+    background-color: transparent;
+}
+
+.np-today {
+    background-color: lightgoldenrodyellow;
+}
+
+.np-date-selected, .np-date-selected:hover {
+    background-color: lightblue;
+}
+
+.np-ui-background {
+    background-color: aliceblue;
+}
+
+.np-ui-select {
+    width: 100%;
 }

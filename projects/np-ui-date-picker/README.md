@@ -34,19 +34,21 @@ Date picker custom component for Angular 9 and 9+, Created using only Angular.
     true/false - set component disabled.  
 7.  `placeholder` : string  
     set placeholder for datepicker  
-8.  `showToday` : boolean  
+8.  `showTodayButton` : boolean  
     show/hide Today link in datepicker pop up, on click of link today's date will be set as selected.  
 9.  `required` : boolean  
     default value is false. add required attribute to input textbox.  
 10. `name` : string  
     add name attribute to input textbox.  
-11. `disabledDays` : string[]  
+11. `disableWeekDays` : string[]  
     disable week days for date picker. Possible values for array are "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa".  
-12. `disabledDates` : Date[]  
-    disable dates in date picker. Assign array of dates to property.  
+12. `disableDates` : Date[]  
+    disable dates in date picker. Assign array of dates to this property.  
 13. `dateLabels`: any[]
     Example: [{ date : new Date(), label: "Today"}]
     Lables tooltip will be shown on hover of dates passed in this property.
+14. `isStartMonthWithMonday` : boolean
+    If set to true then month will be start with Monday, default value is false.
 
 ## Apis  
 1.  `getSelectedDate()`  

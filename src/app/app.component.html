@@ -70,14 +70,14 @@
 <div>
     <fieldset>
         <legend>8. Set placeholder for datepicker.</legend>
-        <np-ui-date-picker [placeholder]="'Select Date'"></np-ui-date-picker>
+        <np-ui-date-picker [placeholder]="'Select Start Date'"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
         <legend>9. Show today button in datepicker.</legend>
-        <np-ui-date-picker [showToday]="true"></np-ui-date-picker>
+        <np-ui-date-picker [showTodayButton]="true"></np-ui-date-picker>
     </fieldset>
 </div>
 
@@ -92,7 +92,7 @@
     <fieldset>
         <legend>11. All Saturdays and Sundays are disabled in below example.
         </legend>
-        <np-ui-date-picker [disabledDays]="disabledDays11"></np-ui-date-picker>
+        <np-ui-date-picker [disableWeekDays]="disabledDays11"></np-ui-date-picker>
     </fieldset>
 </div>
 
@@ -100,7 +100,7 @@
     <fieldset>
         <legend>12. Today and tomorrow are disabled in below example.
         </legend>
-        <np-ui-date-picker [disabledDates]="disabledDates12"></np-ui-date-picker>
+        <np-ui-date-picker [disableDates]="disabledDates12"></np-ui-date-picker>
     </fieldset>
 </div>
 
@@ -114,6 +114,6 @@
 <div>
     <fieldset>
         <legend>14. Start with monday</legend>
-        <np-ui-date-picker [startWithMonday]="true"></np-ui-date-picker>
+        <np-ui-date-picker [isStartMonthWithMonday]="true"></np-ui-date-picker>
     </fieldset>
 </div>

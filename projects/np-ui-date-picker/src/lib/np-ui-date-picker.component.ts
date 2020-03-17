@@ -129,16 +129,20 @@ export class NpUiDatePickerComponent implements OnInit {
     }
 
     if (changes.value) {
-      if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
-        var val = changes.value.currentValue;
-        val.setHours(0, 0, 0, 0);
-        this._selectedDate = val;
-      } else {
+      if (changes.value.currentValue == undefined || changes.value.currentValue == null) {
         this._selectedDate = null;
+      } else {
+        if (this._checkDateIsDisabled(changes.value.currentValue) == false) {
+          var val = changes.value.currentValue;
+          val.setHours(0, 0, 0, 0);
+          this._selectedDate = val;
+        } else {
+          this._selectedDate = null;
+        }
       }
     }
 
-    if (changes.startWithMonday) {
+    if (changes.isStartMonthWithMonday) {
       this._weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
     }
 
@@ -261,10 +265,10 @@ export class NpUiDatePickerComponent implements OnInit {
       return;
     }
     this._selectedDate = date;
-    this.valueChange.emit(this._selectedDate);
-    this.onChange.emit(this._selectedDate);
     this._resetVariables();
     this._isOpen = false;
+    this.valueChange.emit(this._selectedDate);
+    this.onChange.emit(this._selectedDate);
   }
 
   _selectMonth($event) {
@@ -321,12 +325,12 @@ export class NpUiDatePickerComponent implements OnInit {
     if (this._checkDateIsDisabled(today)) {
       return;
     }
-    this.setSelectedDate(today);
+    this._setSelectedDate(today);
     this._close();
   }
 
   _clear() {
-    this.setSelectedDate(null);
+    this._setSelectedDate(null);
     this._close();
   }
 
@@ -376,18 +380,7 @@ export class NpUiDatePickerComponent implements OnInit {
     return day == this._selectedDay && this._currentMonth == this._selectedMonth && this._currentYear == this._selectedYear;
   }
 
-  validate() {
-    if (this._validate() == false) {
-      return false;
-    }
-    return this._checkDateIsDisabled(this._selectedDate);
-  }
-
-  getSelectedDate() {
-    return this._selectedDate;
-  }
-
-  setSelectedDate(date: Date) {
+  _setSelectedDate(date: Date) {
     if (date) {
       date.setHours(0, 0, 0, 0);
     }
@@ -396,9 +389,9 @@ export class NpUiDatePickerComponent implements OnInit {
     }
     this.value = date;
     this._selectedDate = date;
-    this.valueChange.emit(this._selectedDate);
-    this.onChange.emit(this._selectedDate);
     this._resetVariables();
     this._calculateDays();
+    this.valueChange.emit(this._selectedDate);
+    this.onChange.emit(this._selectedDate);
   }
 }

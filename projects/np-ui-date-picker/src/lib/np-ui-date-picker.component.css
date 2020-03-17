@@ -47,14 +47,6 @@
     border: 1px solid black;
 }
 
-.np-icon-close {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    cursor: pointer;
-    user-select: none;
-}
-
 .np-button-group {
     padding: 5px;
     text-align: end;
@@ -108,10 +100,6 @@
     opacity: 0.5;
 }
 
-.np-tooltip-target {
-    text-decoration: underline;
-}
-
 .np-tooltip-overlay {
     display: none;
     margin-top: 5px;
@@ -131,7 +119,9 @@
 }
 
 .np-datepicker-weekdays-items {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 35px;
     user-select: none;
     text-align: center;
@@ -152,8 +142,11 @@
 }
 
 .np-datepicker-dates-items {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 25px;
+    height: 25px;
     user-select: none;
     text-align: center;
     padding: 5px;

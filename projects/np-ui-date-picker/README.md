@@ -50,16 +50,6 @@ Date picker custom component for Angular 9 and 9+, Created using only Angular.
 14. `isStartMonthWithMonday` : boolean
     If set to true then month will be start with Monday, default value is false.
 
-## Apis  
-1.  `getSelectedDate()`  
-    get selected date.  
-2.  `setSelectedDate(date: Date)`  
-    set date as selected.  
-3.  `validate()`  
-    returns boolean, selected date is valid or not?  
-    Check min and max date validation if used. else returns true always.  
-    If date is set by Api, then use validate Api to check weather date is within min max range or not.  
-
 ## Methods  
 1.  `onChange`  
     on change event binding.  

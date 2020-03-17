@@ -46,15 +46,15 @@ export class AppComponent implements OnInit {
   }
 
   getSelectedDate() {
-    this.selectedDate3 = this.datepicker2.getSelectedDate();
+    this.selectedDate3 = this.date3;
   }
 
   setSelectedDate() {
-    this.datepicker2.setSelectedDate(new Date(1992, 9, 28));
+    this.date3 = new Date(1992, 9, 28);
   }
 
   setNullSelectedDate() {
-    this.datepicker2.setSelectedDate(undefined);
+    this.date3 = undefined;
   }
 
   onChange(date: Date) {

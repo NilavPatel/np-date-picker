@@ -1,5 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { NpUiDatePickerComponent } from 'projects/np-ui-date-picker/src/public-api';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,61 +10,40 @@ export class AppComponent implements OnInit {
   title = 'np-ui-date-picker examples';
   date1: Date = new Date();
   date2: Date = new Date();
-  date3: Date = new Date();
+  date3: Date;
   date4: Date = new Date();
-  selectedDate3: Date;
-  minDate6: Date = new Date();
-  maxDate6: Date = new Date();
-  disabledDays11: string[];
-  disabledDates12: Date[];
-  dateLabels13: any[];
-  date5Enabled: boolean = false;
-  format = 'dd-MM-yyyy';
-
-  @ViewChild("datepicker2", { static: true }) datepicker2: NpUiDatePickerComponent;
+  date5: Date = new Date();
+  date6: Date;
+  date7: Date;
+  disableDates7: any[] = [];
+  date81: Date;
+  date82: Date;
+  date9: Date;
+  date10: Date;
+  date11: Date;
+  date12: Date;
+  dateLabels12: any[] = [];
 
   constructor() {
-    this.minDate6.setMonth(1);
-    this.maxDate6.setMonth(3);
   }
 
   ngOnInit(): void {
-    this.disabledDays11 = ["Su", "Sa"];
-    var today = new Date();
-    this.disabledDates12 = [new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)];
-    var date = new Date();
-    date.setMonth(date.getMonth() + 2);
-    this.dateLabels13 = [{
-      date: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+    this.disableDates7.push(new Date());
+    this.dateLabels12.push({
+      date: new Date(),
       label: "Today"
-    },
-    {
-      date: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1),
-      label: "Tomorrow"
-    }];
+    })
   }
 
-  getSelectedDate() {
-    this.selectedDate3 = this.date3;
+  setDate1() {
+    this.date1 = new Date(1992, 9, 28);
   }
 
-  setSelectedDate() {
-    this.date3 = new Date(1992, 9, 28);
+  setDate1AsNull() {
+    this.date1 = null;
   }
 
-  setNullSelectedDate() {
-    this.date3 = undefined;
-  }
-
-  onChange(date: Date) {
-    if (date != null) {
-      alert(date.toString());
-    } else {
-      alert("null");
-    }
-  }
-
-  changeFormat() {
-    this.format = "dd/MMM/yyyy";
+  setDate7() {
+    this.date7 = new Date();
   }
 }

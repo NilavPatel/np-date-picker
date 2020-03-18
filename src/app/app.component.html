@@ -1,119 +1,111 @@
 <div>
     <h1>np-ui-date-picker</h1>
-    <h3>Custom Angular 9 and 9+ date picker component.</h3>
+    <h3>Angular 9 Native date picker component.</h3>
 </div>
 
 <div>
     <fieldset>
         <legend>1. Default Date picker control.</legend>
-        <np-ui-date-picker [(value)]="date1">
+        <np-ui-date-picker [(ngModel)]="date1">
         </np-ui-date-picker>
         <div>Selected Date : {{date1}}</div>
+        <button (click)="setDate1()">Set Date 28/10/1992</button>
+        <button (click)="setDate1AsNull()">Set null</button>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>2. Set display format for date picker.</legend>
-        <np-ui-date-picker [(value)]="date2" [format]="format">
+        <legend>2. Disabled</legend>
+        <np-ui-date-picker [(ngModel)]="date2" disabled>
         </np-ui-date-picker>
-        <button (click)="changeFormat()">Change Format to dd/MMM/yyyy</button>
     </fieldset>
 </div>
 
 <div>
+    <form #form="ngForm">
+        <fieldset>
+            <legend>3. Required validation</legend>
+            <np-ui-date-picker [(ngModel)]="date3" required #validations="ngModel" name="startDate">
+            </np-ui-date-picker>
+            <div *ngIf="validations.control.touched && validations.control.errors?.required" class="color-red">
+                Date is required.
+            </div>
+            <p>Form valid: {{ form.valid }}</p>
+        </fieldset>
+    </form>
+</div>
+
+<div>
     <fieldset>
-        <legend>3. Get and Set value in Date picker.</legend>
-        <np-ui-date-picker #datepicker2 [(value)]="date3">
+        <legend>4. Default open</legend>
+        <np-ui-date-picker [(ngModel)]="date4" [defaultOpen]="true">
         </np-ui-date-picker>
-        <div>Selected Date : {{selectedDate3}}</div>
-        <div>
-            <button (click)="getSelectedDate()">Get Selected Date</button>
-            <button (click)="setSelectedDate()">Set date as 28/Oct/19</button>
-            <button (click)="setNullSelectedDate()">Set date as null</button>
-        </div>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>4. Bind onchange event for date picker.</legend>
-        <np-ui-date-picker (onChange)="onChange($event)" [(value)]="date4"></np-ui-date-picker>
+        <legend>5. Set display format</legend>
+        <np-ui-date-picker [(ngModel)]="date5" [format]="'dd-MMM-yy'">
+        </np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>5. Show date picker as always open.</legend>
-        <np-ui-date-picker [defaultOpen]="true"></np-ui-date-picker>
+        <legend>6. Disable week days</legend>
+        <np-ui-date-picker [(ngModel)]="date6" [disableWeekDays]="['Sa','Su']">
+        </np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>6. Min Max validation in Date picker</legend>
-        From :<np-ui-date-picker [maxDate]="maxDate6" [(value)]="minDate6"></np-ui-date-picker>
-        To: <np-ui-date-picker [minDate]="minDate6" [(value)]="maxDate6"></np-ui-date-picker>
+        <legend>7. Disable dates</legend>
+        <np-ui-date-picker [(ngModel)]="date7" [disableDates]="disableDates7">
+        </np-ui-date-picker>
+        <div>Selected Date : {{date7}}</div>
+        <button (click)="setDate7()">Set Today(Which is disable)</button>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>7. Toggle Enable/Disable Date picker using button click.</legend>
-        <np-ui-date-picker [disabled]="date5Enabled"></np-ui-date-picker>
-        <div>
-            <button (click)="date5Enabled = !date5Enabled">Toggle Enable/Disable</button>
-        </div>
+        <legend>8. Min/Max dates</legend>
+        Min: <np-ui-date-picker [(ngModel)]="date81" [maxDate]="date82">
+        </np-ui-date-picker>
+        Max: <np-ui-date-picker [(ngModel)]="date82" [minDate]="date81">
+        </np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>8. Set placeholder for datepicker.</legend>
-        <np-ui-date-picker [placeholder]="'Select Start Date'"></np-ui-date-picker>
+        <legend>9. Placeholder</legend>
+        <np-ui-date-picker [(ngModel)]="date9" [placeholder]="'Select start date'">
+        </np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>9. Show today button in datepicker.</legend>
-        <np-ui-date-picker [showTodayButton]="true"></np-ui-date-picker>
+        <legend>10. Show today button</legend>
+        <np-ui-date-picker [(ngModel)]="date10" [showTodayButton]="true">
+        </np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>10. Required validation when selected date is null. Also set name attribute for control.</legend>
-        <np-ui-date-picker [required]="true" [name]="'txtDate'"></np-ui-date-picker>
+        <legend>11. Start with monday</legend>
+        <np-ui-date-picker [(ngModel)]="date11" [isStartMonthWithMonday]="true"></np-ui-date-picker>
     </fieldset>
 </div>
 
 <div>
     <fieldset>
-        <legend>11. All Saturdays and Sundays are disabled in below example.
-        </legend>
-        <np-ui-date-picker [disableWeekDays]="disabledDays11"></np-ui-date-picker>
-    </fieldset>
-</div>
-
-<div>
-    <fieldset>
-        <legend>12. Today and tomorrow are disabled in below example.
-        </legend>
-        <np-ui-date-picker [disableDates]="disabledDates12"></np-ui-date-picker>
-    </fieldset>
-</div>
-
-<div>
-    <fieldset>
-        <legend>13. Show Date labels on hover of today and tomorrow.</legend>
-        <np-ui-date-picker [dateLabels]="dateLabels13"></np-ui-date-picker>
-    </fieldset>
-</div>
-
-<div>
-    <fieldset>
-        <legend>14. Start with monday</legend>
-        <np-ui-date-picker [isStartMonthWithMonday]="true"></np-ui-date-picker>
+        <legend>12. Date labels</legend>
+        <np-ui-date-picker [(ngModel)]="date12" [dateLabels]="dateLabels12"></np-ui-date-picker>
     </fieldset>
 </div>

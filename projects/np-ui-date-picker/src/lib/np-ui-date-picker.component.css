@@ -1,7 +1,9 @@
-.np-componenet {
+.np-component {
     position: relative;
     width: 100%;
     height: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
 }
 
 .np-icon {
@@ -29,6 +31,8 @@
 
 .np-input {
     width: 100%;
+    border: none;
+    padding: 0px 5px;
 }
 
 .np-input-group {
@@ -42,9 +46,10 @@
 
 .np-overlay {
     position: absolute;
-    background-color: white;
-    z-index: 1;
     border: 1px solid black;
+    box-sizing: border-box;
+    z-index: 1;
+    padding: 5px;
 }
 
 .np-button-group {
@@ -72,18 +77,15 @@
 
 .np-overlay-datepicker-open {
     position: relative;
-    width: 245px;
     z-index: auto;
 }
 
-.ng-invalid.ng-touched {
+.ng-invalid.ng-touched .np-component {
     border: 1px solid red;
+    box-sizing: border-box;
 }
 
 .np-overlay-header {
-    padding: 5px;
-    text-align: center;
-    border-bottom: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,55 +113,45 @@
     padding: 5px;
     border: 1px solid black;
     z-index: 2;
+    background-color: white;
 }
 
 .np-datepicker-weekdays {
-    width: 245px;
-    border-bottom: 1px solid black;
+    width: 210px;
 }
 
 .np-datepicker-weekdays-items {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
+    width: 30px;
+    line-height: 30px;
     user-select: none;
-    text-align: center;
-    padding: 5px;
     font-style: italic;
     font-weight: bold;
-    border-right: 1px solid black;
-    box-sizing: border-box;
-}
-
-.np-datepicker-weekdays-items:last-child {
-    border-right: none;
 }
 
 .np-datepicker-dates {
-    width: 245px;
-    border-bottom: 1px solid black
+    width: 210px;
 }
 
 .np-datepicker-dates-items {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    line-height: 30px;
     user-select: none;
     text-align: center;
-    padding: 5px;
     cursor: pointer;
-    ;
 }
 
 .np-tooltip-target {
-    border-bottom: 1px solid black;
+    text-decoration: underline;
 }
 
 .np-datepicker-dates-items:hover {
-    background-color: aliceblue;
+    background-color: lightblue;
 }
 
 .np-date-disabled:hover {
@@ -180,4 +172,9 @@
 
 .np-ui-select {
     width: 100%;
+}
+
+.np-component-default-open {
+    border: none;
+    width: 222px;
 }

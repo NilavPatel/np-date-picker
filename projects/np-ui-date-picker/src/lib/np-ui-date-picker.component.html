@@ -1,8 +1,7 @@
-<div class="np-component">
+<div class="np-component" [ngClass]="{'np-component-default-open': defaultOpen}">
     <div class="np-input-group" *ngIf="!defaultOpen">
-        <input class="np-input" #datepickerinput type="text" [ngModel]="_selectedDate | date: format" [name]="name"
-            [readonly]="true" [disabled]="disabled" [required]="required" [placeholder]="placeholder"
-            (click)="_toggleDatePicker()">
+        <input class="np-input" #datepickerinput type="text" [value]="value | date: format" [readonly]="true"
+            [placeholder]="placeholder" (click)="_open()" [disabled]="_isDisabled">
         <a class="np-input-datepicker-append" (click)="_toggleDatePicker()">
             <svg class="np-icon" viewBox="0 0 24 24">
                 <path fill="currentcolor"
@@ -11,8 +10,9 @@
             </svg>
         </a>
     </div>
-    <div *ngIf="_isOpen || defaultOpen" class="np-overlay" [ngClass]="{'np-overlay-datepicker-open': defaultOpen}">
-        <div class="np-overlay-header np-ui-background">
+    <div *ngIf="_isOpen || defaultOpen" class="np-overlay np-ui-background"
+        [ngClass]="{'np-overlay-datepicker-open': defaultOpen}">
+        <div class="np-overlay-header">
             <div class="np-overlay-header-item">
                 <a (click)="_prevMonth()" class="np-icon-button" title="Previous"
                     [ngClass]="{'np-date-disabled': _disablePrevButton}">
@@ -45,7 +45,7 @@
                 </a>
             </div>
         </div>
-        <div class="np-datepicker-weekdays np-ui-background">
+        <div class="np-datepicker-weekdays">
             <ng-container *ngFor="let weekDay of _weekDays;let i = index;">
                 <div class="np-datepicker-weekdays-items">{{weekDay}}</div>
             </ng-container>
@@ -59,7 +59,7 @@
                     <div *ngIf="_getToolTip(_currentYear,_currentMonth,day); let label; else dayTemplate"
                         class="np-tooltip-target">
                         {{day}}
-                        <div class="np-tooltip-overlay np-ui-background">{{label}}</div>
+                        <div class="np-tooltip-overlay">{{label}}</div>
                     </div>
                     <ng-template #dayTemplate>
                         {{day}}
@@ -67,7 +67,7 @@
                 </div>
             </ng-container>
         </div>
-        <div class="np-button-group np-ui-background">
+        <div class="np-button-group">
             <a *ngIf="showTodayButton" class="np-button" title="Today" (click)="_setToday()">Today</a>
             <a class="np-button" title="Clear" (click)="_clear()">Clear</a>
             <a *ngIf="!defaultOpen" class="np-button" title="Ok" (click)="_isOpen = false">Ok</a>

@@ -1,7 +1,7 @@
 # np-ui-date-picker
-Date picker custom component for Angular 9 and 9+, Created using only Angular.
+Angular 9 Native date picker component.
 
-## Check demo [Here](https://stackblitz.com/edit/np-ui-date-picker)
+## Check demo [Here](https://stackblitz.com/edit/np-ui-date-picker9)
 
 ## NPM
 `$ npm i np-ui-date-picker`
@@ -9,46 +9,43 @@ Date picker custom component for Angular 9 and 9+, Created using only Angular.
 ## HTML
 ````html
 <np-ui-date-picker 
-    [(value)]="startDate" 
-    [format]="'dd/MMM/yy'">
+    [(ngModel)]="startDate">
 </np-ui-date-picker>
 ````
 
 ## Properties
-1.  `value` : Date  
+1.  `ngModel` : Date  
     two way date binding model value.  
     value must be date type object.  
 2.  `format` : string  
     pass date format as string, date will be shown in given format in text box.  
     default format is dd/MM/yyyy  
-3.  `defaultOpen` : boolean  
+3.  `disabled` : boolean  
+    true/false - set component disabled.  
+4.  `required` : boolean  
+    default value is false. add required attribute to input textbox. 
+5.  `defaultOpen` : boolean  
     default open datepicker, user can not close this. no textbox will be shown.  
-4.  `minDate` : Date  
+6.  `minDate` : Date  
     no date will be selected less than min date.  
     Default calender shows min year upto CurrentYear - 100, but if need to set years less than that,   
     then set minDate validation with less year numbers.  
-5.  `maxDate` : Date  
+7.  `maxDate` : Date  
     no date will be selected greater than max date.  
     Default calender shows max year upto CurrentYear + 100, but if need to set years more than that, then set maxDate   validation with high year numbers.  
-6.  `disabled` : boolean  
-    true/false - set component disabled.  
-7.  `placeholder` : string  
+8.  `placeholder` : string  
     set placeholder for datepicker  
-8.  `showTodayButton` : boolean  
-    show/hide Today link in datepicker pop up, on click of link today's date will be set as selected.  
-9.  `required` : boolean  
-    default value is false. add required attribute to input textbox.  
-10. `name` : string  
-    add name attribute to input textbox.  
-11. `disableWeekDays` : string[]  
+9.  `showTodayButton` : boolean  
+    show/hide Today link in datepicker pop up, on click of link today's date will be set as selected.   
+10. `disableWeekDays` : string[]  
     disable week days for date picker. Possible values for array are "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa".  
-12. `disableDates` : Date[]  
+11. `disableDates` : Date[]  
     disable dates in date picker. Assign array of dates to this property.  
-13. `dateLabels`: any[]
+12. `dateLabels`: any[]
     Example: [{ date : new Date(), label: "Today"}]
     Lables tooltip will be shown on hover of dates passed in this property.
-14. `isStartMonthWithMonday` : boolean
-    If set to true then month will be start with Monday, default value is false.
+13. `isStartMonthWithMonday` : boolean
+    If set to true then month will be start with Monday, default value is false.  
 
 ## Methods  
 1.  `onChange`  

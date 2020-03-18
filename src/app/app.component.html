@@ -109,3 +109,10 @@
         <np-ui-date-picker [(ngModel)]="date12" [dateLabels]="dateLabels12"></np-ui-date-picker>
     </fieldset>
 </div>
+
+<div>
+    <fieldset>
+        <legend>13. Change event</legend>
+        <np-ui-date-picker [(ngModel)]="date13" (onChange)="onChangeDate13($event)"></np-ui-date-picker>
+    </fieldset>
+</div>

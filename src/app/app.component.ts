@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   date11: Date;
   date12: Date;
   dateLabels12: any[] = [];
+  date13: Date;
 
   constructor() {
   }
@@ -45,5 +46,9 @@ export class AppComponent implements OnInit {
 
   setDate7() {
     this.date7 = new Date();
+  }
+
+  onChangeDate13(e) {
+    alert("selected value is " + e);
   }
 }

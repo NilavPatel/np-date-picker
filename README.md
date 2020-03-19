@@ -46,6 +46,8 @@ Angular 9 Native date picker component.
     Lables tooltip will be shown on hover of dates passed in this property.
 13. `isStartMonthWithMonday` : boolean
     If set to true then month will be start with Monday, default value is false.  
+14. `styleClass` : string  
+    set name of css class.  
 
 ## Methods  
 1.  `onChange`  

@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   date2: Date = new Date();
   date3: Date;
   date4: Date = new Date();
+  date4Disable = false;
+  date4Required = false;
   date5: Date = new Date();
   date6: Date;
   date7: Date;
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
   date12: Date;
   dateLabels12: any[] = [];
   date13: Date;
+  date14: Date;
 
   constructor() {
   }

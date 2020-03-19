@@ -39,8 +39,14 @@
 <div>
     <fieldset>
         <legend>4. Default open</legend>
-        <np-ui-date-picker [(ngModel)]="date4" [defaultOpen]="true">
+        <np-ui-date-picker [(ngModel)]="date4" [defaultOpen]="true" [disabled]="date4Disable" [required]="date4Required"
+            #validations4="ngModel">
         </np-ui-date-picker>
+        <div *ngIf="validations4.control.touched && validations4.control.errors?.required" class="color-red">
+            Date is required.
+        </div>
+        <button (click)="date4Disable = !date4Disable">Toggle Disable</button>
+        <button (click)="date4Required = !date4Required">Toggle Required</button>
     </fieldset>
 </div>
 
@@ -114,5 +120,12 @@
     <fieldset>
         <legend>13. Change event</legend>
         <np-ui-date-picker [(ngModel)]="date13" (onChange)="onChangeDate13($event)"></np-ui-date-picker>
+    </fieldset>
+</div>
+
+<div>
+    <fieldset>
+        <legend>14. Style class</legend>
+        <np-ui-date-picker [(ngModel)]="date14" [styleClass]="'myClass'"></np-ui-date-picker>
     </fieldset>
 </div>

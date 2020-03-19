@@ -1,4 +1,4 @@
-.np-component {
+.np-dp-component {
     position: relative;
     width: 100%;
     height: 100%;
@@ -6,17 +6,17 @@
     box-sizing: border-box;
 }
 
-.np-icon {
+.np-dp-icon {
     height: 16px;
     width: 16px;
 }
 
-.np-icon-lg {
+.np-dp-icon-lg {
     height: 24px;
     width: 24px;
 }
 
-.np-icon-button {
+.np-dp-icon-button, .np-dp-input-append {
     padding: 2px;
     display: flex;
     align-items: center;
@@ -25,44 +25,21 @@
     user-select: none;
 }
 
-.np-icon-button:hover {
+.np-dp-icon-button:hover {
     background-color: lightblue;
 }
 
-.np-input {
-    width: 100%;
-    border: none;
-    padding: 0px 5px;
-}
-
-.np-input-group {
-    display: flex;
-}
-
-.np-input-datepicker-append {
-    cursor: pointer;
-    user-select: none;
-}
-
-.np-overlay {
-    position: absolute;
-    border: 1px solid black;
-    box-sizing: border-box;
-    z-index: 1;
-    padding: 5px;
-}
-
-.np-button-group {
-    padding: 5px;
+.np-dp-button-group {
+    padding-top: 5px;
     text-align: end;
 }
 
-.np-button-group .np-button {
+.np-dp-button-group .np-dp-button {
     margin-left: 5px;
     display: inline-flex;
 }
 
-.np-button {
+.np-dp-button {
     padding: 5px;
     text-align: center;
     cursor: pointer;
@@ -71,43 +48,42 @@
     border: 1px solid black;
 }
 
-.np-button:hover {
+.np-dp-button:hover {
     background-color: lightblue;
 }
 
-.np-overlay-datepicker-open {
-    position: relative;
-    z-index: auto;
+.np-dp-input {
+    width: 100%;
+    border: none;
+    padding: 0px 5px;
+    height: 20px;
 }
 
-.ng-invalid.ng-touched .np-component {
-    border: 1px solid red;
+.np-dp-input-group {
+    display: flex;
+}
+
+.ng-invalid.ng-touched .np-dp-component {
+    border: 1px solid red !important;
     box-sizing: border-box;
 }
 
-.np-overlay-header {
+.np-dp-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-.np-overlay-header-item {
-    padding-right: 2px;
+    justify-content: space-between;
     user-select: none;
-    vertical-align: middle;
 }
 
-.np-date-disabled {
-    cursor: not-allowed !important;
-    opacity: 0.5;
-}
-
-.np-tooltip-overlay {
+.np-dp-tooltip-overlay {
     display: none;
-    margin-top: 5px;
 }
 
-.np-datepicker-dates-items:hover .np-tooltip-overlay {
+.np-dp-tooltip-target {
+    text-decoration: underline;
+}
+
+.np-dp-dates-items:hover .np-dp-tooltip-overlay {
     display: block;
     position: absolute;
     padding: 5px;
@@ -116,11 +92,11 @@
     background-color: white;
 }
 
-.np-datepicker-weekdays {
+.np-dp-weekdays {
     width: 210px;
 }
 
-.np-datepicker-weekdays-items {
+.np-dp-weekdays-items {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -131,11 +107,11 @@
     font-weight: bold;
 }
 
-.np-datepicker-dates {
+.np-dp-dates {
     width: 210px;
 }
 
-.np-datepicker-dates-items {
+.np-dp-dates-items {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -146,35 +122,46 @@
     cursor: pointer;
 }
 
-.np-tooltip-target {
-    text-decoration: underline;
-}
-
-.np-datepicker-dates-items:hover {
+.np-dp-dates-items:hover {
     background-color: lightblue;
 }
 
-.np-date-disabled:hover {
-    background-color: transparent;
-}
-
-.np-today {
+.np-dp-today {
     background-color: lightgoldenrodyellow;
 }
 
-.np-date-selected, .np-date-selected:hover {
+.np-dp-selected {
     background-color: lightblue;
 }
 
-.np-ui-background {
+.np-dp-overlay {
+    border: 1px solid black;
+    box-sizing: border-box;
+    z-index: 1;
     background-color: aliceblue;
+    position: absolute;
+    padding: 2px;
 }
 
-.np-ui-select {
+.np-dp-top-overlay {
+    bottom: 20px;
+}
+
+.np-dp-overlay-open {
+    position: relative !important;
+    z-index: auto;
+    border: none;
+}
+
+.np-dp-select {
     width: 100%;
 }
 
-.np-component-default-open {
-    border: none;
+.np-dp-default-open {
     width: 222px;
+}
+
+.np-dp-disabled, .np-dp-date-disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }

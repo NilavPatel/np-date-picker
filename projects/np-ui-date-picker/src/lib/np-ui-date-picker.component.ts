@@ -28,22 +28,23 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   _currentDay: number;
   _currentMonth: number;
   _currentYear: number;
+  _minDate: Date;
+  _maxDate: Date;
   _minYear: number;
   _minMonth: number;
   _minDay: number;
   _maxYear: number;
   _maxMonth: number;
   _maxDay: number;
+  _today: Date;
   _todayDate: number;
   _todayMonth: number;
   _todayYear: number;
   _isOpen = false;
-  _disablePrevButton = false;
-  _disableNextButton = false;
-  _minDate: Date;
-  _maxDate: Date;
   _innerValue: Date;
   _isDisabled: boolean = false;
+  _overlayTopDisaply = false;
+
   private onChangeCallback: (_: any) => void;
   private onTouchedCallback: () => void;
 
@@ -57,7 +58,7 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   @Input() disableDates: Date[] = [];
   @Input() dateLabels: any[] = [];
   @Input() isStartMonthWithMonday: boolean = false;
-
+  @Input() styleClass: string;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('datepickerinput') _inputControl: ElementRef;
@@ -78,10 +79,10 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
       { key: 11, value: "December" }
     ];
 
-    var today = new Date();
-    this._todayDate = today.getDate();
-    this._todayMonth = today.getMonth();
-    this._todayYear = today.getFullYear();
+    this._today = new Date();
+    this._todayDate = this._today.getDate();
+    this._todayMonth = this._today.getMonth();
+    this._todayYear = this._today.getFullYear();
 
     this.format = "dd/MM/yyyy";
 
@@ -193,7 +194,7 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
       this._selectedYear = null;
     }
 
-    var currentDate = this.value ? this.value : new Date();
+    var currentDate = this.value ? this.value : this._today;
     if (this._minDate && currentDate < this._minDate) {
       currentDate = this._minDate;
     }
@@ -209,16 +210,19 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
     this._days = [];
     var _daysInMonth = this._daysInCurrentMonth();
     var _firstWeekDayOfMonth = new Date(this._currentYear, this._currentMonth, 1).getDay();
+    // push extra values upto week days match to start date if month
     for (let index = 0; index < _firstWeekDayOfMonth; index++) {
       this._days.push(null);
     }
     if (this.isStartMonthWithMonday) {
+      // if start with monday then
       if (_firstWeekDayOfMonth == 0) {
         this._days.push(null, null, null, null, null, null);
       } else {
         this._days.pop();
       }
     }
+    // push all dates in month
     for (let index = 1; index <= _daysInMonth; index++) {
       this._days.push(index);
     }
@@ -227,22 +231,22 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   _daysInCurrentMonth() {
     var days = 0;
     switch (this._currentMonth) {
-      case 0:
-      case 2:
-      case 4:
-      case 6:
-      case 8:
-      case 10:
+      case 0: // Jan
+      case 2: // Mar
+      case 4: // May
+      case 6: // Jul
+      case 8: // Sept
+      case 10: // Nov
         days = 31;
         break;
-      case 3:
-      case 5:
-      case 7:
-      case 9:
-      case 11:
+      case 3: // Apr
+      case 5: // Jun
+      case 7: // Aug
+      case 9: // Oct
+      case 11: // Dec
         days = 30;
         break;
-      case 1:
+      case 1: // Feb
         days = this._currentYear % 4 == 0 ? 29 : 28;
         break;
     }
@@ -250,9 +254,6 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _prevMonth() {
-    if (this._disablePrevButton) {
-      return;
-    }
     if (this._currentMonth == 0) {
       this._currentMonth = 11;
       this._currentYear = this._currentYear - 1;
@@ -264,9 +265,6 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _nextMonth() {
-    if (this._disableNextButton) {
-      return;
-    }
     if (this._currentMonth == 11) {
       this._currentMonth = 0;
       this._currentYear = this._currentYear + 1;
@@ -277,12 +275,13 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
     this._calculateDays();
   }
 
-  _onSelectDate(day: number) {
-    if (day == null) {
+  _selectDate(day: number) {
+    if (day == null || this._checkDateDisabled(this._currentYear, this._currentMonth, day)) {
       return;
     }
     var date = new Date(this._currentYear, this._currentMonth, day);
     this._setSelectedDate(date);
+    this._close();
   }
 
   _selectMonth($event) {
@@ -323,7 +322,7 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _setYears() {
-    var currentYear = new Date().getFullYear();
+    var currentYear = this._today.getFullYear();
     var minYear = currentYear - 100;
     var maxYear = currentYear + 100;
     for (var i = minYear; i <= maxYear; i++) {
@@ -336,11 +335,10 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _setToday() {
-    var today = new Date();
-    if (this._checkDateIsDisabled(today)) {
+    if (this._checkDateIsDisabled(this._today)) {
       return;
     }
-    this._setSelectedDate(today);
+    this._setSelectedDate(this._today);
     this._calculateDays();
     this._close();
   }
@@ -373,17 +371,19 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _checkDateIsDisabled(date: Date) {
+    if (this._isDisabled) {
+      return true;
+    }
     if (date == undefined || date == null) {
       return false;
-    }
-    var day = date.getDay();
-    if (this._checkIsDayDisabled(day)) {
-      return true;
     }
     if (this.minDate && date < this.minDate) {
       return true;
     }
     if (this.maxDate && date > this.maxDate) {
+      return true;
+    }
+    if (this._checkIsDayDisabled(date.getDay())) {
       return true;
     }
     return this.disableDates.findIndex(function (item) { return item.toDateString() == date.toDateString() }) > -1;

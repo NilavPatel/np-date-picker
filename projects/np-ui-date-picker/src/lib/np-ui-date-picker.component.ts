@@ -43,7 +43,6 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   _isOpen = false;
   _innerValue: Date;
   _isDisabled: boolean = false;
-  _overlayTopDisaply = false;
 
   private onChangeCallback: (_: any) => void;
   private onTouchedCallback: () => void;
@@ -62,6 +61,12 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('datepickerinput') _inputControl: ElementRef;
+  @HostListener('document:click', ['$event'])
+  clickOutSide(event: any) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this._close();
+    }
+  }
 
   constructor(private elRef: ElementRef) {
     this._monthsList = [
@@ -80,6 +85,7 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
     ];
 
     this._today = new Date();
+    this._today.setHours(0, 0, 0, 0);
     this._todayDate = this._today.getDate();
     this._todayMonth = this._today.getMonth();
     this._todayYear = this._today.getFullYear();
@@ -92,15 +98,8 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
     this._setMonths();
   }
 
-  @HostListener('document:click', ['$event'])
-  clickOutSide(event: any) {
-    if (!this.elRef.nativeElement.contains(event.target)) {
-      this._close();
-    }
-  }
-
   get value(): Date {
-    return this._innerValue;
+    return this._innerValue ? this._innerValue : null;
   };
 
   set value(v: Date) {
@@ -276,7 +275,7 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _selectDate(day: number) {
-    if (day == null || this._checkDateDisabled(this._currentYear, this._currentMonth, day)) {
+    if (day == null || this._checkDateDisabled(this._currentYear, this._currentMonth, day) || this._isDisabled) {
       return;
     }
     var date = new Date(this._currentYear, this._currentMonth, day);
@@ -315,7 +314,7 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _close() {
-    if (this.defaultOpen == true || this._isDisabled) {
+    if (this.defaultOpen) {
       return;
     }
     this._isOpen = false;
@@ -344,6 +343,9 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _clear() {
+    if (this._isDisabled) {
+      return;
+    }
     this._setSelectedDate(null);
     this._calculateDays();
     this._close();
@@ -371,9 +373,6 @@ export class NpUiDatePickerComponent implements ControlValueAccessor {
   }
 
   _checkDateIsDisabled(date: Date) {
-    if (this._isDisabled) {
-      return true;
-    }
     if (date == undefined || date == null) {
       return false;
     }

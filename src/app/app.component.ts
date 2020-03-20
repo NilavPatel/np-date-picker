@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'np-ui-date-picker examples';
   date1: Date = new Date();
   date2: Date = new Date();
-  date3: Date;
+  date3: Date = new Date();
   date4: Date = new Date();
   date4Disable = false;
   date4Required = false;

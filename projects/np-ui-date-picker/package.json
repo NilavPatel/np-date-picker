@@ -1,13 +1,13 @@
 {
     "name": "np-ui-date-picker",
-    "version": "9.0.2",
+    "version": "9.1.0",
     "private": false,
     "author": {
         "name": "nilavpatel"
     },
     "license": "MIT",
     "keywords": [
-        "angular",        
+        "angular",
         "angular 9",
         "datepicker",
         "datetimepicker",
